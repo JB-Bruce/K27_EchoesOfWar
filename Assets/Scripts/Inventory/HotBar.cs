@@ -5,13 +5,10 @@ using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour
 {
-    //remove once done
-    [SerializeField] private Item _debugItem;
 
     [SerializeField] private Transform _player;
     [SerializeField] private InputAction _scrollAction;
     [SerializeField] private InputAction _dropItem;
-    [SerializeField] private InputAction _debug;
     [SerializeField] private Image _selector;
     [SerializeField] private GameObject _ItemSlot;
     [SerializeField] private int _inventorySize;
@@ -27,18 +24,9 @@ public class HotBar : MonoBehaviour
         _scrollAction.performed += ScrollSelect;
         _dropItem.Enable();
         _dropItem.performed += DropItem;
-        //to remove once done
-        _debug.Enable();
-        _debug.performed += DebugAddItem;
-    }
 
-    //remove once donce
-    private void DebugAddItem(InputAction.CallbackContext context)
-    {
-        if (context.performed) 
-            AddItemToHotBar(_debugItem);
     }
-
+    
     /// <summary>
     ///  Function that allow the player to drop the selected item from the inventory
     /// </summary>
