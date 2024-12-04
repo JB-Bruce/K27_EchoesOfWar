@@ -1,0 +1,117 @@
+{
+    "name": "Deplasement",
+    "maps": [
+        {
+            "name": "move",
+            "id": "eeaa1653-16aa-4fa4-8b45-edd856983a4a",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "7f143404-77b0-46c9-a06b-78a7c3666187",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7f996e4-9a4a-4e07-ba18-2a0aea86ebbf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "3D Vector",
+                    "id": "6cf4a834-a8b6-4cc8-986f-e658226bbdf0",
+                    "path": "3DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "b454bcf6-b8d5-4d8e-9e18-54b9f0a77808",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "baf2a597-8307-4f7a-8e48-382076f505f2",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "forward",
+                    "id": "8d11c955-6d19-46e3-b8e1-8efa4bb00003",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "backward",
+                    "id": "5764b016-9fd6-4326-be59-f1ae9a46546c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Rotation",
+            "id": "7390f278-cb4b-4df6-ab0d-7049e2f0e367",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "c6b1d7bf-5a53-4d6f-9c01-dac6c5fe3fcf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e2118652-705e-4133-b9a0-3484e4a47cc3",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
