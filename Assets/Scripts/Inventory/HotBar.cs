@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HotBar : MonoBehaviour
 {
     //remove once done
-    [SerializeField] private Item DebugItem;
+    [SerializeField] private Item _debugItem;
 
     [SerializeField] private Transform _player;
     [SerializeField] private InputAction _scrollAction;
@@ -36,7 +36,7 @@ public class HotBar : MonoBehaviour
     private void DebugAddItem(InputAction.CallbackContext context)
     {
         if (context.performed) 
-            AddItemToHotBar(DebugItem);
+            AddItemToHotBar(_debugItem);
     }
 
     /// <summary>
