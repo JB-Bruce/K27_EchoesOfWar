@@ -7,21 +7,22 @@ public class HotBar : MonoBehaviour
 {
     //remove once done
     [SerializeField] private Item DebugItem;
-    [SerializeField] private Item DebugItem1;
-    [SerializeField] private Item DebugItem2;
-    [SerializeField] private Item DebugItem3;
 
     [SerializeField] private Transform _player;
     [SerializeField] private InputAction _scrollAction;
     [SerializeField] private InputAction _dropItem;
     [SerializeField] private InputAction _debug;
     [SerializeField] private Image _selector;
-    [SerializeField] private List<Image> _itemDisplays = new List<Image>();
+    [SerializeField] private GameObject _ItemSlot;
+    [SerializeField] private int _inventorySize;
+    [SerializeField] private Color _selectorColor;
+    private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
     private int _selectedItem;
 
     private void Start()
     {
+        //will need to be moved to an input action probably in the player controller
         _scrollAction.Enable();
         _scrollAction.performed += ScrollSelect;
         _dropItem.Enable();
@@ -29,10 +30,6 @@ public class HotBar : MonoBehaviour
         //to remove once done
         _debug.Enable();
         _debug.performed += DebugAddItem;
-        AddItemToHotBar(DebugItem);
-        AddItemToHotBar(DebugItem1);
-        AddItemToHotBar(DebugItem2);
-        AddItemToHotBar(DebugItem3);
     }
 
     //remove once donce
@@ -42,6 +39,10 @@ public class HotBar : MonoBehaviour
             AddItemToHotBar(DebugItem);
     }
 
+    /// <summary>
+    ///  Function that allow the player to drop the selected item from the inventory
+    /// </summary>
+    /// <param name="context">the action that need to be performed in order to drop the item</param>
     private void DropItem(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -53,6 +54,11 @@ public class HotBar : MonoBehaviour
             }
         }
     }
+    
+    /// <summary>
+    /// allow the player to select an item in it's inventory by scrolling through it
+    /// </summary>
+    /// <param name="context"> the  positive/negative action to be performed to scroll through the inventory</param>
     private void ScrollSelect(InputAction.CallbackContext context)
     {
         if (_items.Count <= 0) return;
@@ -82,53 +88,80 @@ public class HotBar : MonoBehaviour
         SelectorPosition();
     }
 
+    /// <summary>
+    /// change the SelectorPosition to the currently seletec item
+    /// </summary>
     private void  SelectorPosition()
     {
-        if (_items.Count == 0) _selector.color = Color.clear;
+        if (_items.Count == 0)
+        {
+            _selector.color = Color.clear;
+        }
         else
         {
-            _selector.transform.position = _itemDisplays[_selectedItem].rectTransform.position;
-            _selector.color = Color.green;
+            _selector.transform.SetParent(_itemDisplays[_selectedItem].transform);
+            _selector.transform.localPosition = Vector2.zero;
+            _selector.color = _selectorColor ;
         }
     }
     
-    public void AddItemToHotBar(Item item)
+    /// <summary>
+    /// add an item to the hotbar to be displayed
+    /// </summary>
+    /// <param name="item">the item you want to add to the hotbar</param>
+    /// <returns></returns>
+    public bool AddItemToHotBar(Item item)
     {
-        if (_items.Count < _itemDisplays.Count)
+        if (_items.Count < _inventorySize)
         {
             if (_items.Count == 0)
             {
                 _selectedItem = 0;
             }
+            _itemDisplays.Add(Instantiate(_ItemSlot, transform));
             _items.Add(item);
-            SelectorPosition();
-           RefreshHotBar();
+            RefreshHotBar(); 
+            SelectorPosition(); 
+            
+            return true;
         }
+        
+        return false;
     }
     
-    public void RemoveItemFromHotBar(Item item)
+    /// <summary>
+    /// remove an item from the hotbar
+    /// </summary>
+    /// <param name="item">the item you want to remove from the  inventory</param>
+    /// <returns></returns>
+    public bool RemoveItemFromHotBar(Item item)
     {
+        if (!_items.Contains(item)) return false;
         _items.Remove(item);
         if (_selectedItem == _items.Count && _items.Count != 0) _selectedItem--;
-        SelectorPosition();
         RefreshHotBar();
+        SelectorPosition(); 
+        return true;
     }
     
+    /// <summary>
+    /// refresh the display of the hotbar
+    /// </summary>
     private void RefreshHotBar()
     {
         for(int i = 0; i < _items.Count; i++)
         {
-            _itemDisplays[i].sprite = _items[i]._sprite;
-            _itemDisplays[i].color = Color.white;
+            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite;
+            _itemDisplays[i].GetComponent<Image>().color = Color.white;
         }
         
-        
-        
         if (_itemDisplays.Count <= _items.Count) return; 
-        for (int i = _items.Count; i < _itemDisplays.Count; i++) 
+        for (int i = _items.Count; i <= _itemDisplays.Count; i++) 
         { 
-            _itemDisplays[i].sprite = null; 
-            _itemDisplays[i].color = Color.clear;
+            _selector.transform.SetParent(transform);
+            _selector.transform.localPosition = Vector2.zero;
+            Destroy(_itemDisplays[i]);
+            _itemDisplays.RemoveAt(i);
         }
     }
 }
