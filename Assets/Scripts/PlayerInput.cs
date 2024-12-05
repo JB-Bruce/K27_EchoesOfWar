@@ -1,23 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerImput:MonoBehaviour
+public class PlayerInput:MonoBehaviour
 {
     
     public Vector2 _mouseDelta;// Used in the PlayerCamera
     
       public  InputAction.CallbackContext evenement;
       
-    public bool actiont=false;
+    public bool action=false;
         public void OnMove( InputAction.CallbackContext context )
     {
         if(context.performed)
         {
         evenement=context;
-        actiont=true;
+        action=true;
         }
         else if(context.canceled)
         {
-            actiont=false;
+            action=false;
         }
          
     }

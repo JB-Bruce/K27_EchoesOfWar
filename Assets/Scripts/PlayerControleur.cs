@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class PlayerControleur : MonoBehaviour
 {
-    public PlayerDeplassement _cameraController2;
-   public PlayerImput _inputManadjeur;
+    public PlayerMovement _cameraController2;
+   public PlayerInput _inputManager;
    
   void Update()
   {
      
     //  Debug.Log(_inputManadjeur.evenement);
      
-        if (_inputManadjeur.actiont )
+        if (_inputManager.action )
         {
-            _cameraController2.mouve();
+            _cameraController2.Move();
         }
   }
 }

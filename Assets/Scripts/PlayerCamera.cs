@@ -8,7 +8,7 @@ public class PlayerCamera : MonoBehaviour
     private float _xRotation = 0f;  // Rotatin on X axis ( vertical)
     private float _yRotation = 0f; // Rotatin on y axis ( Horizontale )
 
-    public PlayerImput _playerImput ;
+    public PlayerInput _playerImput ;
     
     //Transform _transform;
 
