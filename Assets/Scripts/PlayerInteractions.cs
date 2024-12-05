@@ -1,33 +1,36 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerInteractions : MonoBehaviour 
 {
-    [Header("Camera Reference")]
-    [SerializeField] private Camera _camera; // reference to the camera
+    [SerializeField] private Camera _camera;
+    [SerializeField] private float _interactionDistance = 10f;
 
-    public Canvas interactionNotification;
-
-    void Update()
+    public void Interact()
     {
-        if(Input.GetMouseButtonDown(0)) // if left mouse button is clicked 
+        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
+            return;
+        
+        if (hitInfo.transform.TryGetComponent(out IInteractable i))
         {
-            // if the ray cast has collided with a gameObject within 10 meters in front of the camera
-            // get in hitInfo the informations about the gameObject
-            if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, 10f))
-            { 
-                //trying to get component Interactable interface
-                //if the gameObject has it, we stock the component in variable i
-                if(hitInfo.transform.TryGetComponent<Interactable>(out Interactable i))
-                {
-                    Debug.Log("HITTEN");
-                    i.Interact();
-                }
-                else
-                {
-                    Debug.Log("HELLO");
-                }
-            } 
+            i.Interact();
+            Debug.Log("HITTEN");
         }
+        else
+        {
+            Debug.Log("HELLO");
+        }
+    }
+
+    public bool NeedToStopPlayerMovement()
+    {
+        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
+            return false;
+
+        if (hitInfo.transform.TryGetComponent(out IInteractable i))
+        {
+            return i.DoesNeedToStopPlayerMovement;
+        }
+        
+        return false;
     }
 }

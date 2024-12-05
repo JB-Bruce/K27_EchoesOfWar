@@ -1,16 +1,23 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerMovement:MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]private int _speed=5;
-    [SerializeField]private PlayerInput _inputManager;
-  
-  
-  // public void move
-public void Move()
-{
-    Vector3 moveInput =_inputManager.evenement .ReadValue<Vector3>();
-            transform.Translate(moveInput*_speed*Time.deltaTime);
-  }
+    [SerializeField] private int _speed = 5;
+    
+    private Vector3 _movement;
+
+    private void Update()
+    {
+        Move();
+    }
+
+    private void Move()
+    {
+        transform.Translate(_movement * (_speed * Time.deltaTime));
+    }
+    
+    public void SetMovement(Vector2 movement)
+    {
+        _movement.Set(movement.x, 0f, movement.y);
+    }
 }

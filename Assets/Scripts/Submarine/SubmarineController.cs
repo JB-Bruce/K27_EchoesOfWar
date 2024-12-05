@@ -5,30 +5,16 @@ public class SubmarineController : MonoBehaviour
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private ThrusterLever _thrusterLever;
     [SerializeField] private Rudder _rudder;
-    public float rotateForce = 1f;
 
-    private void Update()
+    public void SetMovement(float direction)
     {
-        if (Input.GetKey(KeyCode.Z))
-            Move(1);
-        else if (Input.GetKey(KeyCode.S))
-            Move(-1);
-        
-        if (Input.GetKey(KeyCode.Q))
-            Rotate(-1);
-        else if (Input.GetKey(KeyCode.D))
-            Rotate(1);
-    }
-
-    public void Move(int direction)
-    {
-        _thrusterLever.Move(direction);
+        _thrusterLever.SetMovement(direction);
         _submarineBody.SetThrust(_thrusterLever.GetThrust());
     }
 
-    public void Rotate(int direction)
+    public void Rotate(float direction)
     {
-        _rudder.Rotate(direction);
+        _rudder.SetRotation(direction);
         _submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
     }
 }

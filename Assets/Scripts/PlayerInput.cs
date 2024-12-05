@@ -1,25 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerInput:MonoBehaviour
+
+public class PlayerInput : MonoBehaviour
 {
+    [SerializeField] private PlayerController _playerController;
     
     public Vector2 _mouseDelta { get; private set; }// Used in the PlayerCamera
     
-    public  InputAction.CallbackContext evenement { get; private set; }
     [SerializeField] private HotBar _hotBar;
-    public bool action { get; private set; }=false ;
-        public void OnMove( InputAction.CallbackContext context )
+    
+    public void OnMove(InputAction.CallbackContext context)
     {
-        if(context.performed)
-        {
-            evenement=context;
-            action=true;
-        }
-        else if(context.canceled)
-        {
-            action=false;
-        }
-         
+        Debug.Log(context.ReadValue<Vector2>());
+        _playerController.Move(context.ReadValue<Vector2>());
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        _playerController.Interact();
     }
 
     public void DropItem(InputAction.CallbackContext context)
@@ -37,10 +35,10 @@ public class PlayerInput:MonoBehaviour
             _hotBar.ScrollSelect(context);
         }
     }
-    
-    void Update()
+
+    private void Update()
     {
-        _mouseDelta = Mouse.current.delta.ReadValue(); //Rcover mouse movement
+        _mouseDelta = Mouse.current.delta.ReadValue();
     }
     
 }

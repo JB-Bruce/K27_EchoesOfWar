@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20237ae603860eb41a6d801c638738bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerController: {fileID: 4400066662743176719}
   _hotBar: {fileID: 0}
 --- !u!114 &4400066662743176719
 MonoBehaviour:
@@ -276,8 +277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c4854314641fb40bf86482f975f9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraController2: {fileID: 6073808603743382582}
-  _inputManager: {fileID: 4214276342256595384}
+  _playerMovement: {fileID: 6073808603743382582}
+  _playerInteractions: {fileID: 6503775034681696906}
+  _submarineController: {fileID: 0}
 --- !u!114 &7966562643128107611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _inputManager: {fileID: 0}
 --- !u!23 &4221790664079365038
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -466,6 +467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4923703309270891784}
     m_Modifications:
+    - target: {fileID: 903787859839372054, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1407487740637284691, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -514,6 +519,22 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 5206101538594593966}
+    - target: {fileID: 6002227462122444347, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 5206101538594593966}
+    - target: {fileID: 7930449011093948038, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930449011093948038, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7930449011093948038, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -529,6 +550,17 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 3402147457252946973, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
   m_PrefabInstance: {fileID: 652528251786671281}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6503775034681696906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6002227462122444347, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+  m_PrefabInstance: {fileID: 652528251786671281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6588a928ae881f043a2451ecb732c9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1558152137564430255
 PrefabInstance:
   m_ObjectHideFlags: 0

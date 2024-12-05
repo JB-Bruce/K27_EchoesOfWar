@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Rudder : MonoBehaviour
+public class Rudder : MonoBehaviour, IInteractable
 {
     [SerializeField] private float _maxAngle;
     [SerializeField] private float _minAngle;
@@ -8,6 +9,7 @@ public class Rudder : MonoBehaviour
     private float _angle;
     private Transform _transform;
     private Vector3 _rotation;
+    private float _rotationDirection;
 
     private void Awake()
     {
@@ -15,13 +17,27 @@ public class Rudder : MonoBehaviour
         _rotation = _transform.localEulerAngles;
     }
 
-    public void Rotate(float amount)
+    private void Update()
     {
-        _angle += amount;
+        Rotate();
+    }
+
+    public void SetRotation(float direction)
+    {
+        _rotationDirection = direction;
+    }
+
+    private void Rotate()
+    {
+        _angle += _rotationDirection;
         _angle = Mathf.Clamp(_angle, _minAngle, _maxAngle);
         _rotation.x = _angle;
         _transform.localEulerAngles = _rotation;
     }
     
     public float Angle => _angle;
+    
+    public void Interact() { }
+
+    public bool DoesNeedToStopPlayerMovement { get; } = true;
 }
