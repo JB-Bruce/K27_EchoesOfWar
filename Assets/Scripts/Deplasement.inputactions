@@ -17,17 +17,6 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "a7f996e4-9a4a-4e07-ba18-2a0aea86ebbf",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "3D Vector",
                     "id": "6cf4a834-a8b6-4cc8-986f-e658226bbdf0",
                     "path": "3DVector",

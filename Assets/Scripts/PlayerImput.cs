@@ -10,8 +10,15 @@ public class PlayerImput:MonoBehaviour
     public bool actiont=false;
         public void OnMove( InputAction.CallbackContext context )
     {
+        if(context.performed)
+        {
         evenement=context;
         actiont=true;
+        }
+        else if(context.canceled)
+        {
+            actiont=false;
+        }
          
     }
     
