@@ -885,6 +885,46 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: c56fbe51-8cd1-4135-8234-891deb37b9ff
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'move/Interact[/Mouse/leftButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1970392804}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInteract
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: _hotBar
       value: 
