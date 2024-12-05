@@ -231,8 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20237ae603860eb41a6d801c638738bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseDelta: {x: 0, y: 0}
-  action: 0
+  _hotBar: {fileID: 0}
 --- !u!114 &4400066662743176719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
-  _inputManadjeur: {fileID: 4214276342256595384}
+  _inputManager: {fileID: 0}
 --- !u!23 &4221790664079365038
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -390,6 +389,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c6b1d7bf-5a53-4d6f-9c01-dac6c5fe3fcf
     m_ActionName: 'Rotation/New action[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4214276342256595384}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: DropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b644e7c6-db37-4974-b0ec-45fc400b144b
+    m_ActionName: 'Inventory/DropItem[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4214276342256595384}
+        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
+        m_MethodName: scroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 357cf0ca-b92c-443c-a48a-42ff8f22a12e
+    m_ActionName: 'Inventory/Scroll[/Mouse/scroll/down,/Mouse/scroll/up]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: move

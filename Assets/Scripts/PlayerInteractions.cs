@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerInteractions : MonoBehaviour 
 {
     [Header("Camera Reference")]
-    [SerializeField] private Camera camera; // reference to the camera
+    [SerializeField] private Camera _camera; // reference to the camera
 
     public Canvas interactionNotification;
 
@@ -13,7 +14,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             // if the ray cast has collided with a gameObject within 10 meters in front of the camera
             // get in hitInfo the informations about the gameObject
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, 10f))
+            if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, 10f))
             { 
                 //trying to get component Interactable interface
                 //if the gameObject has it, we stock the component in variable i

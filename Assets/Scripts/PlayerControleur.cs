@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerControleur : MonoBehaviour
 {
-    public PlayerMovement _cameraController2;
-   public PlayerInput _inputManager;
+    [SerializeField]private PlayerMovement _cameraController2;
+    [SerializeField]private PlayerInput _inputManager;
    
   void Update()
   {
