@@ -1,0 +1,34 @@
+{
+    "name": "PlayerInetractions",
+    "maps": [
+        {
+            "name": "PlayerInteraction",
+            "id": "bdcb1349-4731-4e30-85ef-3cad1d527274",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "27e50300-353d-4f52-bc2b-4500328231a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "23a5adf3-c67f-4be8-9610-99637352bcc3",
+                    "path": "<Pointer>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
