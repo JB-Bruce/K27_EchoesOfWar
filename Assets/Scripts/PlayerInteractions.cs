@@ -21,11 +21,11 @@ public class PlayerInteractions : MonoBehaviour
                 if(hitInfo.transform.TryGetComponent<Interactable>(out Interactable i))
                 {
                     Debug.Log("HITTEN");
+                    i.Interact();
                 }
                 else
                 {
-                                        Debug.Log("HELLO");
-
+                    Debug.Log("HELLO");
                 }
             } 
         }

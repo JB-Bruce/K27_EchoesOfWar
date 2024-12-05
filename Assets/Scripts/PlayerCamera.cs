@@ -19,6 +19,5 @@ public class PlayerCamera : MonoBehaviour
          _xRotation -= _playerImput._mouseDelta.y * _sensitivity;// Apply camera rotation on X axis (up/down)
          _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);  // Limit rotation on X axis to avoid reversing the camera
          _cameraBody.localRotation = Quaternion.Euler(_xRotation, 0f, 0f);//Takes care of changed the angle of the cam on the X axis (looked at the hot; looked at the bottom )  
-       
     }
 }
