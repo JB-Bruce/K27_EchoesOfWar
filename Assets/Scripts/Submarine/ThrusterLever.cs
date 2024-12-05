@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class ThrusterLever : MonoBehaviour
+public class ThrusterLever : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _max;
     [SerializeField] private Transform _min;
@@ -19,6 +20,7 @@ public class ThrusterLever : MonoBehaviour
     private float distMaxToPosition;
     
     private float _positionZ;
+    private float _movement;
 
     private void Awake()
     {
@@ -30,14 +32,27 @@ public class ThrusterLever : MonoBehaviour
         distMaxToPosition = distMaxToOrigin;
     }
 
-    public void Move(int direction)
+    private void Update()
     {
+        Move();
+    }
+
+    private void Move()
+    {
+        if (MathF.Abs(_movement) < 0.1f)
+            return;
+        
         distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
         distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
-        
-        _positionZ += _movementSpeed * Mathf.Sign(direction) * Time.deltaTime;
+
+        _positionZ += _movementSpeed * Mathf.Sign(_movement) * Time.deltaTime;
         _positionZ = Mathf.Clamp(_positionZ, -distMinToOrigin, distMaxToOrigin);
         _transform.localPosition = new Vector3(0, 0, _positionZ);
+    }
+
+    public void SetMovement(float direction)
+    {
+        _movement = direction;
     }
 
     public float GetThrust()
@@ -46,4 +61,8 @@ public class ThrusterLever : MonoBehaviour
             Mathf.Lerp(_maxThrust, 0, distMaxToPosition / distMaxToOrigin) : 
             Mathf.Lerp(_minThrust, 0, distMinToPosition / distMinToOrigin);
     }
+
+    public void Interact() { }
+
+    public bool DoesNeedToStopPlayerMovement { get; } = true;
 }

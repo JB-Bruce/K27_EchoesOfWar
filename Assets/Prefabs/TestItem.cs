@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestItem : MonoBehaviour, Interactable
+public class TestItem : MonoBehaviour, IInteractable
 {
     public ScriptableObject scriptableObject; // may need change of access
 
@@ -8,4 +8,6 @@ public class TestItem : MonoBehaviour, Interactable
     public void Interact(){
 
     }
+
+    public bool DoesNeedToStopPlayerMovement { get; }
 }

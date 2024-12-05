@@ -11,7 +11,7 @@ public class CursorManager : MonoBehaviour
         { 
             //trying to get component Interactable interface
             //if the gameObject has it, we stock the component in variable i
-            if(hitInfo.transform.TryGetComponent<Interactable>(out Interactable i))
+            if(hitInfo.transform.TryGetComponent<IInteractable>(out IInteractable i))
             {
                 interactionNotification.gameObject.SetActive(true);
                 Debug.Log("There is an object");
