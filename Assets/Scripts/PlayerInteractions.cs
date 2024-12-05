@@ -21,6 +21,11 @@ public class PlayerInteractions : MonoBehaviour
                 {
                     Debug.Log("HITTEN");
                 }
+                else
+                {
+                                        Debug.Log("HELLO");
+
+                }
             } 
         }
     }
