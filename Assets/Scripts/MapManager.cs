@@ -15,7 +15,8 @@ public class MapManager : MonoBehaviour
     [SerializeField] Color sonarColor;
 
 
-    public Transform testVector;
+    public  Transform testVector2;
+    public static Transform testVector;
     public bool test;
     public Color testColor;
     public float testRange;
@@ -28,6 +29,11 @@ public class MapManager : MonoBehaviour
     List<Vector2Int> lastPaintedSquares = new();
 
     Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
+
+    private void Awake()
+    {
+        testVector = testVector2;
+    }
 
     private void Start()
     {
