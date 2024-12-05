@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,10 +31,13 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        Init(1f, 6f);
+        Init();
     }
 
-    private void Init(float shipSize, float detectionRange)
+    /// <summary>
+    /// Initialize the Map
+    /// </summary>
+    private void Init()
     {
         width = texture.width;
         height = texture.height;
@@ -41,11 +45,6 @@ public class MapManager : MonoBehaviour
         textureToModif = CreateReadableTexture(texture2);
 
         image.sprite = CreateSpriteFromTexture(textureToModif);
-
-        
-        circles.Add("Detection", (GetCircle(detectionRange), sonarColor, null));
-
-        //InitCollision(testRange, () => { });
     }
 
 
@@ -55,6 +54,9 @@ public class MapManager : MonoBehaviour
         UpdateCircles();
     }
 
+    /// <summary>
+    /// Draw and check collision with all of the created circles
+    /// </summary>
     private void UpdateCircles()
     {
         foreach (var i in lastPaintedSquares)
@@ -68,10 +70,22 @@ public class MapManager : MonoBehaviour
 
         foreach (var i in circles)
         {
+            bool triggered = false;
+
             foreach(var j in i.Value.list)
             {
                 lastPaintedSquares.Add(j + pos);
                 textureToModif.SetPixel(j.x + pos.x, j.y + pos.y, i.Value.color);
+
+                if(texture.GetPixel(j.x + pos.x, j.y + pos.y) != accessibleColor)
+                {
+                    triggered = true;
+                }
+            }
+
+            if (triggered)
+            {
+                i.Value.action?.Invoke();
             }
         }
 
@@ -105,9 +119,21 @@ public class MapManager : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    public void InitArea(string areaName, float size, UnityAction collisionDetection)
+    public void InitArea(string areaName, float size, Shape shape, UnityAction collisionDetection)
     {
-        circles.Add(areaName, (GetFilledCircle(size), sonarColor, collisionDetection));
+        Func<float, List<Vector2Int>> shapeCreation = GetCircle;
+
+        switch (shape)
+        {
+            case Shape.Circle:
+                shapeCreation = GetCircle;
+                break;
+            case Shape.FilledCircle:
+                shapeCreation = GetFilledCircle;
+                break;
+        }
+
+        circles.Add(areaName, (shapeCreation(size), sonarColor, collisionDetection));
     }
 
 
@@ -153,4 +179,10 @@ public class MapManager : MonoBehaviour
 
         return results;
     }
+}
+
+public enum Shape
+{
+    Circle,
+    FilledCircle
 }
