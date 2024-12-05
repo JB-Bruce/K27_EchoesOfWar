@@ -1,19 +1,34 @@
-using Submarine;
 using UnityEngine;
 
 public class SubmarineController : MonoBehaviour
 {
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private ThrusterLever _thrusterLever;
+    [SerializeField] private Rudder _rudder;
     public float rotateForce = 1f;
 
     private void Update()
     {
-        _submarineBody.SetThrust(_thrusterLever.GetThrust());
+        if (Input.GetKey(KeyCode.Z))
+            Move(1);
+        else if (Input.GetKey(KeyCode.S))
+            Move(-1);
         
         if (Input.GetKey(KeyCode.Q))
-            _submarineBody.Rotate(-1 * rotateForce);
+            Rotate(-1);
         else if (Input.GetKey(KeyCode.D))
-            _submarineBody.Rotate(1 * rotateForce);
+            Rotate(1);
+    }
+
+    public void Move(int direction)
+    {
+        _thrusterLever.Move(direction);
+        _submarineBody.SetThrust(_thrusterLever.GetThrust());
+    }
+
+    public void Rotate(int direction)
+    {
+        _rudder.Rotate(direction);
+        _submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
     }
 }

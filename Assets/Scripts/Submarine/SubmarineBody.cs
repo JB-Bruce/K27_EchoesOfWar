@@ -4,8 +4,6 @@ public class SubmarineBody : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _maxSpeed;
-    [SerializeField] private float _maxThrust = 1.0f;
-    [SerializeField] private float _minThrust = -0.25f;
     
     [Header("Water")]
     [SerializeField] private float _waterDrag = 2f;
@@ -31,14 +29,14 @@ public class SubmarineBody : MonoBehaviour
     
     public void Rotate(float force)
     {
-        float rad = force * Mathf.Deg2Rad;
+        float rad = -force * Mathf.Deg2Rad;
         float cos = Mathf.Cos(rad);
         float sin = Mathf.Sin(rad);
         
         _direction.Set(cos * _direction.x - sin * _direction.y,
                        sin * _direction.x + cos * _direction.y);
         
-        transform.forward = _direction;
+        //transform.forward = _direction;
     }
 
     private void Move()
