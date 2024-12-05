@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
 
         image.sprite = CreateSpriteFromTexture(textureToModif);
 
-        circles.Add("Collision", (GetFilledCircle(shipSize), sonarColor, null));
+        
         circles.Add("Detection", (GetCircle(detectionRange), sonarColor, null));
 
         //InitCollision(testRange, () => { });
@@ -105,25 +105,12 @@ public class MapManager : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    public void InitCollision(float size, UnityAction collisionDetection)
+    public void InitArea(string areaName, float size, UnityAction collisionDetection)
     {
-        
-
-        List<Vector2Int> l = GetCircle(size);
-        Vector2Int pos = GetPixelPos(testVector.position);
-
-        lastPaintedSquares.Add(pos);
-
-        textureToModif.SetPixel(pos.x, pos.y, Color.red);
-
-        foreach (Vector2Int v in l)
-        {
-            lastPaintedSquares.Add(v + pos);
-            textureToModif.SetPixel(v.x + pos.x, v.y + pos.y, Color.red);
-        }
-
-        textureToModif.Apply();
+        circles.Add(areaName, (GetFilledCircle(size), sonarColor, collisionDetection));
     }
+
+
 
     private List<Vector2Int> GetCircle(float size)
     {
