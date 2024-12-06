@@ -14,22 +14,26 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         
     private Transform _transform;
     
-    private float distMinToOrigin;
-    private float distMinToPosition;
-    private float distMaxToOrigin;
-    private float distMaxToPosition;
+    private float _distMinToOrigin;
+    private float _distMinToPosition;
+    private float _distMaxToOrigin;
+    private float _distMaxToPosition;
     
-    private float _positionZ;
-    private float _movement;
+    private float _thrust;
+    private float _movementDirection;
 
     private void Awake()
     {
         _transform = transform;
         
-        distMinToOrigin   = Vector3.Distance(_min.localPosition, _origin.localPosition);
-        distMaxToOrigin   = Vector3.Distance(_max.localPosition, _origin.localPosition);
-        distMinToPosition = distMinToOrigin;
-        distMaxToPosition = distMaxToOrigin;
+        _distMinToOrigin   = Vector3.Distance(_min.localPosition, _origin.localPosition);
+        _distMaxToOrigin   = Vector3.Distance(_max.localPosition, _origin.localPosition);
+        _distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
+        _distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
+        
+        float distMinToMax = Vector3.Distance(_min.localPosition, _max.localPosition);
+
+        _thrust = Mathf.Lerp(0, 1, _distMinToOrigin / distMinToMax);
     }
 
     private void Update()
@@ -39,27 +43,31 @@ public class ThrusterLever : MonoBehaviour, IInteractable
 
     private void Move()
     {
-        if (MathF.Abs(_movement) < 0.1f)
+        if (MathF.Abs(_movementDirection) < 0.1f)
             return;
         
-        distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
-        distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
+        _thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
+        _thrust = Mathf.Clamp(_thrust, 0, 1);
+        _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, _thrust);
+        
+        _distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
+        _distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
 
-        _positionZ += _movementSpeed * Mathf.Sign(_movement) * Time.deltaTime;
-        _positionZ = Mathf.Clamp(_positionZ, -distMinToOrigin, distMaxToOrigin);
-        _transform.localPosition = new Vector3(0, 0, _positionZ);
+        /*_thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
+        _thrust = Mathf.Clamp(_thrust, -_distMinToOrigin, _distMaxToOrigin);
+        _transform.localPosition = new Vector3(0, 0, _thrust);*/
     }
 
     public void SetMovement(float direction)
     {
-        _movement = direction;
+        _movementDirection = direction;
     }
 
     public float GetThrust()
     {
-        return distMinToOrigin < distMinToPosition ? 
-            Mathf.Lerp(_maxThrust, 0, distMaxToPosition / distMaxToOrigin) : 
-            Mathf.Lerp(_minThrust, 0, distMinToPosition / distMinToOrigin);
+        return _distMinToOrigin < _distMinToPosition ? 
+            Mathf.Lerp(_maxThrust, 0, _distMaxToPosition / _distMaxToOrigin) : 
+            Mathf.Lerp(_minThrust, 0, _distMinToPosition / _distMinToOrigin);
     }
 
     public void Interact() { }
