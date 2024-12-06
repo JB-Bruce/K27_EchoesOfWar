@@ -4,22 +4,17 @@ public class TestCameraScript : MonoBehaviour
 {
     public Transform target;
     private Transform cameraTransform;
+    [SerializeField] private float _rotationSpeed = 10f;
+    [SerializeField] private float _zoomSpeed = 10f;
 
     private void Start()
     {
-        cameraTransform = Camera.main.transform;
+        cameraTransform = transform;
     }
 
     private void Update()
     {
-        if (transform.position != target.position)
-        {
-          cameraTransform.position= Vector3.Lerp(cameraTransform.position, target.position, Time.deltaTime);
-        }
-
-        if (transform.rotation.eulerAngles != cameraTransform.rotation.eulerAngles)
-        {
-            cameraTransform.rotation = Quaternion.Slerp(transform.rotation,target.rotation, Time.deltaTime);
-        }
+        cameraTransform.position= Vector3.Lerp(cameraTransform.position, target.position, Time.deltaTime*_zoomSpeed);
+        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,target.rotation, Time.deltaTime*_rotationSpeed);
     }
 }

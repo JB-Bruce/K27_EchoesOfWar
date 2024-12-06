@@ -6,6 +6,7 @@ public class PaperMap : MonoBehaviour, IInteractable
     public void Interact()
     {
         Camera.main.transform.GetComponent<TestCameraScript>().target = target;
+        Camera.main.transform.SetParent(target);
     }
 
     public bool DoesNeedToStopPlayerMovement { get; } = true;
