@@ -11,14 +11,7 @@ public class PlayerInteractions : MonoBehaviour
             return;
         
         if (hitInfo.transform.TryGetComponent(out IInteractable i))
-        {
             i.Interact();
-            Debug.Log("HITTEN");
-        }
-        else
-        {
-            Debug.Log("HELLO");
-        }
     }
 
     public void UnInteract()

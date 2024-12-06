@@ -38,6 +38,13 @@ public class SubmarineController : MonoBehaviour
     {
         _sonar.SetSubmarinePosition(_submarineBody.Position);
         _mapManager.SetSubPos(_submarineBody.Position);
+        
+        Vector2 direction = _submarineBody.Direction;
+        float rotation = Mathf.Atan2(direction.y, direction.x) / (2 * Mathf.PI);
+        _sonar.transform.rotation = Quaternion.Euler(0, 0, rotation);
+        
+        _mapManager.Tick();
+        _submarineBody.Tick();
     }
 
     public void SetMovement(float direction)

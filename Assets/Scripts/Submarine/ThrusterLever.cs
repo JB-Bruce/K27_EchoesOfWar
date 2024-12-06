@@ -39,6 +39,7 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         _thrust = Mathf.Lerp(0, 1, _distMinToOrigin / distMinToMax);
 
         _outline = GetComponent<Outline>();
+        _outline.enabled = false;
     }
 
     private void Update()

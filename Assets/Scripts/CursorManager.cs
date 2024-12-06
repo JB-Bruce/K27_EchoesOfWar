@@ -7,6 +7,8 @@ public class CursorManager : MonoBehaviour
 
     private GameObject _item; // Variable that is use to stock the gameObject we are hovering by the camera
     // Update is called once per frame
+    
+    private bool _isLookingAtItem = false;
 
     void Start()
     {
@@ -14,21 +16,30 @@ public class CursorManager : MonoBehaviour
     }
     void Update()
     {
-        bool touched = false;
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, 10f))
-        { 
-            if(hitInfo.transform.TryGetComponent<IInteractable>(out IInteractable i))
+        {
+            if (hitInfo.transform.TryGetComponent(out IInteractable i))
             {
                 i.SetOutline(true);
+                _item = hitInfo.collider.gameObject;
                 _interactionNotification.gameObject.SetActive(true);
-                touched = true;
-            } 
+                _isLookingAtItem = true;
+            }
+            else
+            {
+                _isLookingAtItem = false;
+            }
+        }
+        else
+        {
+            _isLookingAtItem = false;
         }
         
-        if (!touched && !_item)
+        if (_item && !_isLookingAtItem)
         {
             _interactionNotification.gameObject.SetActive(false);
             _item.GetComponent<IInteractable>().SetOutline(false);
+            _item = null;
         }
     }
 }

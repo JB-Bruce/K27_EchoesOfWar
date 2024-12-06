@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -14,7 +13,6 @@ public class PlayerInput : MonoBehaviour
     
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>());
         _playerController.Move(context.ReadValue<Vector2>());
     }
 
@@ -25,7 +23,7 @@ public class PlayerInput : MonoBehaviour
 
     public void unInteract(InputAction.CallbackContext context)
     {
-            _playerController.UnInteract();
+        _playerController.UnInteract();
     }
     
     public void DropItem(InputAction.CallbackContext context)

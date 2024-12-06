@@ -18,7 +18,7 @@ public class SubmarineBody : MonoBehaviour
     private Vector2 _drag = Vector2.zero;
 
 
-    private void Update()
+    public void Tick()
     {
         Move();
     }
@@ -68,6 +68,7 @@ public class SubmarineBody : MonoBehaviour
     }
 
     public Vector2 Position => _position;
+    public Vector2 Direction => _direction;
 
     public void OnCollision()
     {
