@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class Sonar : MonoBehaviour
 {
     public RawImage rawImage; // RawImage UI Component
+    public RawImage rawImage2; // RawImage UI Component
     public Texture2D texture; // La texture que vous voulez afficher
 
     private Rect currentUVRect; // La zone UV visible de la texture
@@ -13,7 +14,9 @@ public class Sonar : MonoBehaviour
     [SerializeField] List<ZoomInfo> sizes = new();
     int curIndex;
 
-    void Start()
+    private Vector2 _submarinePosition;
+
+    private void Start()
     {
         rawImage.texture = texture;
 
@@ -23,22 +26,13 @@ public class Sonar : MonoBehaviour
         HandleZoom();
     }
 
-    void Update()
+    private void Update()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0)
-        {
-            if(scroll < 0)
-                ZoomIn();
-            else 
-                ZoomOut();
-        }
         HandlePan();
     }
 
-    void HandleZoom()
+    private void HandleZoom()
     {
-
         float nextZoom = sizes[curIndex].zoom;
 
         currentUVRect.width = Mathf.Clamp(nextZoom, 0, 1);
@@ -48,7 +42,7 @@ public class Sonar : MonoBehaviour
         currentUVRect.y = Mathf.Clamp(currentUVRect.y, 0, 1 - currentUVRect.height);
 
         rawImage.uvRect = currentUVRect;
-
+        rawImage2.uvRect = currentUVRect;
     }
 
     public void ZoomIn()
@@ -67,7 +61,7 @@ public class Sonar : MonoBehaviour
     {
         int increase = next ? 1 : -1;
 
-        curIndex = curIndex + increase;
+        curIndex += increase;
 
         if (curIndex >= sizes.Count)
         {
@@ -81,13 +75,18 @@ public class Sonar : MonoBehaviour
         }
     }
 
-    void HandlePan()
+    private void HandlePan()
     {
-        currentUVRect.x = (MapManager.testVector.position.x / 3000f) - 0.5f * (currentUVRect.width);
-        currentUVRect.y = (MapManager.testVector.position.y / 3000f) - 0.5f * (currentUVRect.height);
+        currentUVRect.x = _submarinePosition.x / texture.width - 0.5f * currentUVRect.width;
+        currentUVRect.y = _submarinePosition.y / texture.height - 0.5f * currentUVRect.height;
 
         rawImage.uvRect = currentUVRect;
+        rawImage2.uvRect = currentUVRect;
+    }
 
+    public void SetSubmarinePosition(Vector2 pos)
+    {
+        _submarinePosition = pos;
     }
 
     [System.Serializable]
