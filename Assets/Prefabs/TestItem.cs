@@ -9,5 +9,5 @@ public class TestItem : MonoBehaviour, IInteractable
 
     }
 
-    public bool DoesNeedToStopPlayerMovement { get; }
+    public bool DoesNeedToStopPlayerMovement { get; } = false;
 }

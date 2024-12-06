@@ -264,6 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerController: {fileID: 4400066662743176719}
+  _mainCamera: {fileID: 5206101538594593966}
+  _target: {fileID: 14540042980772335}
   _hotBar: {fileID: 0}
 --- !u!114 &4400066662743176719
 MonoBehaviour:

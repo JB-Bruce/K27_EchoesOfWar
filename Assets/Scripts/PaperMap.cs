@@ -5,8 +5,11 @@ public class PaperMap : MonoBehaviour, IInteractable
     [SerializeField] private Transform target;
     public void Interact()
     {
-        Camera.main.transform.GetComponent<TestCameraScript>().target = target;
-        Camera.main.transform.SetParent(target);
+        if (Camera.main != null)
+        {
+            Camera.main.transform.GetComponent<CameraScript>().target = target;
+            Camera.main.transform.SetParent(target);
+        }
     }
 
     public bool DoesNeedToStopPlayerMovement { get; } = true;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TestCameraScript : MonoBehaviour
+public class CameraScript : MonoBehaviour
 {
     public Transform target;
     private Transform cameraTransform;

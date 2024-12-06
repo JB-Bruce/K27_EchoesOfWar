@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private Transform _target;
     
     public Vector2 _mouseDelta { get; private set; }// Used in the PlayerCamera
     
@@ -28,6 +30,11 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void Endinteract(InputAction.CallbackContext context)
+    {
+        _mainCamera.transform.GetComponent<CameraScript>().target = _target;
+        _mainCamera.transform.SetParent(_target);
+    }
     public void scroll(InputAction.CallbackContext context)
     {
         if (context.performed)
