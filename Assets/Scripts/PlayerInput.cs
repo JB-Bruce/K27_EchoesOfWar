@@ -22,6 +22,11 @@ public class PlayerInput : MonoBehaviour
     {
         _playerController.Interact();
     }
+
+    public void unInteract(InputAction.CallbackContext context)
+    {
+        _playerController.UnInteract();
+    }
     
     public void DropItem(InputAction.CallbackContext context)
     {

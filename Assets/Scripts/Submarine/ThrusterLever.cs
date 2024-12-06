@@ -73,4 +73,5 @@ public class ThrusterLever : MonoBehaviour, IInteractable
     public void Interact() { }
 
     public bool DoesNeedToStopPlayerMovement { get; } = true;
+    public Outline outline { get; }
 }

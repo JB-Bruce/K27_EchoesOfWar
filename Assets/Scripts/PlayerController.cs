@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void UnInteract()
+    {
+        _playerInteractions.UnInteract();
+    }
+    
     public void Interact()
     {
         if (_playerInteractions.NeedToStopPlayerMovement())

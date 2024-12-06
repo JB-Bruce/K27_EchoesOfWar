@@ -10,4 +10,5 @@ public class TestItem : MonoBehaviour, IInteractable
     }
 
     public bool DoesNeedToStopPlayerMovement { get; } = false;
+    public Outline outline { get; }
 }
