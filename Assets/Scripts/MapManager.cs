@@ -10,16 +10,12 @@ public class MapManager : MonoBehaviour
     [SerializeField] Texture2D texture;
     [SerializeField] Texture2D texture2;
     [SerializeField] Image image;
+    [SerializeField] RawImage rawImage;
     Texture2D textureToModif;
 
     [SerializeField] Color sonarColor;
 
-
-    public  Transform testVector2;
-    public static Transform testVector;
-    public bool test;
-    public Color testColor;
-    public float testRange;
+    private Vector3 subPos;
 
     int width;
     int height;
@@ -30,14 +26,15 @@ public class MapManager : MonoBehaviour
 
     Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
 
-    private void Awake()
-    {
-        testVector = testVector2;
-    }
 
     private void Start()
     {
         Init();
+    }
+
+    public void SetSubPos(Vector3 pos)
+    {
+        subPos = pos;
     }
 
     /// <summary>
@@ -47,9 +44,11 @@ public class MapManager : MonoBehaviour
     {
         width = texture.width;
         height = texture.height;
-
+        
         textureToModif = CreateReadableTexture(texture2);
 
+        rawImage.texture = textureToModif;
+        
         image.sprite = CreateSpriteFromTexture(textureToModif);
     }
 
@@ -72,7 +71,7 @@ public class MapManager : MonoBehaviour
 
         lastPaintedSquares.Clear();
 
-        Vector2Int pos = GetPixelPos(testVector.position);
+        Vector2Int pos = GetPixelPos(subPos);
 
         foreach (var i in circles)
         {

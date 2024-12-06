@@ -10,22 +10,18 @@ public class SubmarineBody : MonoBehaviour
     
     private float _thrustPower = 0f;
     
-    private Vector2 _position = Vector2.zero;
+    [SerializeField] private Vector2 _position;
     private Vector2 _previousPosition = Vector2.zero;
     private Vector2 _direction = Vector2.up;
     private Vector2 _velocity = Vector2.zero;
     private Vector2 _acceleration = Vector2.zero;
     private Vector2 _drag = Vector2.zero;
 
+
     private void Update()
     {
         Move();
     }
-
-    /*public void AddThrust(float amount)
-    {
-        _thrustPower = Mathf.Clamp(_thrustPower + amount * Time.deltaTime, _minThrust, _maxThrust);
-    }*/
     
     public void Rotate(float force)
     {
@@ -71,7 +67,9 @@ public class SubmarineBody : MonoBehaviour
         _thrustPower = thrust;
     }
 
-    private void OnCollision()
+    public Vector2 Position => _position;
+
+    public void OnCollision()
     {
         _acceleration.Set(0, 0);
         _velocity.Set(0, 0);
