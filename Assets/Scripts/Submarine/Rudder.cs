@@ -40,4 +40,6 @@ public class Rudder : MonoBehaviour, IInteractable
     public void Interact() { }
 
     public bool DoesNeedToStopPlayerMovement { get; } = true;
+
+    public Outline outline => throw new NotImplementedException();
 }
