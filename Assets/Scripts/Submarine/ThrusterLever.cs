@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Outline))]
 public class ThrusterLever : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _max;
@@ -22,6 +23,8 @@ public class ThrusterLever : MonoBehaviour, IInteractable
     private float _thrust;
     private float _movementDirection;
 
+    private Outline _outline;
+
     private void Awake()
     {
         _transform = transform;
@@ -34,6 +37,8 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         float distMinToMax = Vector3.Distance(_min.localPosition, _max.localPosition);
 
         _thrust = Mathf.Lerp(0, 1, _distMinToOrigin / distMinToMax);
+
+        _outline = GetComponent<Outline>();
     }
 
     private void Update()
@@ -73,4 +78,6 @@ public class ThrusterLever : MonoBehaviour, IInteractable
     public void Interact() { }
 
     public bool DoesNeedToStopPlayerMovement { get; } = true;
+
+    public Outline outline => _outline;
 }
