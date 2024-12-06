@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private Transform _target;
     
     public Vector2 _mouseDelta { get; private set; }// Used in the PlayerCamera
     
@@ -20,6 +23,11 @@ public class PlayerInput : MonoBehaviour
         _playerController.Interact();
     }
 
+    public void unInteract(InputAction.CallbackContext context)
+    {
+            _playerController.UnInteract();
+    }
+    
     public void DropItem(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -27,7 +35,7 @@ public class PlayerInput : MonoBehaviour
             _hotBar.DropItem();
         }
     }
-
+    
     public void scroll(InputAction.CallbackContext context)
     {
         if (context.performed)

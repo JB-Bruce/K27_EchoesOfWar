@@ -9,7 +9,6 @@ public class TestItem : MonoBehaviour, IInteractable
 
     }
 
-    public bool DoesNeedToStopPlayerMovement { get; }
-
-    public Outline outline => throw new System.NotImplementedException();
+    public bool DoesNeedToStopPlayerMovement { get; } = false;
+    public Outline outline { get; }
 }
