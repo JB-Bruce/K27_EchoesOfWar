@@ -12,5 +12,5 @@ public class PaperMap : MonoBehaviour, IInteractable
         }
     }
 
-    public bool DoesNeedToStopPlayerMovement { get; } = true;
+    public bool DoesNeedToStopPlayerMovement { get; } = false;
 }

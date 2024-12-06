@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerInput : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerInput : MonoBehaviour
     {
         _playerController.Interact();
     }
-
+    
     public void DropItem(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -29,12 +30,7 @@ public class PlayerInput : MonoBehaviour
             _hotBar.DropItem();
         }
     }
-
-    public void Endinteract(InputAction.CallbackContext context)
-    {
-        _mainCamera.transform.GetComponent<CameraScript>().target = _target;
-        _mainCamera.transform.SetParent(_target);
-    }
+    
     public void scroll(InputAction.CallbackContext context)
     {
         if (context.performed)
