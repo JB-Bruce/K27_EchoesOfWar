@@ -15,13 +15,15 @@ public class PaperMap : MonoBehaviour, IUninteractable
 
     public bool DoesNeedToStopPlayerMovement { get; } = false;
     public Outline outline { get; }
-    
+
+    public bool DoesNeedToStopAllMovement { get; } = true;
+
     public void Uninteract()
     {
         if (Camera.main != null)
         {
             Camera.main.transform.GetComponent<CameraScript>().target = Player;
-            Camera.main.transform.SetParent(Player);
+            Camera.main.transform.SetParent(Player.GetComponentInParent<Transform>());
         }
     }
 }

@@ -31,6 +31,18 @@ public class PlayerInteractions : MonoBehaviour
             i.Uninteract();
         }
     }
+
+    public bool NeedToStopAllMovement()
+    {
+        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
+            return false;
+        
+        if (hitInfo.transform.TryGetComponent(out IUninteractable i))
+        {
+            return i.DoesNeedToStopAllMovement;
+        }
+        return false;
+    }
     
     public bool NeedToStopPlayerMovement()
     {
