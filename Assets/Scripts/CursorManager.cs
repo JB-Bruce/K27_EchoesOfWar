@@ -17,21 +17,18 @@ public class CursorManager : MonoBehaviour
         bool touched = false;
         if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, 10f))
         { 
-            //trying to get component Interactable interface
             if(hitInfo.transform.TryGetComponent<IInteractable>(out IInteractable i))
             {
                 i.SetOutline(true);
                 _interactionNotification.gameObject.SetActive(true);
-                _item = hitInfo.transform.gameObject; // stock our item
                 touched = true;
             } 
         }
-
+        
         if (!touched && !_item)
         {
             _interactionNotification.gameObject.SetActive(false);
             _item.GetComponent<IInteractable>().SetOutline(false);
-            _item = null; // empty our variable
         }
     }
 }
