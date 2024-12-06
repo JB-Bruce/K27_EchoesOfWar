@@ -2,24 +2,36 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    [SerializeField] private Camera camera;
-    [SerializeField] private Canvas interactionNotification;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private Canvas _interactionNotification;
+
+    private GameObject _item; // Variable that is use to stock the gameObject we are hovering by the camera
     // Update is called once per frame
+
+    void Start()
+    {
+        _camera = Camera.main; // get the camera
+    }
     void Update()
     {
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, 10f))
+        bool touched = false;
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, 10f))
         { 
             //trying to get component Interactable interface
-            //if the gameObject has it, we stock the component in variable i
             if(hitInfo.transform.TryGetComponent<IInteractable>(out IInteractable i))
             {
-                interactionNotification.gameObject.SetActive(true);
-                Debug.Log("There is an object");
-            }
+                i.SetOutline(true);
+                _interactionNotification.gameObject.SetActive(true);
+                _item = hitInfo.transform.gameObject; // stock our item
+                touched = true;
+            } 
         }
-        else 
+
+        if (!touched && !_item)
         {
-            interactionNotification.gameObject.SetActive(false);
+            _interactionNotification.gameObject.SetActive(false);
+            _item.GetComponent<IInteractable>().SetOutline(false);
+            _item = null; // empty our variable
         }
     }
 }
