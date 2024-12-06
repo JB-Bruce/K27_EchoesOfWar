@@ -26,7 +26,7 @@ public class PlayerInteractions : MonoBehaviour
         if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
             return;
         
-        if (hitInfo.transform.TryGetComponent(out IUninteractable i))
+        if (hitInfo.transform.TryGetComponent(out IinteractableCanEnd i))
         {
             i.Uninteract();
         }
@@ -37,7 +37,7 @@ public class PlayerInteractions : MonoBehaviour
         if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
             return false;
         
-        if (hitInfo.transform.TryGetComponent(out IUninteractable i))
+        if (hitInfo.transform.TryGetComponent(out IinteractableCanEnd i))
         {
             return i.DoesNeedToStopAllMovement;
         }

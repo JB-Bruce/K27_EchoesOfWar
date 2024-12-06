@@ -1,4 +1,4 @@
-public interface IUninteractable : IInteractable
+public interface IinteractableCanEnd : IInteractable
 {
     public bool DoesNeedToStopAllMovement { get; }
     void Uninteract();

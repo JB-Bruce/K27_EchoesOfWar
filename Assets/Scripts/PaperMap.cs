@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PaperMap : MonoBehaviour, IUninteractable
+public class PaperMap : MonoBehaviour, IinteractableCanEnd
 {
     [SerializeField] private Transform target;
     [SerializeField] private Transform Player;
