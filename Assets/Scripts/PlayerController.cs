@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 _submarineController.SetMovement(Mathf.RoundToInt(movement.y));
-                _submarineController.Rotate(Mathf.RoundToInt(movement.x));
+                _submarineController.SetRotation(-Mathf.RoundToInt(movement.x));
             }
         }
     }

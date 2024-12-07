@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,7 +19,8 @@ public class PlayerInput : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        _playerController.Interact();
+        if(context.performed)
+            _playerController.Interact();
     }
 
     public void unInteract(InputAction.CallbackContext context)
@@ -46,5 +48,9 @@ public class PlayerInput : MonoBehaviour
     {
         _mouseDelta = Mouse.current.delta.ReadValue();
     }
-    
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

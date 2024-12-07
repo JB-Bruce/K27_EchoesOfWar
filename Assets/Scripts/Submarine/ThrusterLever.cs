@@ -55,6 +55,7 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         _thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, 0, 1);
         _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, _thrust);
+        _transform.rotation = Quaternion.Slerp(_min.localRotation, _max.localRotation, _thrust);
         
         _distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
         _distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
