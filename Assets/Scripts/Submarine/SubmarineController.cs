@@ -32,6 +32,12 @@ public class SubmarineController : MonoBehaviour
         _mapManager.InitArea("Far Detection",  _farDetectionArea,  Shape.Circle,       () => {});
     }
 
+    public void SetControls(bool isActive)
+    {
+        _thrusterLever.isInteracted = isActive;
+        _rudder.isInteracted = isActive;
+    }
+
     private void OnDestroy()
     {
         _submarineZoomInButton.OnButtonPressed.RemoveListener(_sonar.ZoomIn);
@@ -52,7 +58,7 @@ public class SubmarineController : MonoBehaviour
     public void SetMovement(float direction)
     {
         _thrusterLever.SetMovement(direction);
-        _submarineBody.SetThrust(_thrusterLever.GetThrust());
+        _submarineBody.SetThrust(_thrusterLever.GetRealThrust());
     }
 
     public void SetRotation(float angle)
@@ -65,7 +71,7 @@ public class SubmarineController : MonoBehaviour
         _rudder.SetRotation(-_submarineBody.Angle);
         //_submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
         //_submarineBody.AddRotation(direction);
-        _submarineCompas.rotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
+        _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         _sonar.transform.GetChild(0).GetChild(0).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
         _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";

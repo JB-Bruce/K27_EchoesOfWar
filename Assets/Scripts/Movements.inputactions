@@ -1,5 +1,5 @@
 {
-    "name": "Deplasement",
+    "name": "Movements",
     "maps": [
         {
             "name": "move",
@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "UnInteract",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "e491cfa5-ff5e-4d45-b9db-92b363b6aaa1",
                     "expectedControlType": "",
@@ -92,7 +92,7 @@
                 {
                     "name": "",
                     "id": "b799818f-c6a5-46e8-ab7d-fb96247ab054",
-                    "path": "<Pointer>/leftButton",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -103,11 +103,11 @@
                 {
                     "name": "",
                     "id": "58dc56e6-fa49-4855-be40-c903c535e6a3",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UnInteract",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

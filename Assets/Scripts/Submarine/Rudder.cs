@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
-public class Rudder : MonoBehaviour, IInteractable
+public class Rudder : MonoBehaviour, IFinishedInteractable
 {
     private float _angle;
     private Transform _transform;
@@ -10,6 +10,15 @@ public class Rudder : MonoBehaviour, IInteractable
     private float _rotationDirection;
     
     private Outline _outline;
+
+    [SerializeField] bool _doesStopMovements;
+    public bool doesStopMovements => _doesStopMovements;
+
+    [SerializeField] bool _doesLockView;
+    public bool doesLockView => _doesLockView;
+
+    [SerializeField] bool _canInteractWithOtherInteractablesWhileInteracted;
+    public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
 
     private void Awake()
     {
@@ -29,9 +38,31 @@ public class Rudder : MonoBehaviour, IInteractable
 
     public float Angle => _angle;
     
-    public void Interact() { }
+    public void Interact() 
+    {
+        if (isInteracted)
+        {
+            Uninteract();
+            return;
+        }
 
-    public bool DoesNeedToStopPlayerMovement { get; } = true;
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, true);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(false);
+
+        isInteracted = true;
+    }
+
+    public void Uninteract()
+    {
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, false);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(true);
+
+        isInteracted = false;
+    }
 
     public Outline outline => _outline;
+
+    public bool isInteracted { get; set; }
+
+    public string interactableName => "SubControls";
 }

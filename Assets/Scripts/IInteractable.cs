@@ -1,6 +1,8 @@
 using UnityEngine;
 public interface IInteractable
 {
+    public string interactableName { get; }
+
     void SetOutline(bool Bool) 
     { 
         if (outline != null)
@@ -9,9 +11,7 @@ public interface IInteractable
         } 
     }
 
-    void Interact();
-
-    bool DoesNeedToStopPlayerMovement { get; }
+    void Interact() {}
 
     Outline outline { get; }
 }

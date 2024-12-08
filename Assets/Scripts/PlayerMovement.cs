@@ -4,7 +4,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private int _maxSpeed = 5;
     [SerializeField] private int _acceleration = 5;
-    
+
+    [SerializeField] PlayerCamera cam;
+
     private Vector3 _movement;
 
     Rigidbody rb;
@@ -22,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        //transform.Translate(_movement * (_speed * Time.deltaTime));
         Vector3 dir = transform.right * _movement.x + transform.forward * _movement.z;
         rb.AddForce(dir * _acceleration * Time.deltaTime);
         rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, _maxSpeed);
@@ -31,5 +32,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetMovement(Vector2 movement)
     {
         _movement.Set(movement.x, 0f, movement.y);
+    }
+
+    public void UpdateCamera()
+    {
+        cam.Tick();
     }
 }
