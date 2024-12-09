@@ -15,8 +15,8 @@ public class MapManager : MonoBehaviour
     
     [SerializeField] Color sonarColor;
 
-    [SerializeField] List<Transform> SpawnPoints;
-    [SerializeField] List<Transform> GoalPoints;
+    [SerializeField] List<Vector2> SpawnPoints;
+    [SerializeField] List<Vector2> GoalPoints;
     private Vector3 subPos;
 
     int width;
@@ -31,12 +31,12 @@ public class MapManager : MonoBehaviour
 
     public Vector2 GetSpawnPoint()
     {
-        return SpawnPoints[Random.Range(0, SpawnPoints.Count)].position;
+        return SpawnPoints[Random.Range(0, SpawnPoints.Count)];
     }
 
     public Vector2 GetGoalPoint()
     {
-        return GoalPoints[Random.Range(0, GoalPoints.Count)].position;
+        return GoalPoints[Random.Range(0, GoalPoints.Count)];
     }
     private void Start()
     {

@@ -22,7 +22,7 @@ public class SubmarineController : MonoBehaviour
     [SerializeField] private float _collisionArea;
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
-    [FormerlySerializedAs("_GoalThreshold")] [SerializeField] private float _goalThreshold;
+    [SerializeField] private float _goalThreshold;
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -57,15 +57,18 @@ public class SubmarineController : MonoBehaviour
         
         _mapManager.Tick();
         _submarineBody.Tick();
-        if (Vector2.Distance(_submarineBody.Position, _GoalPosition) < _goalThreshold && !_inGoalRange )
+        if (Vector2.Distance(_submarineBody._position, _GoalPosition) < _goalThreshold && !_inGoalRange )
         {
+            Debug.Log("Goal reached");
             _inGoalRange = true;
         }
 
-        if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
+        if (Vector2.Distance(_submarineBody._position, _GoalPosition) > _goalThreshold && _inGoalRange)
         {
+            Debug.Log("Goal left");
             _inGoalRange = false;
         }
+        
         Rotate();
     }
 

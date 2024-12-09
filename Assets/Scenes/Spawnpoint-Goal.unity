@@ -1093,7 +1093,7 @@ MonoBehaviour:
   _accelerationForce: 0.05
   _waterDrag: 10
   _waterRotationDrag: 2
-  _position: {x: 1248, y: 1011}
+  _position: {x: 0, y: 0}
 --- !u!4 &462691833
 Transform:
   m_ObjectHideFlags: 0
@@ -2051,10 +2051,11 @@ Transform:
   m_GameObject: {fileID: 937971016}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1346.8909, y: 1638.5452, z: -25.889067}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1703301838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1014163623
@@ -2185,7 +2186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1172678122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3160,11 +3161,43 @@ MonoBehaviour:
   rawImage: {fileID: 1945019072}
   sonarColor: {r: 0.09044501, g: 0.49685526, b: 0.089058906, a: 1}
   SpawnPoints:
-  - {fileID: 1949923931}
-  - {fileID: 1540703752}
-  - {fileID: 1783130989}
-  GoalPoints: []
+  - {x: 1000, y: 1200}
+  - {x: 2250, y: 1600}
+  - {x: 1475, y: 2100}
+  GoalPoints:
+  - {x: 1500, y: 1500}
   accessibleColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!1 &1703301837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703301838}
+  m_Layer: 0
+  m_Name: Spawnpoint1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1703301838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703301837}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1500, y: 1500, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 937971017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706428248
 GameObject:
   m_ObjectHideFlags: 0
@@ -4342,7 +4375,7 @@ MonoBehaviour:
   _collisionArea: 2.5
   _nearDetectionArea: 5
   _farDetectionArea: 11
-  _goalThreshold: 0
+  _goalThreshold: 10
 --- !u!23 &122608337178149955
 MeshRenderer:
   m_ObjectHideFlags: 0
