@@ -1,0 +1,58 @@
+using UnityEngine;
+
+public class WaterStream : MonoBehaviour
+{
+    Vector2 stream;
+
+    [SerializeField] float streamChangeRate;
+    Vector2 targetStream;
+
+    [SerializeField] float minStreamChangeTime;
+    [SerializeField] float maxStreamChangeTime;
+
+    float force = 0f;
+    float targetForce;
+    [SerializeField] float maxForce;
+    [SerializeField] float forceChangeRate;
+
+    [SerializeField] float minForceChangeTime;
+    [SerializeField] float maxForceChangeTime;
+
+    public float angle;
+
+    
+
+
+    private void Start()
+    {
+        SetTargetForce();
+        SetTargetStream();
+    }
+
+    private void Update()
+    {
+        force = Mathf.MoveTowards(force, targetForce, forceChangeRate * Time.deltaTime);
+        stream = Vector2.MoveTowards(stream, targetStream, streamChangeRate * Time.deltaTime);
+
+        angle = Mathf.Atan2(stream.x, stream.y) * Mathf.Rad2Deg;
+
+        
+    }
+
+    private void SetTargetStream()
+    {
+        targetStream = Random.insideUnitCircle.normalized;
+        Invoke("SetTargetStream", Random.Range(minStreamChangeTime, maxStreamChangeTime));
+    }
+
+    private void SetTargetForce()
+    {
+        targetForce = Random.Range(0f, maxForce);
+        Invoke("SetTargetForce", Random.Range(minForceChangeTime, maxForceChangeTime));
+    }
+
+    public (Vector2 dir, float force) GetStream()
+    {
+        return (stream.normalized, force);
+    }
+}

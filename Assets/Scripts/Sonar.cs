@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class Sonar : MonoBehaviour
     [SerializeField] bool doesLoop;
     [SerializeField] List<ZoomInfo> sizes = new();
     int curIndex;
+
+    [SerializeField] TextMeshProUGUI sonarLengthText;
 
     private Vector2 _submarinePosition;
 
@@ -43,6 +46,8 @@ public class Sonar : MonoBehaviour
 
         rawImage.uvRect = currentUVRect;
         rawImage2.uvRect = currentUVRect;
+
+        sonarLengthText.text = sizes[curIndex].length;
     }
 
     public void ZoomIn()
