@@ -948,7 +948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e1209d6c88de94681bc5ffac155ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screen: {fileID: 916300310}
   rawImage: {fileID: 414475753}
   rawImage2: {fileID: 1945019072}
   texture: {fileID: 2800000, guid: 8f6b447b1da78674faf7ba71c55fe0a8, type: 3}
@@ -1768,6 +1767,7 @@ MonoBehaviour:
   _defaultColor: {r: 0.69803923, g: 0.7137255, b: 0.21960784, a: 1}
   _alarmColor: {r: 1, g: 0, b: 0, a: 1}
   _noElectricityColor: {r: 0, g: 0, b: 0, a: 1}
+  _maxTimeBetweenEachLightTurnOnOff: 1.5
 --- !u!4 &775095357
 Transform:
   m_ObjectHideFlags: 0
@@ -2198,8 +2198,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightsManager: {fileID: 775095356}
-  _sonar: {fileID: 450591658}
-  _newElectricityMode: 0
+  _electricityObjects:
+  - {fileID: 916300310}
+  - {fileID: 709437786}
+  _electricityComponents:
+  - {fileID: 7833249856167809769}
+  - {fileID: 8897240366188993042}
+  _shutDownProbability: 5
+  _timeBetweenTryShutDown: 1
+  _timeBetweenEachShutDown: 5
 --- !u!4 &950768759
 Transform:
   m_ObjectHideFlags: 0
@@ -5548,7 +5555,7 @@ GameObject:
   - component: {fileID: 8897240366188993042}
   - component: {fileID: 8897240366188993044}
   m_Layer: 0
-  m_Name: Cube.004
+  m_Name: ThrotlleLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class Sonar : MonoBehaviour
 {
-    [SerializeField] private GameObject _screen;
     public RawImage rawImage; // RawImage UI Component
     public RawImage rawImage2; // RawImage UI Component
     public Texture2D texture; // La texture que vous voulez afficher
@@ -88,16 +87,6 @@ public class Sonar : MonoBehaviour
     public void SetSubmarinePosition(Vector2 pos)
     {
         _submarinePosition = pos;
-    }
-
-    public void Activate()
-    {
-        _screen.SetActive(true);
-    }
-
-    public void Deactivate()
-    {
-        _screen.SetActive(false);
     }
 
     [System.Serializable]

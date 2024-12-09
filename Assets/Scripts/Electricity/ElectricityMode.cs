@@ -1,4 +1,4 @@
 ﻿public enum ElectricityMode
 {
-    On, Off
+    On, Off, Stopping
 }
