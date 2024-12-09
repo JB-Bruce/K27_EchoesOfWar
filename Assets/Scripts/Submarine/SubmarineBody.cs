@@ -17,8 +17,8 @@ public class SubmarineBody : MonoBehaviour
     private float _angle = 0f;
     
     private float _actualRotation = 0f;
-
-    public Vector2 _position;
+    
+    [SerializeField] private Vector2 _position;
     private Vector2 _previousPosition = Vector2.zero;
     private Vector2 _direction = Vector2.up;
     private Vector2 _velocity = Vector2.zero;
