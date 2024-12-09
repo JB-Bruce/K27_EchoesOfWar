@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class MapManager : MonoBehaviour
 {
@@ -11,9 +12,11 @@ public class MapManager : MonoBehaviour
     [SerializeField] Texture2D texture2;
     [SerializeField] RawImage rawImage;
     Texture2D textureToModif;
-
+    
     [SerializeField] Color sonarColor;
 
+    [SerializeField] List<Vector2> SpawnPoints;
+    [SerializeField] List<Vector2> GoalPoints;
     private Vector3 subPos;
 
     int width;
@@ -26,6 +29,15 @@ public class MapManager : MonoBehaviour
     Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
 
 
+    public Vector2 GetSpawnPoint()
+    {
+        return SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+    }
+
+    public Vector2 GetGoalPoint()
+    {
+        return GoalPoints[Random.Range(0, GoalPoints.Count)];
+    }
     private void Start()
     {
         Init();
