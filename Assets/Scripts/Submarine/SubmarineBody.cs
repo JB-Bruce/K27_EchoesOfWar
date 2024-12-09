@@ -25,12 +25,17 @@ public class SubmarineBody : MonoBehaviour
     private Vector2 _acceleration = Vector2.zero;
     private Vector2 _drag = Vector2.zero;
 
+    [SerializeField] WaterStream waterStream;
+    [SerializeField] Transform arrow;
+
 
     public void Tick()
     {
         Move();
         AddRotation(_actualRotation);
         Rotate();
+
+        arrow.localRotation = Quaternion.Euler(0, 0, waterStream.angle + _angle);
     }
 
     private void Rotate()
@@ -58,9 +63,15 @@ public class SubmarineBody : MonoBehaviour
         
         _drag.Set(-_velocity.normalized.x * _waterDrag * _velocity.sqrMagnitude,
                   -_velocity.normalized.y * _waterDrag * _velocity.sqrMagnitude);
-        
+
+
+        (Vector2 dir, float force) s = waterStream.GetStream();
+
         _velocity.Set(_velocity.x + _acceleration.x * _accelerationForce + _drag.x * deltaTime,
                       _velocity.y + _acceleration.y * _accelerationForce + _drag.y * deltaTime);
+
+        _velocity += s.dir * s.force * Time.deltaTime;
+
 
         float maxSpeed = _maxSpeed / _waterDrag;
         if (_velocity.magnitude > maxSpeed)
