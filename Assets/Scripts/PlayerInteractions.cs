@@ -3,57 +3,74 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour 
 {
     [SerializeField] private Camera _camera;
-    [SerializeField] private float _interactionDistance = 10f;
+    [SerializeField] private float _interactionRange = 10f;
 
-    public void Interact()
+    IFinishedInteractable selectedInteractable = null;
+
+    IInteractable overedInteractable = null;
+
+    [SerializeField] GameObject _interactionCanvas;
+
+    void Update()
     {
-        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
-            return;
+
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionRange))
+        {
+            if (hitInfo.transform.TryGetComponent(out IInteractable i))
+            {
+                if (overedInteractable != null)
+                    overedInteractable.SetOutline(false);
+
+                overedInteractable = i;
+                i.SetOutline(true);
+                if(!(i is IFinishedInteractable  f && selectedInteractable != null && f.interactableName == selectedInteractable.interactableName))
+                    _interactionCanvas.SetActive(true);
+                else 
+                    _interactionCanvas.SetActive(false);
+                return;
+            }
+        }
+
+        if(overedInteractable != null)
+        {
+            overedInteractable.SetOutline(false);
+            overedInteractable = null;
+            _interactionCanvas.SetActive(false);
+        }
+
         
-        if (hitInfo.transform.TryGetComponent(out IInteractable i))
-        {
-            i.Interact();
-            Debug.Log("HITTEN");
-        }
-        else
-        {
-            Debug.Log("HELLO");
-        }
     }
 
-    public void UnInteract()
+    public bool TryInteract()
     {
-        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
-            return;
-        
-        if (hitInfo.transform.TryGetComponent(out IinteractableCanEnd i))
-        {
-            i.Uninteract();
-        }
-    }
-
-    public bool NeedToStopAllMovement()
-    {
-        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
-            return false;
-        
-        if (hitInfo.transform.TryGetComponent(out IinteractableCanEnd i))
-        {
-            return i.DoesNeedToStopAllMovement;
-        }
-        return false;
-    }
-    
-    public bool NeedToStopPlayerMovement()
-    {
-        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionDistance)) 
+        if (overedInteractable == null) 
             return false;
 
-        if (hitInfo.transform.TryGetComponent(out IInteractable i))
+
+        if (overedInteractable is IFinishedInteractable finishedInteractable)
         {
-            return i.DoesNeedToStopPlayerMovement;
+            if (selectedInteractable != null)
+            {
+                if(selectedInteractable.interactableName != finishedInteractable.interactableName)
+                    return false;
+                selectedInteractable = null;
+            }
+            else
+            {
+                selectedInteractable = finishedInteractable;
+            }
         }
-        
-        return false;
+
+        overedInteractable.Interact();
+        return true;
+    }
+
+    public void Cancel()
+    {
+        if (selectedInteractable != null)
+        {
+            selectedInteractable.Uninteract();
+            selectedInteractable = null;
+        }
     }
 }

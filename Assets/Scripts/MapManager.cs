@@ -9,7 +9,6 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] Texture2D texture;
     [SerializeField] Texture2D texture2;
-    [SerializeField] Image image;
     [SerializeField] RawImage rawImage;
     Texture2D textureToModif;
 
@@ -48,13 +47,11 @@ public class MapManager : MonoBehaviour
         textureToModif = CreateReadableTexture(texture2);
 
         rawImage.texture = textureToModif;
-        
-        image.sprite = CreateSpriteFromTexture(textureToModif);
     }
 
 
 
-    private void Update()
+    public void Tick()
     {
         UpdateCircles();
     }

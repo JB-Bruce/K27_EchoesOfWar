@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
-public class ThrusterLever : MonoBehaviour, IInteractable
+public class ThrusterLever : MonoBehaviour, IFinishedInteractable
 {
     [SerializeField] private Transform _max;
     [SerializeField] private Transform _min;
@@ -15,30 +15,30 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         
     private Transform _transform;
     
-    private float _distMinToOrigin;
-    private float _distMinToPosition;
-    private float _distMaxToOrigin;
-    private float _distMaxToPosition;
-    
-    private float _thrust;
+    private float _thrust = 0f;
     private float _movementDirection;
 
     private Outline _outline;
 
+    [SerializeField] bool _doesStopMovements;
+    public bool doesStopMovements => _doesStopMovements;
+
+    [SerializeField] bool _doesLockView;
+    public bool doesLockView => _doesLockView;
+
+    [SerializeField] bool _canInteractWithOtherInteractablesWhileInteracted;
+    public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
+
     private void Awake()
     {
         _transform = transform;
-        
-        _distMinToOrigin   = Vector3.Distance(_min.localPosition, _origin.localPosition);
-        _distMaxToOrigin   = Vector3.Distance(_max.localPosition, _origin.localPosition);
-        _distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
-        _distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
-        
-        float distMinToMax = Vector3.Distance(_min.localPosition, _max.localPosition);
 
-        _thrust = Mathf.Lerp(0, 1, _distMinToOrigin / distMinToMax);
+        ResetThrust();
 
         _outline = GetComponent<Outline>();
+        _outline.enabled = false;
+
+        SetThrusterPosition();
     }
 
     private void Update()
@@ -53,14 +53,18 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         
         _thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, 0, 1);
-        _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, _thrust);
-        
-        _distMinToPosition = Vector3.Distance(_min.localPosition, _transform.localPosition);
-        _distMaxToPosition = Vector3.Distance(_max.localPosition, _transform.localPosition);
+
+        SetThrusterPosition();
 
         /*_thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, -_distMinToOrigin, _distMaxToOrigin);
         _transform.localPosition = new Vector3(0, 0, _thrust);*/
+    }
+
+    private void SetThrusterPosition()
+    {
+        _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, _thrust);
+        _transform.rotation = Quaternion.Slerp(_min.localRotation, _max.localRotation, _thrust);
     }
 
     public void SetMovement(float direction)
@@ -68,16 +72,44 @@ public class ThrusterLever : MonoBehaviour, IInteractable
         _movementDirection = direction;
     }
 
-    public float GetThrust()
+    public void ResetThrust()
     {
-        return _distMinToOrigin < _distMinToPosition ? 
-            Mathf.Lerp(_maxThrust, 0, _distMaxToPosition / _distMaxToOrigin) : 
-            Mathf.Lerp(_minThrust, 0, _distMinToPosition / _distMinToOrigin);
+        float dist = (_maxThrust - _minThrust);
+
+        _thrust = -_minThrust / dist;
     }
 
-    public void Interact() { }
 
-    public bool DoesNeedToStopPlayerMovement { get; } = true;
+    public float GetRealThrust()
+    {
+        return Mathf.Lerp(_minThrust, _maxThrust, _thrust);
+    }
+
+    public void Interact() 
+    {
+        if (isInteracted)
+        {
+            Uninteract();
+            return;
+        }
+
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, true);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(false);
+
+        isInteracted = true;
+    }
+
+    public void Uninteract()
+    {
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, false);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(true);
+
+        isInteracted = false;
+    }
 
     public Outline outline => _outline;
+
+    public bool isInteracted { get; set; }
+
+    public string interactableName => "SubControls";
 }

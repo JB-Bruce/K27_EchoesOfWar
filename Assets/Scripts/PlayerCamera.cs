@@ -12,7 +12,7 @@ public class PlayerCamera : MonoBehaviour
     
     //Transform _transform;
 
-    void Update()
+    public void Tick()
     {
          _yRotation += _playerImput._mouseDelta.x * _sensitivity;// Apply camera rotation on Y axis (left/right)
          _playerBody.localRotation = Quaternion.Euler(0f, _yRotation, 0f);  //Takes care of changed the angle of the cam on the Y axis (looked at the left; looked at the right)  

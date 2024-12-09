@@ -4,11 +4,19 @@ public class SubmarineBody : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _maxSpeed;
+    [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _maxRotation;
+    [SerializeField] private float _accelerationForce;
     
     [Header("Water")]
     [SerializeField] private float _waterDrag = 2f;
+    [SerializeField] private float _waterRotationDrag = 2f;
     
     private float _thrustPower = 0f;
+    private float _rotationPower = 0f;
+    private float _angle = 0f;
+    
+    private float _actualRotation = 0f;
     
     [SerializeField] private Vector2 _position;
     private Vector2 _previousPosition = Vector2.zero;
@@ -18,21 +26,27 @@ public class SubmarineBody : MonoBehaviour
     private Vector2 _drag = Vector2.zero;
 
 
-    private void Update()
+    public void Tick()
     {
         Move();
+        AddRotation(_actualRotation);
+        Rotate();
     }
-    
-    public void Rotate(float force)
+
+    private void Rotate()
     {
-        float rad = -force * Mathf.Deg2Rad;
+        _angle += _rotationPower * _rotationSpeed * Time.deltaTime;
+        _angle = _angle > 360 ? 0 : _angle < 0 ? 360 + _angle : _angle;
+        float rad = -_angle * Mathf.Deg2Rad;
         float cos = Mathf.Cos(rad);
         float sin = Mathf.Sin(rad);
         
-        _direction.Set(cos * _direction.x - sin * _direction.y,
-                       sin * _direction.x + cos * _direction.y);
-        
-        //transform.forward = _direction;
+        _direction = new Vector2(sin, cos).normalized;
+    
+        if (_rotationPower > 0)
+            _rotationPower = Mathf.Max(_rotationPower - _waterRotationDrag * Time.deltaTime * _rotationPower, 0);
+        if (_rotationPower < 0)
+            _rotationPower = Mathf.Min(_rotationPower - _waterRotationDrag * Time.deltaTime * _rotationPower, 0);
     }
 
     private void Move()
@@ -45,8 +59,8 @@ public class SubmarineBody : MonoBehaviour
         _drag.Set(-_velocity.normalized.x * _waterDrag * _velocity.sqrMagnitude,
                   -_velocity.normalized.y * _waterDrag * _velocity.sqrMagnitude);
         
-        _velocity.Set(_velocity.x + _acceleration.x * deltaTime + _drag.x * deltaTime,
-                      _velocity.y + _acceleration.y * deltaTime + _drag.y * deltaTime);
+        _velocity.Set(_velocity.x + _acceleration.x * _accelerationForce + _drag.x * deltaTime,
+                      _velocity.y + _acceleration.y * _accelerationForce + _drag.y * deltaTime);
 
         float maxSpeed = _maxSpeed / _waterDrag;
         if (_velocity.magnitude > maxSpeed)
@@ -67,7 +81,27 @@ public class SubmarineBody : MonoBehaviour
         _thrustPower = thrust;
     }
 
+    public void AddRotation(float rotation)
+    {
+        _rotationPower = Mathf.Clamp(_rotationPower + rotation * _rotationSpeed * Time.deltaTime, -_maxRotation, _maxRotation);
+    }
+
+    public void SetRotation(float rotation)
+    {
+        _actualRotation = rotation;
+    }
+
+    public void SetPosition(Vector2 position)
+    {
+        _position = position;
+    }
+
     public Vector2 Position => _position;
+    public Vector2 Direction => _direction;
+    
+    public Vector2 Velocity => _velocity;
+
+    public float Angle => _angle;
 
     public void OnCollision()
     {

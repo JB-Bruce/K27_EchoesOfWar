@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class SubmarineController : MonoBehaviour
@@ -14,6 +15,9 @@ public class SubmarineController : MonoBehaviour
     [SerializeField] private SubmarineButton _submarineZoomInButton;
     [SerializeField] private SubmarineButton _submarineZoomOutButton;
 
+    [SerializeField] private Transform _submarineCompas;
+    [SerializeField] private TextMeshProUGUI _submarineSpeedometer;
+
     [SerializeField] private float _collisionArea;
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
@@ -24,8 +28,14 @@ public class SubmarineController : MonoBehaviour
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
         
         _mapManager.InitArea("Collision",      _collisionArea,     Shape.FilledCircle, _submarineBody.OnCollision);
-        _mapManager.InitArea("Near Detection", _nearDetectionArea, Shape.Circle,       () => {});
+        //_mapManager.InitArea("Near Detection", _nearDetectionArea, Shape.Circle,       () => {});
         _mapManager.InitArea("Far Detection",  _farDetectionArea,  Shape.Circle,       () => {});
+    }
+
+    public void SetControls(bool isActive)
+    {
+        _thrusterLever.isInteracted = isActive;
+        _rudder.isInteracted = isActive;
     }
 
     private void OnDestroy()
@@ -38,17 +48,32 @@ public class SubmarineController : MonoBehaviour
     {
         _sonar.SetSubmarinePosition(_submarineBody.Position);
         _mapManager.SetSubPos(_submarineBody.Position);
+        
+        _mapManager.Tick();
+        _submarineBody.Tick();
+        
+        Rotate();
     }
 
     public void SetMovement(float direction)
     {
         _thrusterLever.SetMovement(direction);
-        _submarineBody.SetThrust(_thrusterLever.GetThrust());
+        _submarineBody.SetThrust(_thrusterLever.GetRealThrust());
     }
 
-    public void Rotate(float direction)
+    public void SetRotation(float angle)
     {
-        _rudder.SetRotation(direction);
-        _submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
+        _submarineBody.SetRotation(angle);
+    }
+
+    private void Rotate()
+    {
+        _rudder.SetRotation(-_submarineBody.Angle);
+        //_submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
+        //_submarineBody.AddRotation(direction);
+        _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
+        _sonar.transform.GetChild(0).GetChild(0).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
+        
+        _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";
     }
 }

@@ -1,45 +1,68 @@
 using System;
 using UnityEngine;
 
-public class Rudder : MonoBehaviour, IInteractable
+[RequireComponent(typeof(Outline))]
+public class Rudder : MonoBehaviour, IFinishedInteractable
 {
-    [SerializeField] private float _maxAngle;
-    [SerializeField] private float _minAngle;
-    
     private float _angle;
     private Transform _transform;
     private Vector3 _rotation;
     private float _rotationDirection;
+    
+    private Outline _outline;
+
+    [SerializeField] bool _doesStopMovements;
+    public bool doesStopMovements => _doesStopMovements;
+
+    [SerializeField] bool _doesLockView;
+    public bool doesLockView => _doesLockView;
+
+    [SerializeField] bool _canInteractWithOtherInteractablesWhileInteracted;
+    public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
 
     private void Awake()
     {
         _transform = transform;
         _rotation = _transform.localEulerAngles;
+        
+        _outline = GetComponent<Outline>();
+        _outline.enabled = false;
     }
 
-    private void Update()
-    {
-        Rotate();
-    }
 
     public void SetRotation(float direction)
     {
+        transform.localRotation = Quaternion.Euler(0, 0, direction);
         _rotationDirection = direction;
     }
 
-    private void Rotate()
-    {
-        _angle += _rotationDirection;
-        _angle = Mathf.Clamp(_angle, _minAngle, _maxAngle);
-        _rotation.x = _angle;
-        _transform.localEulerAngles = _rotation;
-    }
-    
     public float Angle => _angle;
     
-    public void Interact() { }
+    public void Interact() 
+    {
+        if (isInteracted)
+        {
+            Uninteract();
+            return;
+        }
 
-    public bool DoesNeedToStopPlayerMovement { get; } = true;
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, true);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(false);
 
-    public Outline outline => throw new NotImplementedException();
+        isInteracted = true;
+    }
+
+    public void Uninteract()
+    {
+        PlayerController.Instance.SetPlayerBlockingInteractable(interactableName, false);
+        PlayerController.Instance.SwitchPlayerAndSubmarineControls(true);
+
+        isInteracted = false;
+    }
+
+    public Outline outline => _outline;
+
+    public bool isInteracted { get; set; }
+
+    public string interactableName => "SubControls";
 }

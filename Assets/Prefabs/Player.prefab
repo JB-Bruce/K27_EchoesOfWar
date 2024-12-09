@@ -32,6 +32,7 @@ Transform:
   - {fileID: 783125237771633131}
   - {fileID: 2880070914988444188}
   - {fileID: 1911312228116708834}
+  - {fileID: 7461522581365578718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1874811441289546096
@@ -493,6 +494,37 @@ MonoBehaviour:
   m_DefaultActionMap: move
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!1 &8584656258482737495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7461522581365578718}
+  m_Layer: 0
+  m_Name: Cedrico
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7461522581365578718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8584656258482737495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4923703309270891784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &652528251786671281
 PrefabInstance:
   m_ObjectHideFlags: 0
