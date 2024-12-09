@@ -15,7 +15,6 @@ public class CameraScript : MonoBehaviour
     private void Start()
     {
         cameraTransform = transform;
-        startShake(0.5f, .25f);
     }
 
     private void Start()
@@ -50,6 +49,7 @@ public class CameraScript : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+        cameraTransform.localPosition = startPos;
         yield return null;
     }
     
