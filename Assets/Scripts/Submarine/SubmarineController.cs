@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SubmarineController : MonoBehaviour
 {
@@ -21,12 +22,17 @@ public class SubmarineController : MonoBehaviour
     [SerializeField] private float _collisionArea;
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
+    [FormerlySerializedAs("_GoalThreshold")] [SerializeField] private float _goalThreshold;
+    
+    private Vector2 _GoalPosition;
+    private bool _inGoalRange;
 
     private void Start()
     {
         _submarineZoomInButton.OnButtonPressed.AddListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
-        
+        _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
+        _GoalPosition = _mapManager.GetSpawnPoint();
         _mapManager.InitArea("Collision",      _collisionArea,     Shape.FilledCircle, _submarineBody.OnCollision);
         //_mapManager.InitArea("Near Detection", _nearDetectionArea, Shape.Circle,       () => {});
         _mapManager.InitArea("Far Detection",  _farDetectionArea,  Shape.Circle,       () => {});
@@ -51,7 +57,15 @@ public class SubmarineController : MonoBehaviour
         
         _mapManager.Tick();
         _submarineBody.Tick();
-        
+        if (Vector2.Distance(_submarineBody.Position, _GoalPosition) < _goalThreshold && !_inGoalRange )
+        {
+            _inGoalRange = true;
+        }
+
+        if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
+        {
+            _inGoalRange = false;
+        }
         Rotate();
     }
 
