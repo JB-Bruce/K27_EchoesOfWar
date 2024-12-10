@@ -6,45 +6,49 @@ using UnityEngine.UI;
 public class DrawScript : MonoBehaviour
 {
     [SerializeField] private Camera MainCamera;
-    [FormerlySerializedAs("_action")] [SerializeField] private InputAction leftClick;
     [SerializeField] private RawImage _image;
     [SerializeField] private Transform _bottomLeft;
     [SerializeField] private Transform _topRight;
+    [SerializeField] private Texture2D baseTexture;
     private Texture2D _texture;
     
     private Vector3 _intersection;
-    private Vector3 diag;
+    private Vector3 _diagonal;
     private bool _isDrawing;
 
     private void Start()
     {
-        diag = _topRight.position - _bottomLeft.position;
-        _texture = new Texture2D(_image.texture.width,_image.texture.height, TextureFormat.RGBA32, false);
+        _diagonal = _topRight.position - _bottomLeft.position;
+        print("STARGTEDDDDDDDD");
+        print("JFDGJGFS   " + _diagonal);
+        print("STARGTEDDDDDDDD");
+        Texture2D newTexture = new Texture2D(baseTexture.width, baseTexture.height, TextureFormat.RGBA32, false);
+        newTexture.filterMode = FilterMode.Point;
+
+        newTexture.SetPixels(baseTexture.GetPixels());
+        newTexture.Apply();
+
+        _texture = newTexture;
+
+        _image.texture = newTexture;
     }
 
     private void OnEnable()
     {
-        leftClick.Enable();
-        leftClick.performed += Draw;
         _image.texture = _texture;
-    }
-
-    private void OnDisable()
-    { 
-        leftClick.Disable();
-        leftClick.performed -= Draw;
-    }
-
-    private void Draw(InputAction.CallbackContext context)
-    {
-        if (context.performed )
-        {
-                _isDrawing = true;
-        }
     }
 
     private void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            _isDrawing = true;
+        }
+        else
+        {
+            _isDrawing = false;
+        }
+
         if (_isDrawing)
         {
             var ray = MainCamera.ScreenPointToRay(Input.mousePosition);
@@ -63,12 +67,17 @@ public class DrawScript : MonoBehaviour
     private void SetTexture(Color color, Vector3 position)
     {
         Vector3 ToPos = position - _bottomLeft.position;
-        float x = ToPos.x/diag.x;
-        float  y = ToPos.y/diag.y;
+        float x = _bottomLeft.up.x;
+        float  y = ToPos.y/ _diagonal.y;
+        print(_diagonal);
 
         if (x <= 1 && y <= 1)
         {
-            Debug.Log("drawing texture");
+
+            Debug.Log("x : " + x + " y : " + y);
+            Debug.Log("diagx : " + _diagonal.x + " diagy : " + _diagonal.y);
+            Debug.Log("posx : " + ToPos.x + " posy : " + ToPos.y);
+            Debug.Log("diag" + _diagonal.x.ToString());
             _texture.SetPixel(Mathf.RoundToInt(x*_texture.width),Mathf.RoundToInt(y*_texture.height),color);
             _texture.Apply();
             _image.texture = _texture;
