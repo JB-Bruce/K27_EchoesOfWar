@@ -1,31 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LightsManager : MonoBehaviour
 {
     [SerializeField] private List<Light> _lights;
-    [SerializeField] private List<Light> _alarmLights;
+    [SerializeField] private List<AlarmLight> _alarmLights;
+    [SerializeField] private List<LightStateDetailed> _lightStates;
     
-    [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _alarmColor = Color.red;
-    [SerializeField] private Color _noElectricityColor = Color.black;
 
     [SerializeField, Range(0,1.5f)] private float _maxTimeBetweenEachLightTurnOnOff = 1;
     
     private ElectricityMode _electricityMode;
+    
+    private List<string> _alarmTriggers = new();
 
     private void Start()
     {
+        LightStateDetailed lightStateDetailed = GetLightStateDetailed(LightState.Default);
+        
         foreach (var l in _lights)
         {
-            l.color = _defaultColor;
+            SetupLight(l, lightStateDetailed);
         }
 
         foreach (var al in _alarmLights)
         {
-            al.color = _alarmColor;
+            al.SetColor(_alarmColor);
+            al.SetActive(false);
         }
     }
 
@@ -35,29 +41,100 @@ public class LightsManager : MonoBehaviour
             return;
 
         _electricityMode = NewElectricityMode;
-        ElectricityOnOff(_electricityMode == ElectricityMode.On);
-    }
 
-    private void ElectricityOnOff(bool isOn)
-    {
-        StartCoroutine(ProgressivelyElectricityOnOff(isOn));
+        LightState lightState = GetLightState(_electricityMode);
+        LightStateDetailed lightStateDetailed = GetLightStateDetailed(lightState);
         
-        Alarm(!isOn, true);
+        ElectricityOnOff(lightStateDetailed);
     }
 
-    public void Alarm(bool isOn, bool instantly)
+    private LightState GetLightState(ElectricityMode electricityMode)
     {
-        if (instantly)
-            AlarmInstantly(isOn);
-        else 
-            AlarmWait(isOn);
+        return electricityMode switch
+        {
+            ElectricityMode.On => LightState.Default,
+            ElectricityMode.Off => LightState.Nightlight,
+            _ => LightState.Default
+        };
+    }
+
+    private LightStateDetailed GetLightStateDetailed(LightState state)
+    {
+        foreach (var lightStateDetailed in _lightStates)
+        {
+            if (lightStateDetailed.state == state)
+                return lightStateDetailed;
+        }
+
+        return new LightStateDetailed();
+    }
+
+    private void ElectricityOnOff(LightStateDetailed lightStateDetailed)
+    {
+        StartCoroutine(ProgressivelyElectricityOnOff(lightStateDetailed));
+    }
+    
+    private IEnumerator ProgressivelyElectricityOnOff(LightStateDetailed lightStateDetailed)
+    {
+        List<Light> lights = new List<Light>(_lights);
+        lights = lights.OrderBy(x => Random.value).ToList();
+        
+        while (lights.Count > 0)
+        {
+            float timeToWait = Random.Range(0, _maxTimeBetweenEachLightTurnOnOff);
+            float elapsedTime = 0;
+
+            while (elapsedTime < timeToWait)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            
+            int index = Random.Range(0, lights.Count);
+            SetupLight(lights[index], lightStateDetailed);
+            lights.RemoveAt(index);
+            
+            yield return null;
+        }
+    }
+
+    private void SetupLight(Light light, LightStateDetailed lightStateDetailed)
+    {
+        light.color = lightStateDetailed.color;
+        light.intensity = lightStateDetailed.intensity;
+        light.range = lightStateDetailed.range;
+    }
+
+    public void Alarm(string trigger, bool isOn, bool instantly)
+    {
+        if (isOn)
+        {
+            _alarmTriggers.Add(trigger);
+            
+            if (instantly)
+                AlarmInstantly(true);
+            else 
+                AlarmWait(true);
+        }
+        else
+        {
+            _alarmTriggers.Remove(trigger);
+
+            if (_alarmTriggers.Count != 0) 
+                return;
+            
+            if (instantly)
+                AlarmInstantly(false);
+            else 
+                AlarmWait(false);
+        }
     }
 
     private void AlarmInstantly(bool isOn)
     {
         foreach (var al in _alarmLights)
         {
-            al.gameObject.SetActive(isOn);
+            al.SetActive(isOn);
         }
     }
 
@@ -79,27 +156,18 @@ public class LightsManager : MonoBehaviour
         AlarmInstantly(isOn);
     }
     
-    private IEnumerator ProgressivelyElectricityOnOff(bool isOn)
+    [Serializable]
+    private struct LightStateDetailed
     {
-        List<Light> lights = new List<Light>(_lights);
-        lights = lights.OrderBy(x => Random.value).ToList();
-        
-        while (lights.Count > 0)
-        {
-            float timeToWait = Random.Range(0, _maxTimeBetweenEachLightTurnOnOff);
-            float elapsedTime = 0;
+        public string name;
+        public LightState state;
+        public Color color;
+        public float intensity;
+        public float range;
+    }
 
-            while (elapsedTime < timeToWait)
-            {
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-            
-            int index = Random.Range(0, lights.Count);
-            lights[index].color = isOn ? _defaultColor : _noElectricityColor;
-            lights.RemoveAt(index);
-            
-            yield return null;
-        }
+    private enum LightState
+    {
+        Default, Nightlight
     }
 }

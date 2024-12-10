@@ -1,19 +1,26 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class NumberCase : MonoBehaviour
 {
-    [SerializeField] public int _currentNumber;
-    [SerializeField] public int _correctNumber;
-    [SerializeField] public TextMeshProUGUI _text;
+    [SerializeField] private int _currentNumber;
+    [SerializeField] private int _correctNumber;
+    [SerializeField] private TextMeshProUGUI _text;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         _currentNumber = Random.Range(0, 9);
-    }
-    void Update()
-    {
+        _correctNumber = Random.Range(0, 9);
+        
         _text.text = _currentNumber.ToString();
     }
+
+    public void IncrementDecrementNumber(bool increment)
+    {
+        _currentNumber += increment ? 1 : -1;
+        _currentNumber = (_currentNumber + 10) % 10;
+        _text.text = _currentNumber.ToString();
+    }
+    
+    public bool IsCorrect => _currentNumber == _correctNumber;
 }

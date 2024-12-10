@@ -4,47 +4,64 @@ using UnityEngine.Events;
 
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] public List<NumberCase> _numberCases;
-    [SerializeField] public NumberCase _selectedNumberCase;
-    [SerializeField] public int _selectedNumberCaseIndex = 0;
-    [SerializeField] private bool _correctCode = false;
-
-    public UnityEvent DiscoveredCode;
+    [Header("Buttons")]
+    [SerializeField] private SubmarineButton _increaseNumberButton;
+    [SerializeField] private SubmarineButton _decreaseNumberButton;
+    [SerializeField] private SubmarineButton _moveIndexToLeftButton;
+    [SerializeField] private SubmarineButton _moveIndexToRightButton;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Numbers Case")]
+    [SerializeField] private List<NumberCase> _numberCases;
+    [SerializeField] private Transform _indicator;
+    
+    private int _selectedNumberCaseIndex = 0;
+    private readonly UnityEvent _onCodeDiscovered = new();
+    private float _indicatorYOffset;
+
+    private void Start()
     {
-        _selectedNumberCase = _numberCases[_selectedNumberCaseIndex];
+        _indicatorYOffset = _indicator.position.y - _numberCases[0].transform.position.y;
+        
+        _increaseNumberButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedNumberCase(true));
+        _decreaseNumberButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedNumberCase(false));
+        _moveIndexToLeftButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(false));
+        _moveIndexToRightButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(true));
+    }
+
+    private void OnDestroy()
+    {
+        _increaseNumberButton.OnButtonPressed.RemoveAllListeners();
+        _decreaseNumberButton.OnButtonPressed.RemoveAllListeners();
+        _moveIndexToLeftButton.OnButtonPressed.RemoveAllListeners();
+        _moveIndexToRightButton.OnButtonPressed.RemoveAllListeners();
+    }
+
+    private void MoveRightLeftIndicator(bool isRight)
+    {
+        _selectedNumberCaseIndex += isRight ? 1 : -1;
+        _selectedNumberCaseIndex = (_selectedNumberCaseIndex + _numberCases.Count) % _numberCases.Count;
+        
+        _indicator.position = _numberCases[_selectedNumberCaseIndex].transform.position + Vector3.up * _indicatorYOffset;
+    }
+
+    private void IncrementDecrementSelectedNumberCase(bool increment)
+    {
+        _numberCases[_selectedNumberCaseIndex].IncrementDecrementNumber(increment);
+        
+        if (CheckCode())
+            _onCodeDiscovered.Invoke();
+    }
+
+    private bool CheckCode()
+    {
         foreach (var numberCase in _numberCases)
         {
-            int randomNumber = Random.Range(0, 9);
-            numberCase._correctNumber = randomNumber;
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!_correctCode)
-        {
-            CheckCode();
-        }
-    }
-
-    private void CheckCode()
-    {
-        int correctNumberCases = 0;
-        foreach (var numberCase in _numberCases)
-        {
-            if (numberCase._currentNumber == numberCase._correctNumber)
-            {
-                correctNumberCases++;
-            }
+            if (!numberCase.IsCorrect)
+                return false;
         }
 
-        if (correctNumberCases == _numberCases.Count)
-        {
-            DiscoveredCode?.Invoke();
-        }
+        return true;
     }
+    
+    public UnityEvent OnCodeDiscovered => _onCodeDiscovered;
 }
