@@ -1,16 +1,27 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class DrawScript : MonoBehaviour
 {
+    [SerializeField] int drawSizeX;
+    [SerializeField] int drawSizeY;
+
+    [SerializeField] float _penSize;
+    [SerializeField] float _deleteSize;
+
+    [SerializeField] Color _drawingColor;
+
     [SerializeField] private Camera MainCamera;
     [SerializeField] private RawImage _image;
     [SerializeField] private Transform _bottomLeft;
     [SerializeField] private Transform _topRight;
     [SerializeField] private Texture2D baseTexture;
+    [SerializeField] private Transform _pointer;
     private Texture2D _texture;
+
+    bool _isDelete;
+
     
     private Vector3 _intersection;
     private Vector3 _diagonal;
@@ -18,14 +29,21 @@ public class DrawScript : MonoBehaviour
 
     private void Start()
     {
-        _diagonal = _topRight.position - _bottomLeft.position;
-        print("STARGTEDDDDDDDD");
-        print("JFDGJGFS   " + _diagonal);
-        print("STARGTEDDDDDDDD");
-        Texture2D newTexture = new Texture2D(baseTexture.width, baseTexture.height, TextureFormat.RGBA32, false);
+        RectTransform rt = _image.GetComponent<RectTransform>();
+        _topRight.localPosition = new(rt.rect.width / 2f, rt.rect.height / 2f);
+        _bottomLeft.localPosition = new(-rt.rect.width / 2f, -rt.rect.height / 2f);
+
+        _diagonal = _topRight.localPosition - _bottomLeft.localPosition;
+        Texture2D newTexture = new Texture2D(drawSizeX, drawSizeY, TextureFormat.RGBA32, false);
         newTexture.filterMode = FilterMode.Point;
 
-        newTexture.SetPixels(baseTexture.GetPixels());
+        List<Color> cols = new();
+        for (int i = 0; i < drawSizeX * drawSizeY; i++)
+        {
+            cols.Add(Color.clear);
+        }
+
+        newTexture.SetPixels(cols.ToArray());
         newTexture.Apply();
 
         _texture = newTexture;
@@ -43,6 +61,12 @@ public class DrawScript : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             _isDrawing = true;
+            _isDelete = false;
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            _isDrawing = true;
+            _isDelete = true;
         }
         else
         {
@@ -59,26 +83,44 @@ public class DrawScript : MonoBehaviour
                     _image.transform.position,
                     _image.transform.forward))
             {
-                SetTexture(Color.white, _intersection);
+                SetTexture(_isDelete ? Color.clear : _drawingColor, _intersection, _isDelete ? _deleteSize : _penSize);
             }
         }
     }
 
-    private void SetTexture(Color color, Vector3 position)
+    private void SetTexture(Color color, Vector3 position, float size)
     {
-        Vector3 ToPos = position - _bottomLeft.position;
-        float x = _bottomLeft.up.x;
+        _pointer.position = position;
+
+        Vector3 ToPos = _pointer.localPosition - _bottomLeft.localPosition;
+
+        float x = ToPos.x / _diagonal.x;
         float  y = ToPos.y/ _diagonal.y;
-        print(_diagonal);
 
         if (x <= 1 && y <= 1)
         {
+            (int x, int y) centerPixel = (Mathf.RoundToInt(x * _texture.width - .5f), Mathf.RoundToInt(y * _texture.height - .5f));
 
-            Debug.Log("x : " + x + " y : " + y);
-            Debug.Log("diagx : " + _diagonal.x + " diagy : " + _diagonal.y);
-            Debug.Log("posx : " + ToPos.x + " posy : " + ToPos.y);
-            Debug.Log("diag" + _diagonal.x.ToString());
-            _texture.SetPixel(Mathf.RoundToInt(x*_texture.width),Mathf.RoundToInt(y*_texture.height),color);
+            int ceiledSize = Mathf.CeilToInt(size);
+
+            int left = Mathf.Max(centerPixel.x - ceiledSize, 0);
+            int right = Mathf.Min(centerPixel.x + ceiledSize, drawSizeX - 1);
+            int bot = Mathf.Max(centerPixel.y - ceiledSize, 0);
+            int top = Mathf.Min(centerPixel.y + ceiledSize, drawSizeY - 1);
+
+            for (int i = left; i <= right; i++)
+            {
+                for (int j = bot; j <= top; j++)
+                {
+                    if(Vector2.Distance(new(i, j), new(x * _texture.width, y * _texture.height)) <= size)
+                    {
+                        _texture.SetPixel(i, j, color);
+                    }
+                }
+            }
+
+
+            
             _texture.Apply();
             _image.texture = _texture;
         }
