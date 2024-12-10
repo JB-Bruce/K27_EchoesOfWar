@@ -26,6 +26,7 @@ public class LightsManager : MonoBehaviour
         foreach (var al in _alarmLights)
         {
             al.color = _alarmColor;
+            al.enabled = false;
         }
     }
 
@@ -57,7 +58,7 @@ public class LightsManager : MonoBehaviour
     {
         foreach (var al in _alarmLights)
         {
-            al.gameObject.SetActive(isOn);
+            al.enabled = isOn;
         }
     }
 

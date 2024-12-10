@@ -31,7 +31,8 @@ public class ElectricityManager : MonoBehaviour
     {
         foreach (var electricityComponent in _electricityComponents)
         {
-            _shutDownActions.Add(isOn => electricityComponent.enabled = isOn );
+            IElectricity electricity = (IElectricity)electricityComponent;
+            _shutDownActions.Add(isOn => electricity.Electricity(isOn) );
         }
 
         foreach (var electricityObject in _electricityObjects)
@@ -51,7 +52,6 @@ public class ElectricityManager : MonoBehaviour
         if (_canShutDown)
         {
             _canShutDown = false;
-            _electricityMode = ElectricityMode.Stopping;
             StartCoroutine(TryShutDownElectricity());
         }
 
@@ -85,7 +85,7 @@ public class ElectricityManager : MonoBehaviour
 
     private IEnumerator ProgressivelyElectricityOnOff(bool isOn)
     {
-        List<Action<bool>> shutDownActions = new List<Action<bool>>();
+        List<Action<bool>> shutDownActions = new List<Action<bool>>(_shutDownActions);
         shutDownActions = shutDownActions.OrderBy(_ => Random.value).ToList();
 
         while (shutDownActions.Count > 0)
@@ -116,6 +116,7 @@ public class ElectricityManager : MonoBehaviour
         
         _isWaitingForShutDown = false;
         _canShutDown = true;
+        _electricityMode = ElectricityMode.Stopping;
     }
 
     private IEnumerator TryShutDownElectricity()
@@ -129,6 +130,6 @@ public class ElectricityManager : MonoBehaviour
         }
 
         _electricityMode = ElectricityMode.Off;
-        UpdateElectricityMode(ElectricityMode.Off);
+        UpdateElectricityMode(_electricityMode);
     }
 }

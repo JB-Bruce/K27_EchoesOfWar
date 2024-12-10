@@ -11,6 +11,8 @@ public class SubmarineBody : MonoBehaviour
     [Header("Water")]
     [SerializeField] private float _waterDrag = 2f;
     [SerializeField] private float _waterRotationDrag = 2f;
+    [SerializeField] WaterStream waterStream;
+    [SerializeField] Transform arrow;
     
     private float _thrustPower = 0f;
     private float _rotationPower = 0f;
@@ -18,15 +20,12 @@ public class SubmarineBody : MonoBehaviour
     
     private float _actualRotation = 0f;
     
-    [SerializeField] private Vector2 _position;
+    private Vector2 _position;
     private Vector2 _previousPosition = Vector2.zero;
     private Vector2 _direction = Vector2.up;
     private Vector2 _velocity = Vector2.zero;
     private Vector2 _acceleration = Vector2.zero;
     private Vector2 _drag = Vector2.zero;
-
-    [SerializeField] WaterStream waterStream;
-    [SerializeField] Transform arrow;
 
 
     public void Tick()

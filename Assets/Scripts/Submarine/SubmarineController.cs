@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class SubmarineController : MonoBehaviour
+public class SubmarineController : MonoBehaviour, IElectricity
 {
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private MapManager _mapManager;
@@ -15,9 +15,11 @@ public class SubmarineController : MonoBehaviour
     [SerializeField] private SubmarineButton _submarineZoomInButton;
     [SerializeField] private SubmarineButton _submarineZoomOutButton;
 
+    [Header("Props")]
     [SerializeField] private Transform _submarineCompas;
     [SerializeField] private TextMeshProUGUI _submarineSpeedometer;
 
+    [Header("Detection")]
     [SerializeField] private float _collisionArea;
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
@@ -35,6 +37,8 @@ public class SubmarineController : MonoBehaviour
         _mapManager.InitArea("Collision",      _collisionArea,     Shape.FilledCircle, _submarineBody.OnCollision);
         //_mapManager.InitArea("Near Detection", _nearDetectionArea, Shape.Circle,       () => {});
         _mapManager.InitArea("Far Detection",  _farDetectionArea,  Shape.Circle,       () => {});
+
+        hasElectricity = true;
     }
 
     public void SetControls(bool isActive)
@@ -51,11 +55,16 @@ public class SubmarineController : MonoBehaviour
 
     private void Update()
     {
+        if (!hasElectricity)
+        {
+            
+        }
         _sonar.SetSubmarinePosition(_submarineBody.Position);
         _mapManager.SetSubPos(_submarineBody.Position);
         
         _mapManager.Tick();
         _submarineBody.Tick();
+        
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) <= _goalThreshold && !_inGoalRange )
         {
             Debug.Log("Goal reached");
@@ -74,12 +83,12 @@ public class SubmarineController : MonoBehaviour
     public void SetMovement(float direction)
     {
         _thrusterLever.SetMovement(direction);
-        _submarineBody.SetThrust(_thrusterLever.GetRealThrust());
+        _submarineBody.SetThrust(hasElectricity ? _thrusterLever.GetRealThrust() : 0);
     }
 
     public void SetRotation(float angle)
     {
-        _submarineBody.SetRotation(angle);
+        _submarineBody.SetRotation(hasElectricity ? angle : 0);
     }
 
     private void Rotate()
@@ -88,8 +97,28 @@ public class SubmarineController : MonoBehaviour
         //_submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
         //_submarineBody.AddRotation(direction);
         _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
-        _sonar.transform.GetChild(0).GetChild(0).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
+        _sonar.transform.GetChild(0).GetChild(1).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
         _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";
+    }
+
+    public bool hasElectricity { get; set; }
+
+    public void Electricity(bool hasElectricity)
+    {
+        if (hasElectricity)
+            EnableElectricity();
+        else 
+            DisableElectricity();
+    }
+
+    public void EnableElectricity()
+    {
+        hasElectricity = true;
+    }
+
+    public void DisableElectricity()
+    {
+        hasElectricity = false;
     }
 }
