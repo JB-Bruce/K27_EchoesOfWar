@@ -5,6 +5,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
 {
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private MapManager _mapManager;
+    [SerializeField] private LightsManager _lightsManager;
     
     [Header("Submarine Movement")]
     [SerializeField] private ThrusterLever _thrusterLever;
@@ -20,10 +21,12 @@ public class SubmarineController : MonoBehaviour, IElectricity
     [SerializeField] private TextMeshProUGUI _submarineSpeedometer;
 
     [Header("Detection")]
+    [SerializeField] private SubmarineButton _submarineDetectionButton;
     [SerializeField] private float _collisionArea;
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
     [SerializeField] private float _goalThreshold;
+    private bool _isAlarmActivated = false;
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -32,11 +35,13 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         _submarineZoomInButton.OnButtonPressed.AddListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
+        _submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
+        
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
-        _mapManager.InitArea("Collision",      _collisionArea,     Shape.FilledCircle, _submarineBody.OnCollision);
-        //_mapManager.InitArea("Near Detection", _nearDetectionArea, Shape.Circle,       () => {});
-        _mapManager.InitArea("Far Detection",  _farDetectionArea,  Shape.Circle,       () => {});
+        
+        _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnCollision);
+        _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnFarDetection);
 
         hasElectricity = true;
     }
@@ -51,14 +56,11 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         _submarineZoomInButton.OnButtonPressed.RemoveListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.RemoveListener(_sonar.ZoomOut);
+        _submarineDetectionButton.OnButtonPressed.RemoveListener(SwitchAlarmOnOff);
     }
 
     private void Update()
     {
-        if (!hasElectricity)
-        {
-            
-        }
         _sonar.SetSubmarinePosition(_submarineBody.Position);
         _mapManager.SetSubPos(_submarineBody.Position);
         
@@ -100,6 +102,23 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _sonar.transform.GetChild(0).GetChild(1).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
         _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";
+    }
+
+    private void SwitchAlarmOnOff()
+    {
+        _isAlarmActivated = !_isAlarmActivated;
+    }
+
+    private void OnCollision()
+    {
+        _submarineBody.OnCollision();
+        _lightsManager.Alarm("OnCollision", true, true);
+    }
+
+    private void OnFarDetection()
+    {
+        if (_isAlarmActivated)
+            _lightsManager.Alarm("OnFarDetection", true, true);
     }
 
     public bool hasElectricity { get; set; }
