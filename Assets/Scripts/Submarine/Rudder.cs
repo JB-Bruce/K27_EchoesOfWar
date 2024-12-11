@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
@@ -26,9 +27,13 @@ public class Rudder : MonoBehaviour, IFinishedInteractable
         _rotation = _transform.localEulerAngles;
         
         _outline = GetComponent<Outline>();
-        _outline.enabled = false;
+        _outline.enabled = true;
     }
 
+    private void Start()
+    {
+        StartCoroutine(((IInteractable)this).DeactivateOutline());
+    }
 
     public void SetRotation(float direction)
     {

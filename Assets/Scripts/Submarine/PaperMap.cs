@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PaperMap : MonoBehaviour, IFinishedInteractable
@@ -22,9 +23,13 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
     private void Awake()
     {
         _outline = GetComponent<Outline>();
-        _outline.enabled = false;
+        _outline.enabled = true;
     }
 
+    private void Start()
+    {
+        StartCoroutine(((IInteractable)this).DeactivateOutline());
+    }
     public void Interact()
     {
         if (isInteracted)
