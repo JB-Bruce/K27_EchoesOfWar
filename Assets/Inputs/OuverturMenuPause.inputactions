@@ -1,0 +1,34 @@
+{
+    "name": "OuverturMenuPause",
+    "maps": [
+        {
+            "name": "MenuPause",
+            "id": "e24558e3-4389-4435-89f3-4076ea8608fa",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "4c1c30db-072e-4717-b949-df9c4d763ead",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "98431e03-3beb-484a-8dcd-a86e84f5474a",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
