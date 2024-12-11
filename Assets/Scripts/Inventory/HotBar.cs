@@ -8,6 +8,7 @@ public class HotBar : MonoBehaviour
 {
 
     [SerializeField] private Transform _player;
+    [SerializeField] private MeshFilter _SelectedItemRenderer;
     [SerializeField] private Image _selector;
     [SerializeField] private GameObject _ItemSlot;
     [SerializeField] private int _inventorySize;
@@ -15,8 +16,13 @@ public class HotBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _SelectedItemNameDisplay;
     private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
-    public int _selectedItem;
+    private int _selectedItem;
+
     
+    public Item GetSelectedItem()
+    {
+        return _items[_selectedItem];
+    }
     
     /// <summary>
     ///  Function that allow the player to drop the selected item from the inventory
@@ -78,6 +84,7 @@ public class HotBar : MonoBehaviour
             _selector.transform.SetParent(_itemDisplays[_selectedItem].transform);
             _selector.transform.localPosition = Vector2.zero;
             _selector.color = _selectorColor ;
+            _SelectedItemRenderer.mesh = _items[_selectedItem]._sprite3D;
             _SelectedItemNameDisplay.text = _items[_selectedItem].name;
         }
     }

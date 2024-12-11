@@ -6,5 +6,5 @@ public class Item : ScriptableObject
     public GameObject _prefab;
     public string _name; 
     public Sprite _sprite2D;
-    public Sprite  _sprite3D;
+    public Mesh  _sprite3D;
 }
