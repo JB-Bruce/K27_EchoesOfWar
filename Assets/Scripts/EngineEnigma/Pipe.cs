@@ -1,14 +1,17 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Rendering;
 
 public class Pipe : MonoBehaviour, IInteractable
 {
-    [SerializeField] private int _index = 0;
-    [SerializeField] private int _correctIndex;
-    [SerializeField] private bool _caseNeeded;
+    [SerializeField] private int _currentIndex = 0;
     private Transform _transform;
     private string _name;
     private Outline _outline;
+    private readonly UnityEvent _onPipePressed = new();
+
+    public int CorrectIndex;
 
 
     private void Awake()
@@ -17,24 +20,38 @@ public class Pipe : MonoBehaviour, IInteractable
         _outline = GetComponent<Outline>();
         _name = gameObject.name;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void OnEnable()
+    {
+        _currentIndex = Random.Range(0, 4);
+    }
+
     void Start()
     {
         StartCoroutine(((IInteractable)this).DeactivateOutline());
     }
-
+    private void Update()
+    {
+        if (_currentIndex == CorrectIndex)
+        {
+            GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+    }
     public void Interact()
     {
-        if (_index < 3)
+        if (_currentIndex < 4)
         {
-            _index++;
+            _currentIndex++;
         } else
         {
-            _index = 0;
+            _currentIndex = 0;
         }
-        _transform.eulerAngles += new Vector3(90, 0, 0);
+        _transform.Rotate(0, 0, 90);
+        _onPipePressed.Invoke();
     }
 
     public Outline outline => _outline;
     public string interactableName => _name;
+    public bool IsCorrect => CorrectIndex == _currentIndex;
+    public UnityEvent OnPipePressed => _onPipePressed;
 }
