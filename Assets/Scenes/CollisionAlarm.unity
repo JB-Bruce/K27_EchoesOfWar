@@ -3754,6 +3754,7 @@ MonoBehaviour:
   GoalPoints:
   - {x: 1500, y: 1500}
   accessibleColor: {r: 0, g: 0, b: 0, a: 1}
+  _minTimeBeforeLeave: 0.3
 --- !u!1 &1706428248
 GameObject:
   m_ObjectHideFlags: 0
@@ -5232,6 +5233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _submarineBody: {fileID: 462691832}
   _mapManager: {fileID: 1694712358}
+  _lightsManager: {fileID: 855896842}
   _thrusterLever: {fileID: 8897240366188993042}
   _rudder: {fileID: 7833249856167809769}
   _sonar: {fileID: 450591658}

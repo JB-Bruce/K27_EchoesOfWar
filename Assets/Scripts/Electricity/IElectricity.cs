@@ -2,7 +2,7 @@
 {
     bool hasElectricity { get; set; }
     
-    void Electricity(bool hasElectricity);
+    void Electricity(bool HasElectricity);
 
     void EnableElectricity();
     void DisableElectricity();

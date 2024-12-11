@@ -26,7 +26,11 @@ public class MapManager : MonoBehaviour
 
     List<Vector2Int> lastPaintedSquares = new();
 
-    Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
+    //Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
+    Dictionary<string, (List<Vector2Int> list, Color color, UnityAction enter, UnityAction exit)> circles = new();
+
+    private readonly Dictionary<string, float> _eventsTriggered = new();
+    [SerializeField] private float _minTimeBeforeLeave = 0.3f;
 
 
     public Vector2 GetSpawnPoint()
@@ -99,7 +103,19 @@ public class MapManager : MonoBehaviour
 
             if (triggered)
             {
-                i.Value.action?.Invoke();
+                i.Value.enter?.Invoke();
+                _eventsTriggered.TryAdd(i.Key, Time.time);
+            }
+            else
+            {
+                if (!_eventsTriggered.TryGetValue(i.Key, out var timeTriggered)) 
+                    continue;
+
+                if (Time.time - timeTriggered < _minTimeBeforeLeave)
+                    continue;
+                
+                _eventsTriggered.Remove(i.Key);
+                i.Value.exit?.Invoke();
             }
         }
 
@@ -133,7 +149,7 @@ public class MapManager : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    public void InitArea(string areaName, float size, Shape shape, UnityAction collisionDetection)
+    public void InitArea(string areaName, float size, Shape shape, UnityAction OnAreaEnter, UnityAction OnAreaExit)
     {
         Func<float, List<Vector2Int>> shapeCreation = GetCircle;
 
@@ -147,7 +163,7 @@ public class MapManager : MonoBehaviour
                 break;
         }
 
-        circles.Add(areaName, (shapeCreation(size), sonarColor, collisionDetection));
+        circles.Add(areaName, (shapeCreation(size), sonarColor, OnAreaEnter, OnAreaExit));
     }
 
 
