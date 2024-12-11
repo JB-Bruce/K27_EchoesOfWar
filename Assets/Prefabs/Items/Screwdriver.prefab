@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1520987518520630924}
   - component: {fileID: 6648980149587937209}
   m_Layer: 0
-  m_Name: Crowbar
+  m_Name: Screwdriver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9da5bf62bf9f49be2c5f6fcd35688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOItem: {fileID: 11400000, guid: 7ab024fddf648ca4fabad494ff29b9de, type: 2}
+  _SOItem: {fileID: 11400000, guid: 3d745dd14e924d440bb5d3102e23c828, type: 2}
   _hotBar: {fileID: 0}
   _outline: {fileID: 6648980149587937209}
 --- !u!114 &6648980149587937209

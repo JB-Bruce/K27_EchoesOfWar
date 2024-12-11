@@ -5,8 +5,11 @@ public class ItemScript : MonoBehaviour,IInteractable
     
     public Item _SOItem;
     public HotBar _hotBar;
-
-    void interact()
+    [SerializeField] Outline _outline;
+    public Outline outline => _outline;
+    public string interactableName => _SOItem.name;
+    
+    public void Interact()
     {
         if (_hotBar.AddItemToHotBar(_SOItem))
         {
@@ -14,6 +17,9 @@ public class ItemScript : MonoBehaviour,IInteractable
         }
     }
     
-    public string interactableName { get; }
-    public Outline outline { get; }
+    private void Awake()
+    {
+        _outline = GetComponent<Outline>();
+        _outline.enabled = false;
+    }
 }

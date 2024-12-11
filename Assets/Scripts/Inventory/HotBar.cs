@@ -23,12 +23,9 @@ public class HotBar : MonoBehaviour
     {
         if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
         { 
-            if(RemoveItemFromHotBar(_items[_selectedItem]))
-            {
-                GameObject item = _items[_selectedItem]._prefab;
-                item.GetComponent<ItemScript>()._hotBar = this;
-                Instantiate(item,_player.position+_player.forward,Quaternion.identity); 
-            }
+            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+_player.forward,Quaternion.identity);
+            item.GetComponent<ItemScript>()._hotBar = this;
+            RemoveItemFromHotBar(_items[_selectedItem]);
         }
     }
     
