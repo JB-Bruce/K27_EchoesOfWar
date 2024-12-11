@@ -26,7 +26,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
     [SerializeField] private float _goalThreshold;
-    private bool _isAlarmActivated = false;
+    private bool _isAlarmActivated = true;
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -40,8 +40,8 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
         
-        _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnCollision);
-        _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnFarDetection);
+        _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnSubmarineCollisionEnter,    OnSubmarineCollisionExit);
+        _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnSubmarineFarDetectionEnter, OnSubmarineFarDetectionExit);
 
         hasElectricity = true;
     }
@@ -109,23 +109,37 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _isAlarmActivated = !_isAlarmActivated;
     }
 
-    private void OnCollision()
+    private void OnSubmarineCollisionEnter()
     {
         _submarineBody.OnCollision();
-        _lightsManager.Alarm("OnCollision", true, true);
+        
+        if (_isAlarmActivated)
+            _lightsManager.Alarm("OnCollision", true, true);
     }
 
-    private void OnFarDetection()
+    private void OnSubmarineCollisionExit()
+    {
+        if (_isAlarmActivated)
+            _lightsManager.Alarm("OnCollision", false, true);
+    }
+
+    private void OnSubmarineFarDetectionEnter()
     {
         if (_isAlarmActivated)
             _lightsManager.Alarm("OnFarDetection", true, true);
     }
+    
+    private void OnSubmarineFarDetectionExit()
+    {
+        if (_isAlarmActivated)
+            _lightsManager.Alarm("OnFarDetection", false, true);
+    }
 
     public bool hasElectricity { get; set; }
 
-    public void Electricity(bool hasElectricity)
+    public void Electricity(bool HasElectricity)
     {
-        if (hasElectricity)
+        if (HasElectricity)
             EnableElectricity();
         else 
             DisableElectricity();

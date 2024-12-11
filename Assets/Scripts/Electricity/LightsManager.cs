@@ -109,7 +109,8 @@ public class LightsManager : MonoBehaviour
     {
         if (isOn)
         {
-            _alarmTriggers.Add(trigger);
+            if (!_alarmTriggers.Contains(trigger))
+                _alarmTriggers.Add(trigger);
             
             if (instantly)
                 AlarmInstantly(true);
