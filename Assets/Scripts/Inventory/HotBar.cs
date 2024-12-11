@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,9 +12,10 @@ public class HotBar : MonoBehaviour
     [SerializeField] private GameObject _ItemSlot;
     [SerializeField] private int _inventorySize;
     [SerializeField] private Color _selectorColor;
+    [SerializeField] private TextMeshProUGUI _SelectedItemNameDisplay;
     private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
-    private int _selectedItem;
+    public int _selectedItem;
     
     
     /// <summary>
@@ -76,6 +78,7 @@ public class HotBar : MonoBehaviour
             _selector.transform.SetParent(_itemDisplays[_selectedItem].transform);
             _selector.transform.localPosition = Vector2.zero;
             _selector.color = _selectorColor ;
+            _SelectedItemNameDisplay.text = _items[_selectedItem].name;
         }
     }
     
@@ -125,7 +128,7 @@ public class HotBar : MonoBehaviour
     {
         for(int i = 0; i < _items.Count; i++)
         {
-            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite;
+            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite2D;
             _itemDisplays[i].GetComponent<Image>().color = Color.white;
         }
         
