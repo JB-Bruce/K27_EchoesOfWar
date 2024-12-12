@@ -36,7 +36,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         _submarineZoomInButton.OnButtonPressed.AddListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
-        //_submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
+        _submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
         
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
