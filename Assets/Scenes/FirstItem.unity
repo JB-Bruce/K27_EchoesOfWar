@@ -4095,6 +4095,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1723546484}
     - target: {fileID: 7298703783394701600, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
+      propertyPath: _ThrowStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7298703783394701600, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
       propertyPath: _inventorySize
       value: 6
       objectReference: {fileID: 0}

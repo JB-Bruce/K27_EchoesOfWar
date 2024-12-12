@@ -14,6 +14,7 @@ public class HotBar : MonoBehaviour
     [SerializeField] private int _inventorySize;
     [SerializeField] private Color _selectorColor;
     [SerializeField] private TextMeshProUGUI _SelectedItemNameDisplay;
+    [SerializeField] private float _ThrowStrength;
     private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
     private int _selectedItem;
@@ -31,8 +32,9 @@ public class HotBar : MonoBehaviour
     {
         if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
         { 
-            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+_player.forward,Quaternion.identity);
+            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward,Quaternion.identity);
             item.GetComponent<ItemScript>()._hotBar = this;
+            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward*_ThrowStrength);
             RemoveItemFromHotBar(_items[_selectedItem]);
         }
     }
@@ -78,6 +80,7 @@ public class HotBar : MonoBehaviour
         if (_items.Count == 0)
         {
             _selector.color = Color.clear;
+            _SelectedItemNameDisplay.text = "";
         }
         else
         {
