@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private Transform _target;
     
     public Vector2 _mouseDelta { get; private set; }// Used in the PlayerCamera
+
     
     [SerializeField] private HotBar _hotBar;
     

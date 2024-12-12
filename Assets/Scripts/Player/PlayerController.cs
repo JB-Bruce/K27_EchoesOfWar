@@ -10,6 +10,7 @@ public class PlayerController : Singleton<PlayerController>
     [Header("Submarine")]
     [SerializeField] private SubmarineController _submarineController;
 
+
     private bool _movePlayer = true;
     private bool _canMove = true;
     private bool _canLookAround = true;

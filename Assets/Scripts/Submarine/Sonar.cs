@@ -19,6 +19,7 @@ public class Sonar : MonoBehaviour
 
     private Vector2 _submarinePosition;
 
+
     private void Start()
     {
         rawImage.texture = texture;

@@ -55,6 +55,7 @@ public class CameraScript : MonoBehaviour
         cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, target.rotation, Time.deltaTime*_rotationSpeed);
     }
 
+
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;

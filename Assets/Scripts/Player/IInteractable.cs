@@ -12,6 +12,7 @@ public interface IInteractable
         } 
     }
 
+
     public IEnumerator DeactivateOutline()
     {
         yield return new WaitForSeconds(0.1f);
