@@ -13,6 +13,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     
     [Header("Sonar")]
     [SerializeField] private Sonar _sonar;
+    [SerializeField] private GameObject _sonarScreenOn;
     [SerializeField] private SubmarineButton _submarineZoomInButton;
     [SerializeField] private SubmarineButton _submarineZoomOutButton;
 
@@ -35,7 +36,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         _submarineZoomInButton.OnButtonPressed.AddListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
-        _submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
+        //_submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
         
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
@@ -97,7 +98,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         _rudder.SetRotation(-_submarineBody.Angle);
         _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
-        _sonar.transform.GetChild(0).GetChild(1).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
+        _sonarScreenOn.transform.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
         _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";
     }
