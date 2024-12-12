@@ -4792,6 +4792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeMenu: {fileID: 133552658}
+  _fermePanel: {fileID: 634310110}
 --- !u!4 &1642596235
 Transform:
   m_ObjectHideFlags: 0

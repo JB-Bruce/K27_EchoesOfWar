@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 public class MenuPause : MonoBehaviour
 {
     public GameObject _activeMenu;
+    public GameObject _fermePanel;
      public void Pause(InputAction.CallbackContext context)
     {
         if (context.performed )
@@ -14,6 +15,7 @@ public class MenuPause : MonoBehaviour
             }
             if (!_activeMenu.activeSelf )
             {
+                 _fermePanel.SetActive(false);
                 Time.timeScale=1;
             }
             
