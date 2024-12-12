@@ -14,12 +14,8 @@ public class CameraScript : MonoBehaviour
 
     private void Start()
     {
-        cameraTransform = transform;
-    }
-
-    private void Start()
-    {
         ResetTarget();
+        cameraTransform = transform;
     }
 
     /// <summary>
