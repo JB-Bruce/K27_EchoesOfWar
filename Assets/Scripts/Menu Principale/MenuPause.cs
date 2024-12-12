@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 public class MenuPause : MonoBehaviour
 {
     public GameObject _activeMenu;
@@ -11,6 +12,7 @@ public class MenuPause : MonoBehaviour
             _activeMenu.SetActive(!_activeMenu.activeSelf);
             if (_activeMenu.activeSelf )
             {
+                Cursor.lockState=CursorLockMode.None;
                 
                 Time.timeScale=0;
             }
@@ -18,6 +20,7 @@ public class MenuPause : MonoBehaviour
             {
                  _fermePanel.SetActive(false);
                 Time.timeScale=1;
+                Cursor.lockState=CursorLockMode.Locked;
                 
             }
             

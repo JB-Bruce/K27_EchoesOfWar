@@ -9,6 +9,7 @@ public class Retour : MonoBehaviour
         
             _fermeMenu.SetActive(false);
             Time.timeScale=1;
+            Cursor.lockState=CursorLockMode.Locked;
             
         
     }
