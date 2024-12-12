@@ -4756,7 +4756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _submarineBody: {fileID: 462691832}
   _mapManager: {fileID: 1694712358}
-  _lightsManager: {fileID: 0}
+  _lightsManager: {fileID: 855896842}
   _thrusterLever: {fileID: 8897240366188993042}
   _rudder: {fileID: 7833249856167809769}
   _sonar: {fileID: 450591658}

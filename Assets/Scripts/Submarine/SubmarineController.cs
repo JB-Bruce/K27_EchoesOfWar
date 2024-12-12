@@ -90,14 +90,12 @@ public class SubmarineController : MonoBehaviour, IElectricity
 
     public void SetRotation(float angle)
     {
-        _submarineBody.SetRotation(hasElectricity ? angle : 0);
+        _submarineBody.SetRotation(angle);
     }
 
     private void Rotate()
     {
         _rudder.SetRotation(-_submarineBody.Angle);
-        //_submarineBody.Rotate(_rudder.Angle * Time.deltaTime);
-        //_submarineBody.AddRotation(direction);
         _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         _sonar.transform.GetChild(0).GetChild(1).localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
@@ -137,7 +135,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
 
     public bool hasElectricity { get; set; }
 
-    public void Electricity(bool HasElectricity)
+    public void SwitchElectricity(bool HasElectricity)
     {
         if (HasElectricity)
             EnableElectricity();
