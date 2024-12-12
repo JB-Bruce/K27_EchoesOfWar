@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,7 +14,12 @@ public class SubmarineButton : MonoBehaviour, IInteractable
     private void Awake()
     {
         _outline = GetComponent<Outline>();
-        _outline.enabled = false;
+        _outline.enabled = true;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(((IInteractable)this).DeactivateOutline());
     }
 
     public void Interact()
@@ -21,7 +27,7 @@ public class SubmarineButton : MonoBehaviour, IInteractable
         _onButtonPressed.Invoke();
         _animator.Play("Pressed", -1, 0f);
     }
-    
+
     public UnityEvent OnButtonPressed => _onButtonPressed;
     public Outline outline => _outline;
 

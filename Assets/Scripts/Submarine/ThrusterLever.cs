@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
@@ -36,11 +37,14 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         ResetThrust();
 
         _outline = GetComponent<Outline>();
-        _outline.enabled = false;
+        _outline.enabled = true;
 
         SetThrusterPosition();
     }
-
+    private void Start()
+    {
+        StartCoroutine(((IInteractable)this).DeactivateOutline());
+    }
     private void Update()
     {
         Move();

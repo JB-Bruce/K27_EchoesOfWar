@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public interface IInteractable
 {
@@ -9,6 +10,12 @@ public interface IInteractable
         {
             outline.enabled = Bool;
         } 
+    }
+
+    public IEnumerator DeactivateOutline()
+    {
+        yield return new WaitForSeconds(0.1f);
+        outline.enabled = false;
     }
 
     void Interact() {}
