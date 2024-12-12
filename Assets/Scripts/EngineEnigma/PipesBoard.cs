@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.Controls;
 
 public class PipesBoard : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PipesBoard : MonoBehaviour
 
     [Header("Indicator Positions")]
     [SerializeField] private Transform _indicator;
-    [SerializeField] private List<Transform> _transformsIndicator;
+    private Vector3 _indicatorOffset;
 
     private readonly UnityEvent _onPipesResolved = new();
     private readonly UnityEvent _onValvesResolved = new();
@@ -28,6 +29,7 @@ public class PipesBoard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _indicatorOffset = _indicator.position - _valves[0].transform.position;
 
         foreach (var pipe in _pipesNeeded)
         {
@@ -87,7 +89,7 @@ public class PipesBoard : MonoBehaviour
         _selectedValveIndex += isRight ? 1 : -1;
         _selectedValveIndex = (_selectedValveIndex + _valves.Count) % _valves.Count;
 
-        _indicator.position = _transformsIndicator[_selectedValveIndex].position;
+        _indicator.position = _valves[_selectedValveIndex].transform.position + _indicatorOffset;
     }
 
 
