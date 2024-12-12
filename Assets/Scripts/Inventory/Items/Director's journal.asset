@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb136da83ad2db4099d720463a47ac9, type: 3}
+  m_Name: Director's journal
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 2766052924989560096, guid: 5c1e0407e23e95445b92858a8825e380, type: 3}
+  _name: Director's journal
+  _sprite2D: {fileID: 0}
+  _sprite3D: {fileID: 0}

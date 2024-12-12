@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,14 +8,22 @@ public class HotBar : MonoBehaviour
 {
 
     [SerializeField] private Transform _player;
+    [SerializeField] private MeshFilter _SelectedItemRenderer;
     [SerializeField] private Image _selector;
     [SerializeField] private GameObject _ItemSlot;
     [SerializeField] private int _inventorySize;
     [SerializeField] private Color _selectorColor;
+    [SerializeField] private TextMeshProUGUI _SelectedItemNameDisplay;
+    [SerializeField] private float _ThrowStrength;
     private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
     private int _selectedItem;
+
     
+    public Item GetSelectedItem()
+    {
+        return _items[_selectedItem];
+    }
     
     /// <summary>
     ///  Function that allow the player to drop the selected item from the inventory
@@ -23,8 +32,10 @@ public class HotBar : MonoBehaviour
     {
         if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
         { 
-            Instantiate(_items[_selectedItem]._prefab,_player.position+_player.forward,Quaternion.identity); 
-            RemoveItemFromHotBar(_items[_selectedItem]); 
+            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward,Quaternion.identity);
+            item.GetComponent<ItemScript>()._hotBar = this;
+            item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward*_ThrowStrength);
+            RemoveItemFromHotBar(_items[_selectedItem]);
         }
     }
     
@@ -69,12 +80,15 @@ public class HotBar : MonoBehaviour
         if (_items.Count == 0)
         {
             _selector.color = Color.clear;
+            _SelectedItemNameDisplay.text = "";
         }
         else
         {
             _selector.transform.SetParent(_itemDisplays[_selectedItem].transform);
             _selector.transform.localPosition = Vector2.zero;
             _selector.color = _selectorColor ;
+            _SelectedItemRenderer.mesh = _items[_selectedItem]._sprite3D;
+            _SelectedItemNameDisplay.text = _items[_selectedItem].name;
         }
     }
     
@@ -124,7 +138,7 @@ public class HotBar : MonoBehaviour
     {
         for(int i = 0; i < _items.Count; i++)
         {
-            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite;
+            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite2D;
             _itemDisplays[i].GetComponent<Image>().color = Color.white;
         }
         
