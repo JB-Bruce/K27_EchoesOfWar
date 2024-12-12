@@ -32,16 +32,21 @@ public class Pipe : MonoBehaviour, IInteractable
         if (_currentIndex == CorrectIndex)
         {
             GetComponent<MeshRenderer>().material.color = Color.red;
+        } else
+        {
+            GetComponent<MeshRenderer>().material.color = Color.white;
         }
     }
     public void Interact()
     {
-        if (_currentIndex < 4)
+        if (_currentIndex < 3)
         {
             _currentIndex++;
+            Debug.Log(_currentIndex);
         } else
         {
             _currentIndex = 0;
+            Debug.Log(_currentIndex);
         }
         _transform.Rotate(0, 0, 90);
         _onPipePressed.Invoke();
