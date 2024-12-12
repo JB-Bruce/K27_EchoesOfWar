@@ -19,10 +19,7 @@ public class Pipe : MonoBehaviour, IInteractable
         _transform = GetComponent<Transform>();
         _outline = GetComponent<Outline>();
         _name = gameObject.name;
-    }
 
-    private void OnEnable()
-    {
         _currentIndex = Random.Range(0, 4);
     }
 
