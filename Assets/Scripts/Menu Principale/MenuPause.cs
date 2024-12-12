@@ -11,12 +11,14 @@ public class MenuPause : MonoBehaviour
             _activeMenu.SetActive(!_activeMenu.activeSelf);
             if (_activeMenu.activeSelf )
             {
+                
                 Time.timeScale=0;
             }
             if (!_activeMenu.activeSelf )
             {
                  _fermePanel.SetActive(false);
                 Time.timeScale=1;
+                
             }
             
             
