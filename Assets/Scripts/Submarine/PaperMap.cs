@@ -3,6 +3,7 @@ using UnityEngine;
 public class PaperMap : MonoBehaviour, IFinishedInteractable
 {
     [SerializeField] private Transform target;
+    [SerializeField] private DrawScript drawScript;
 
     [SerializeField] Outline _outline;
     public Outline outline => _outline;
@@ -35,6 +36,9 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
 
         PlayerController.Instance.SetPlayerBlockingInteractable("SubControls", true);
         PlayerController.Instance.SetCameraBlockingInteractables("SubControls", true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        drawScript.enabled = true;
 
         isInteracted = true;
 
@@ -48,7 +52,10 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
     {
         PlayerController.Instance.SetPlayerBlockingInteractable("SubControls", false);
         PlayerController.Instance.SetCameraBlockingInteractables("SubControls", false);
-
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        drawScript.enabled = false;
+        
         isInteracted = false;
 
         if (Camera.main != null)
