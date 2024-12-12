@@ -18,14 +18,11 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
     {
         _outline = GetComponent<Outline>();
         _outline.enabled = false;
-    }
-
-    private void Start()
-    {
+        
         InitSwitch();
     }
 
-    private void InitSwitch()
+    public void InitSwitch()
     {
         _isActive = Random.Range(0, 2) == 1;
         ChangeState();
@@ -57,6 +54,12 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         _isActive = !_isActive;
         
         GetComponent<MeshRenderer>().material.color = _isActive ? _activeColor : _deactiveColor;
+    }
+
+    public void ForceActivateSwitch()
+    {
+        _isActive = false;
+        ChangeState();
     }
     
     public bool IsActive => _isActive;

@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class SwitchBoard : MonoBehaviour
 {
+    [SerializeField] private bool _startAllActivated;
     [SerializeField] private bool _canDiscoverCodeMultipleTimes;
     [SerializeField] private List<SwitchPuzzle> _switchPuzzles = new();
     
@@ -12,6 +13,14 @@ public class SwitchBoard : MonoBehaviour
 
     private void Start()
     {
+        if (_startAllActivated)
+        {
+            foreach (var switchPuzzle in _switchPuzzles)
+            {
+                switchPuzzle.ForceActivateSwitch();
+            }
+        }
+        
         foreach (SwitchPuzzle button in _switchPuzzles)
         {
             button.OnButtonPressed.AddListener(OnSwitchPressed);
@@ -46,6 +55,16 @@ public class SwitchBoard : MonoBehaviour
         }
         
         return true;
+    }
+
+    public void ResetPuzzle()
+    {
+        _isCodeDiscovered = false;
+        
+        foreach (var switchPuzzle in _switchPuzzles)
+        {
+            switchPuzzle.InitSwitch();
+        }
     }
     
     //public UnityEvent OnCodeDiscovered => _onCodeDiscovered;
