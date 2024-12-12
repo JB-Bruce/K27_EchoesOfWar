@@ -18,9 +18,7 @@ public class WaterStream : MonoBehaviour
     [SerializeField] float minForceChangeTime;
     [SerializeField] float maxForceChangeTime;
 
-    public float angle;
-
-    
+    public float angle;   
 
 
     private void Start()

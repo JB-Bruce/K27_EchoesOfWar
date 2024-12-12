@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour
     int width;
     int height;
 
+
     [SerializeField] Color accessibleColor = Color.black;
 
     List<Vector2Int> lastPaintedSquares = new();

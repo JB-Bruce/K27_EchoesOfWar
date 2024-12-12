@@ -56,6 +56,8 @@ public class SubmarineBody : MonoBehaviour
     private void Move()
     {
         float deltaTime = Time.deltaTime;
+        if (deltaTime == 0f)
+            return;
         
         _acceleration.Set(_direction.x * _thrustPower * deltaTime,
                           _direction.y * _thrustPower * deltaTime);

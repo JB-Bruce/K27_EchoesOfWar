@@ -11,6 +11,7 @@ public class PlayerInteractions : MonoBehaviour
 
     [SerializeField] GameObject _interactionCanvas;
 
+
     void Update()
     {
 

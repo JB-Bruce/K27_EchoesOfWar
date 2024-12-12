@@ -12,6 +12,7 @@ public class PlayerCamera : MonoBehaviour
     
     //Transform _transform;
 
+
     public void Tick()
     {
          _yRotation += _playerImput._mouseDelta.x * _sensitivity;// Apply camera rotation on Y axis (left/right)
