@@ -32,7 +32,7 @@ public class ElectricityManager : MonoBehaviour
         foreach (var electricityComponent in _electricityComponents)
         {
             IElectricity electricity = (IElectricity)electricityComponent;
-            _shutDownActions.Add(isOn => electricity.Electricity(isOn) );
+            _shutDownActions.Add(isOn => electricity.SwitchElectricity(isOn));
         }
 
         foreach (var electricityObject in _electricityObjects)
