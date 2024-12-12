@@ -5,19 +5,16 @@ using Random = UnityEngine.Random;
 public class CameraScript : MonoBehaviour
 {
     public Transform target;
-    public Transform playerTarget;
     private Transform cameraTransform;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private float _zoomSpeed = 10f;
 
     IEnumerator CurrentShakeCoroutine;
-
     private void Start()
     {
-        ResetTarget();
         cameraTransform = transform;
     }
-
+    
     /// <summary>
     /// start the coroutine that shake the screen
     /// </summary>
@@ -52,17 +49,6 @@ public class CameraScript : MonoBehaviour
     private void Update()
     {
         cameraTransform.position= Vector3.Lerp(cameraTransform.position, target.position, Time.deltaTime*_zoomSpeed);
-        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation, target.rotation, Time.deltaTime*_rotationSpeed);
-    }
-
-    public void SetTarget(Transform newTarget)
-    {
-        target = newTarget;
-        //transform.parent = target;
-    }
-
-    public void ResetTarget()
-    {
-        SetTarget(playerTarget);
+        cameraTransform.rotation = Quaternion.Slerp(cameraTransform.rotation,target.rotation, Time.deltaTime*_rotationSpeed);
     }
 }
