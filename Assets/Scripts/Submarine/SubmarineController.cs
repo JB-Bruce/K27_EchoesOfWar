@@ -100,7 +100,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _submarineCompas.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         _sonarScreenOn.transform.localRotation = Quaternion.Euler(0, 0, _submarineBody.Angle);
         
-        _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "kn";
+        _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "<size=6>kn";
     }
 
     private void SwitchAlarmOnOff()
