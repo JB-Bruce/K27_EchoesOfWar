@@ -11,17 +11,10 @@ public class PipesBoard : MonoBehaviour
 
     [Header("Valves and Themometer")]
     [SerializeField] private List<Valve> _valves;
+
+    [Header("Wheels")]
+    [SerializeField] private List<Wheel> _wheels;
     private int _selectedValveIndex = 0;
-
-    [Header("Buttons")]
-    [SerializeField] private SubmarineButton _addButton;
-    [SerializeField] private SubmarineButton _substractButton;
-    [SerializeField] private SubmarineButton _leftButton;
-    [SerializeField] private SubmarineButton _rightButton;
-
-    [Header("Indicator Positions")]
-    [SerializeField] private Transform _indicator;
-    private Vector3 _indicatorOffset;
 
     private readonly UnityEvent _onPipesResolved = new();
     private readonly UnityEvent _onValvesResolved = new();
@@ -29,25 +22,15 @@ public class PipesBoard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _indicatorOffset = _indicator.position - _valves[0].transform.position;
-
         foreach (var pipe in _pipesNeeded)
         {
-            pipe.CorrectIndex = Random.Range(0, 3);
             pipe.OnPipePressed.AddListener(() => CheckPipes());
         }
 
-        _addButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedValve(true));
-        _substractButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedValve(false));
-
-        _leftButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(false));
-        _rightButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(true));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        foreach (var valve in _valves)
+        {
+            valve.OnValvePressed.AddListener(() => CheckValve());
+        }
     }
 
     private bool CheckPipes()
@@ -75,23 +58,6 @@ public class PipesBoard : MonoBehaviour
         Debug.Log(true);
         return true;
     }
-
-    private void IncrementDecrementSelectedValve(bool increment)
-    {
-        _valves[_selectedValveIndex].IncrementDecrementNumber(increment);
-
-        if (CheckValve())
-            _onValvesResolved.Invoke();
-    }
-
-    private void MoveRightLeftIndicator(bool isRight)
-    {
-        _selectedValveIndex += isRight ? 1 : -1;
-        _selectedValveIndex = (_selectedValveIndex + _valves.Count) % _valves.Count;
-
-        _indicator.position = _valves[_selectedValveIndex].transform.position + _indicatorOffset;
-    }
-
 
     public UnityEvent OnPipesResolved => _onPipesResolved;
     public UnityEvent OnValvesResolved => _onValvesResolved;
