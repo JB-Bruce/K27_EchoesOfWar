@@ -13,21 +13,18 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     private Outline _outline;
     private string _name;
 
+    private int _wiresConnected = 0;
+    private readonly UnityEvent _onWiresResolved = new();
+
     [SerializeField] bool _doesStopMovements;
     public bool doesStopMovements => _doesStopMovements;
-
     [SerializeField] bool _doesLockView;
     public bool doesLockView => _doesLockView;
-
     [SerializeField] bool _canInteractWithOtherInteractablesWhileInteracted;
     public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
     public bool isInteracted { get; set; }
-
-    private int _wiresConnected = 0;
     public Outline outline => _outline;
     public string interactableName => _name;
-
-    private readonly UnityEvent _onWiresResolved = new();
 
     void Start()
     {
