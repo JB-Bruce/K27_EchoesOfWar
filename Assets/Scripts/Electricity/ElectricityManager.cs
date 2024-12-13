@@ -78,6 +78,9 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 
     public void UpdateElectricityMode(ElectricityMode newElectricityMode)
     {
+        if (_electricityMode == newElectricityMode)
+            return;
+        
         _electricityMode = newElectricityMode;
 
         switch (_electricityMode)
