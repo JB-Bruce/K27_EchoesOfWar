@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ElectricityManager : MonoBehaviour
+public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 {
     [Header("Working with Electricity")]
     [SerializeField] private LightsManager _lightsManager;
@@ -52,8 +52,13 @@ public class ElectricityManager : MonoBehaviour
 
     private void Update()
     {
+        #region CheatCode
         if (Input.GetKeyDown(KeyCode.O))
             SetElectricitySystemEnabled(true, true, ElectricityMode.On);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            UpdateElectricityMode(ElectricityMode.On);
+        #endregion
         
         if (!_isElectricityEnabled)
             return;
@@ -68,11 +73,6 @@ public class ElectricityManager : MonoBehaviour
         {
             _canShutDown = false;
             StartCoroutine(TryShutDownElectricity());
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdateElectricityMode(ElectricityMode.On);
         }
     }
 
@@ -161,4 +161,12 @@ public class ElectricityManager : MonoBehaviour
             
         }
     }
+
+    public void Break()
+    {
+        StopAllCoroutines();
+        UpdateElectricityMode(ElectricityMode.Off);
+    }
+
+    public bool IsBroken { get; set; } = false;
 }
