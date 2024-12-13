@@ -24,10 +24,6 @@ public class PlayerInteractions : MonoBehaviour
 
                 overedInteractable = i;
                 i.SetOutline(true);
-                if(!(i is IFinishedInteractable  f && selectedInteractable != null && f.interactableName == selectedInteractable.interactableName))
-                    _interactionCanvas.SetActive(true);
-                else 
-                    _interactionCanvas.SetActive(false);
                 return;
             }
         }
@@ -36,7 +32,6 @@ public class PlayerInteractions : MonoBehaviour
         {
             overedInteractable.SetOutline(false);
             overedInteractable = null;
-            _interactionCanvas.SetActive(false);
         }
 
         
