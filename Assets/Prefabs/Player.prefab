@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3402147457252946973, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5012541342962074203, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
       propertyPath: m_Name
       value: Interactions
