@@ -7,6 +7,7 @@ public class SwitchBoard : MonoBehaviour
     [SerializeField] private bool _startAllActivated;
     [SerializeField] private bool _canDiscoverCodeMultipleTimes;
     [SerializeField] private List<SwitchPuzzle> _switchPuzzles = new();
+    [SerializeField] private List<bool> _switchCode;
     
     private readonly UnityEvent _onCodeDiscovered = new();
     private bool _isCodeDiscovered;
@@ -34,26 +35,37 @@ public class SwitchBoard : MonoBehaviour
         if (_isCodeDiscovered && !_canDiscoverCodeMultipleTimes) 
             return;
         
-        if (!CheckCode())
+        if (!Check())
             return;
         
         _isCodeDiscovered = true;
         _onCodeDiscovered.Invoke();
     }
 
-    private void OnCodeDiscovered()
+    private bool Check()
     {
-        Debug.Log("Code Discovered");
+        return _switchCode.Count == 0 ? CheckWithoutCode() : CheckWithCode();
     }
 
-    private bool CheckCode()
+    private bool CheckWithoutCode()
     {
         foreach (var button in _switchPuzzles)
         {
             if (!button.IsActive)
                 return false;
         }
-        
+            
+        return true;
+    }
+
+    private bool CheckWithCode()
+    {
+        for (int i = 0; i < _switchPuzzles.Count; i++)
+        {
+            if (_switchPuzzles[i].IsActive != _switchCode[i])
+                return false;
+        }
+
         return true;
     }
 
@@ -67,5 +79,5 @@ public class SwitchBoard : MonoBehaviour
         }
     }
     
-    //public UnityEvent OnCodeDiscovered => _onCodeDiscovered;
+    public UnityEvent OnCodeDiscovered => _onCodeDiscovered;
 }
