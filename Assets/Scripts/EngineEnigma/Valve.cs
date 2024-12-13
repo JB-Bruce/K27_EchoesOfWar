@@ -1,26 +1,28 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Valve : MonoBehaviour
 {
-    [SerializeField] private float _currentNumber;
-    [SerializeField] private float _correctNumber;
-    [SerializeField] private TextMeshProUGUI _text;
+    public float _currentNumber;
+    public float _correctNumber;
+
+    private readonly UnityEvent _onValveChanged = new();
 
     private void Start()
     {
         _currentNumber = Random.Range(0, 101);
         _correctNumber = Random.Range(0, 101);
          Debug.Log(_correctNumber + gameObject.name);
-        _text.text = _currentNumber.ToString();
     }
 
     public void IncrementDecrementNumber(bool increment)
     {
         _currentNumber += increment ? 1 : -1;
         _currentNumber = (_currentNumber + 101) % 101;
-        _text.text = _currentNumber.ToString();
+        _onValveChanged.Invoke();
     }
 
     public bool IsCorrect => _currentNumber == _correctNumber;
+    public UnityEvent OnValvePressed => _onValveChanged;
 }
