@@ -26,8 +26,6 @@ public class SwitchBoard : MonoBehaviour
         {
             button.OnButtonPressed.AddListener(OnSwitchPressed);
         }
-        
-        _onCodeDiscovered.AddListener(OnCodeDiscovered);
     }
 
     private void OnSwitchPressed()
