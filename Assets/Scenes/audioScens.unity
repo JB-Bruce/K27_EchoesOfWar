@@ -266,8 +266,19 @@ MonoBehaviour:
   _sfxSounde: []
   _ambienceSounde: []
   _UISounde: []
-  "_noiseAl\xE9atoirSounde": []
-  _audioSource: {fileID: 456770425}
+  "_noiseAl\xE9atoirSounde":
+  - {fileID: 8300000, guid: a600d9a0f3803c34f992b1ae6d8b8352, type: 3}
+  - {fileID: 8300000, guid: a758290f0f979f84b9984c98ea23d05d, type: 3}
+  - {fileID: 8300000, guid: 1709056e1d6462f4283c8365a22cb6f4, type: 3}
+  - {fileID: 8300000, guid: b139360a85e563e48a3f7397fa5bbc17, type: 3}
+  - {fileID: 8300000, guid: 4f74e8d6304cfd644bfc37b6dbf6e38b, type: 3}
+  - {fileID: 8300000, guid: f0a0fd1da2e927644998e61685f6495d, type: 3}
+  _audioSourceNoise: {fileID: 456770425}
+  _audioSourceMusic: {fileID: 0}
+  _audioSourceSfx: {fileID: 0}
+  _audioSourceAmbiencee: {fileID: 0}
+  _audioSourceUI: {fileID: 0}
+  _audioSourceMaster: {fileID: 0}
   _mixerNoise: {fileID: -8496643287398745430, guid: f5b62d7b40a0117419b65a0923b57f3c, type: 2}
   _mixerMusic: {fileID: 42688713874156667, guid: f5b62d7b40a0117419b65a0923b57f3c, type: 2}
   _mixerSfx: {fileID: -878885535615724843, guid: f5b62d7b40a0117419b65a0923b57f3c, type: 2}

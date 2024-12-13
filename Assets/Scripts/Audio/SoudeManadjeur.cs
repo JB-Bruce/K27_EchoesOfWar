@@ -21,7 +21,7 @@ public class AudioManageur : MonoBehaviour
     public AudioMixerGroup _mixerUI;
     public AudioMixerGroup _Master;
     int _noise;
-  float _NoiseCounter=0;
+   float _NoiseCounter=0;
     int _NoiseDele=10;
 
 
@@ -32,10 +32,17 @@ public class AudioManageur : MonoBehaviour
     {
       instance=this;
     }
+    public void Start()
+    {
+      _audioSourceAmbiencee.clip=_ambienceSounde[0];
+      _audioSourceAmbiencee.Play();
+      
+    }
+    
     public void NandomNoise()
     {
         
-        _audioSourceNoise.outputAudioMixerGroup=_mixerNoise;
+        
         _noise=Random.Range(0,6);
         _audioSourceNoise.clip=_noiseAléatoirSounde[_noise];
         _audioSourceNoise.Play();
@@ -54,8 +61,13 @@ public class AudioManageur : MonoBehaviour
 
 
         }
+        _audioSourceNoise.outputAudioMixerGroup=_mixerNoise;
         
-        
+      //   _audioSourceMaster.outputAudioMixerGroup=_Master;
+         _audioSourceMusic.outputAudioMixerGroup=_mixerMusic;
+      //   _audioSourceSfx.outputAudioMixerGroup=_mixerSfx;
+       //_audioSourceAmbiencee.outputAudioMixerGroup=_mixerAmbiencee;
+      //   _audioSourceUI.outputAudioMixerGroup=_mixerUI;
        
 
     }
