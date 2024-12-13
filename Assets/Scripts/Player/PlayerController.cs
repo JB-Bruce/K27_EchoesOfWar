@@ -9,6 +9,7 @@ public class PlayerController : Singleton<PlayerController>
     
     [Header("Submarine")]
     [SerializeField] private SubmarineController _submarineController;
+    [SerializeField] private GameObject _submarineControlsPanel;
 
 
     private bool _movePlayer = true;
@@ -18,6 +19,11 @@ public class PlayerController : Singleton<PlayerController>
     List<string> _blockingPlayerInteractables = new();
 
     List<string> _cameraBlockingInteractables = new();
+
+    private void Start()
+    {
+        _submarineControlsPanel.SetActive(false);
+    }
 
     public void Move(Vector2 movement)
     {
@@ -43,6 +49,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         _movePlayer = isPlayer;
         _submarineController.SetControls(!isPlayer);
+        _submarineControlsPanel.SetActive(!isPlayer);
     }
 
     public void SetPlayerBlockingInteractable(string interactable, bool doesBlock)

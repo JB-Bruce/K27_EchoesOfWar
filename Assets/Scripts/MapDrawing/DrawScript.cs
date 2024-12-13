@@ -95,7 +95,6 @@ public class DrawScript : MonoBehaviour
 
     private void SetTexture(Color color, Vector3 position, float size)
     {
-        print("rr");
         _pointer.position = position;
 
         Vector3 ToPos = _pointer.localPosition - _bottomLeft.localPosition;
@@ -105,7 +104,6 @@ public class DrawScript : MonoBehaviour
 
         if (x <= 1 && y <= 1)
         {
-            print("deffff");
             (int x, int y) centerPixel = (Mathf.RoundToInt(x * _texture.width - .5f), Mathf.RoundToInt(y * _texture.height - .5f));
 
             int ceiledSize = Mathf.CeilToInt(size);
