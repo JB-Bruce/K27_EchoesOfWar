@@ -17,7 +17,7 @@ public class ElectricityManager : MonoBehaviour
 
     [Header("Shut Down")]
     [SerializeField, Range(0, 100)] private int _shutDownProbability = 2;
-    [SerializeField, Range(0, 5)] private float _timeBetweenTryShutDown = 1;
+    [SerializeField, Range(0, 60)] private float _timeBetweenTryShutDown = 1;
     [SerializeField, Range(0, 1.5f)] private float _maxTimeBetweenEachTurnOnOff = 0.5f;
     
     private ElectricityMode _electricityMode;
@@ -146,8 +146,19 @@ public class ElectricityManager : MonoBehaviour
     public void SetElectricitySystemEnabled(bool Enabled, bool ChangeMode = false, ElectricityMode Mode = ElectricityMode.On)
     {
         _isElectricityEnabled = enabled;
+
+        if (!ChangeMode) 
+            return;
         
-        if (ChangeMode)
-            UpdateElectricityMode(Mode);
+        UpdateElectricityMode(Mode);
+
+        if (Mode == ElectricityMode.On)
+        {
+            StopAllCoroutines();
+        }
+        else if (Mode == ElectricityMode.Off)
+        {
+            
+        }
     }
 }
