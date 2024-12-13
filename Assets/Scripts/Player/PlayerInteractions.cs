@@ -39,8 +39,16 @@ public class PlayerInteractions : MonoBehaviour
 
     public bool TryInteract()
     {
+        if (selectedInteractable != null)
+        {
+            Cancel();
+            return true;
+        }
+
         if (overedInteractable == null) 
             return false;
+
+        
 
 
         if (overedInteractable is IFinishedInteractable finishedInteractable)
