@@ -119,7 +119,8 @@ public class LightsManager : MonoBehaviour
         }
         else
         {
-            _alarmTriggers.Remove(trigger);
+            if (_alarmTriggers.Contains(trigger))
+                _alarmTriggers.Remove(trigger);
 
             if (_alarmTriggers.Count != 0) 
                 return;

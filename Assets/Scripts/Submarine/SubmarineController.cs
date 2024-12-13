@@ -28,6 +28,8 @@ public class SubmarineController : MonoBehaviour, IElectricity
     [SerializeField] private float _farDetectionArea;
     [SerializeField] private float _goalThreshold;
     private bool _isAlarmActivated = true;
+    private string _OnCollisionTriggerName = "OnCollision";
+    private string _OnFarDetectionTriggerName = "OnFarDetection";
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -106,6 +108,12 @@ public class SubmarineController : MonoBehaviour, IElectricity
     private void SwitchAlarmOnOff()
     {
         _isAlarmActivated = !_isAlarmActivated;
+        
+        if (!_isAlarmActivated)
+        {
+            _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
+            _lightsManager.Alarm(_OnFarDetectionTriggerName, false, true);
+        }
     }
 
     private void OnSubmarineCollisionEnter()
@@ -113,25 +121,25 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _submarineBody.OnCollision();
         
         if (_isAlarmActivated)
-            _lightsManager.Alarm("OnCollision", true, true);
+            _lightsManager.Alarm(_OnCollisionTriggerName, true, true);
     }
 
     private void OnSubmarineCollisionExit()
     {
         if (_isAlarmActivated)
-            _lightsManager.Alarm("OnCollision", false, true);
+            _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
     }
 
     private void OnSubmarineFarDetectionEnter()
     {
         if (_isAlarmActivated)
-            _lightsManager.Alarm("OnFarDetection", true, true);
+            _lightsManager.Alarm(_OnFarDetectionTriggerName, true, true);
     }
     
     private void OnSubmarineFarDetectionExit()
     {
         if (_isAlarmActivated)
-            _lightsManager.Alarm("OnFarDetection", false, true);
+            _lightsManager.Alarm(_OnFarDetectionTriggerName, false, true);
     }
 
     public bool hasElectricity { get; set; }

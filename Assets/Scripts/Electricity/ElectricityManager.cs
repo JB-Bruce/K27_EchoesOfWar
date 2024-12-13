@@ -7,24 +7,33 @@ using Random = UnityEngine.Random;
 
 public class ElectricityManager : MonoBehaviour
 {
+    [Header("Working with Electricity")]
     [SerializeField] private LightsManager _lightsManager;
     [SerializeField] private List<GameObject> _electricityObjects;
     [SerializeField] private List<MonoBehaviour> _electricityComponents;
+    
+    [Header("Wait")]
+    [SerializeField, Tooltip("Time in second")] private float _timeElectricityWorking = 5;
 
+    [Header("Shut Down")]
     [SerializeField, Range(0, 100)] private int _shutDownProbability = 2;
     [SerializeField, Range(0, 5)] private float _timeBetweenTryShutDown = 1;
-    [SerializeField] private float _timeBetweenEachShutDown = 5;
+    [SerializeField, Range(0, 1.5f)] private float _maxTimeBetweenEachTurnOnOff = 0.5f;
     
     private ElectricityMode _electricityMode;
-    private WaitForSeconds _waitForSeconds;
+    private WaitForSeconds _waitForTryShutDown;
+    private WaitForSeconds _waitElectricityWorking;
     private bool _canShutDown;
     private bool _isWaitingForShutDown;
-    private List<Action<bool>> _shutDownActions = new List<Action<bool>>();
-    [SerializeField, Range(0, 1.5f)] private float _maxTimeBetweenEachTurnOnOff = 0.5f;
+    private readonly List<Action<bool>> _shutDownActions = new();
+    
+    [Header("")]
+    [SerializeField] private bool _isElectricityEnabled;
 
     private void Awake()
     {
-        _waitForSeconds = new WaitForSeconds(_timeBetweenTryShutDown);
+        _waitForTryShutDown = new WaitForSeconds(_timeBetweenTryShutDown);
+        _waitElectricityWorking = new WaitForSeconds(_timeElectricityWorking);
     }
 
     private void Start()
@@ -43,6 +52,12 @@ public class ElectricityManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+            SetElectricitySystemEnabled(true, true, ElectricityMode.On);
+        
+        if (!_isElectricityEnabled)
+            return;
+        
         if (_electricityMode == ElectricityMode.On && !_isWaitingForShutDown)
         {
             _isWaitingForShutDown = true;
@@ -107,12 +122,7 @@ public class ElectricityManager : MonoBehaviour
 
     private IEnumerator WaitForShutDownElectricity()
     {
-        float elapsedTime = 0;
-        while (elapsedTime < _timeBetweenEachShutDown)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        yield return _waitElectricityWorking;
         
         _isWaitingForShutDown = false;
         _canShutDown = true;
@@ -126,10 +136,18 @@ public class ElectricityManager : MonoBehaviour
         while (!shutDown)
         {
             shutDown = Random.Range(0, 100) < _shutDownProbability;
-            yield return _waitForSeconds;
+            yield return _waitForTryShutDown;
         }
 
         _electricityMode = ElectricityMode.Off;
         UpdateElectricityMode(_electricityMode);
+    }
+
+    public void SetElectricitySystemEnabled(bool Enabled, bool ChangeMode = false, ElectricityMode Mode = ElectricityMode.On)
+    {
+        _isElectricityEnabled = enabled;
+        
+        if (ChangeMode)
+            UpdateElectricityMode(Mode);
     }
 }
