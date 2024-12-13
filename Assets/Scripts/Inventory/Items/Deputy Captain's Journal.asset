@@ -16,3 +16,4 @@ MonoBehaviour:
   _name: Deputy Captain's Journal
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
+  _hideInventory: 1

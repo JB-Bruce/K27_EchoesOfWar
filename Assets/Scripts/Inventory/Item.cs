@@ -7,4 +7,5 @@ public class Item : ScriptableObject
     public string _name; 
     public Sprite _sprite2D;
     public Mesh  _sprite3D;
+    public bool _hideInventory;
 }

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour
 {
-
     [SerializeField] private Transform _player;
     [SerializeField] private MeshFilter _SelectedItemRenderer;
     [SerializeField] private Image _selector;
@@ -22,7 +21,7 @@ public class HotBar : MonoBehaviour
     
     public Item GetSelectedItem()
     {
-        return _items[_selectedItem];
+        return _items.Count == 0 ? null : _items[_selectedItem];
     }
     
     /// <summary>
@@ -88,7 +87,7 @@ public class HotBar : MonoBehaviour
             _selector.transform.localPosition = Vector2.zero;
             _selector.color = _selectorColor ;
             _SelectedItemRenderer.mesh = _items[_selectedItem]._sprite3D;
-            _SelectedItemNameDisplay.text = _items[_selectedItem].name;
+            _SelectedItemNameDisplay.text = _items[_selectedItem]._name;
         }
     }
     

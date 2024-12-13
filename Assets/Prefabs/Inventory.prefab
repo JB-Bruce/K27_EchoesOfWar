@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6227500633808678160}
   - component: {fileID: 4991721361104709558}
   - component: {fileID: 4650060109481682724}
+  - component: {fileID: 1922706963624505986}
   m_Layer: 0
   m_Name: SelectedItem
   m_TagString: Untagged
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1922706963624505986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443325600581570233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e53a84809045a84d923142d5a7840de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3808849980378997352
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,12 +234,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
+  _SelectedItemRenderer: {fileID: 0}
   _selector: {fileID: 3568376079214287753}
   _ItemSlot: {fileID: 3005563491045647543, guid: 2383e9665d78e5244a292bbe99dee39f, type: 3}
   _inventorySize: 4
   _selectorColor: {r: 0.071555644, g: 0.33962262, b: 0.071555644, a: 0.7529412}
   _SelectedItemNameDisplay: {fileID: 4650060109481682724}
-  _selectedItem: 0
+  _ThrowStrength: 0
 --- !u!114 &5365385042813978776
 MonoBehaviour:
   m_ObjectHideFlags: 0

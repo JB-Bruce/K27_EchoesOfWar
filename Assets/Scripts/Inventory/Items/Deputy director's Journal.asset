@@ -16,3 +16,4 @@ MonoBehaviour:
   _name: Deputy director's journal
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
+  _hideInventory: 1
