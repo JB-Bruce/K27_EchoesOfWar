@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SubmarineController : MonoBehaviour, IElectricity
+public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 {
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private MapManager _mapManager;
@@ -27,6 +28,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
     [SerializeField] private float _goalThreshold;
+    
     private bool _isAlarmActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
     private string _OnFarDetectionTriggerName = "OnFarDetection";
@@ -119,6 +121,7 @@ public class SubmarineController : MonoBehaviour, IElectricity
     private void OnSubmarineCollisionEnter()
     {
         _submarineBody.OnCollision();
+        OnBreakDown.Invoke();
         
         if (_isAlarmActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, true, true);
@@ -161,4 +164,6 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         hasElectricity = false;
     }
+
+    public UnityEvent OnBreakDown { get; set; } = new();
 }
