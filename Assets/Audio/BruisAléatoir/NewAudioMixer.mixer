@@ -19,6 +19,39 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-7441671475915501861
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: dcb01ce88b3e2ea4ead2ccab3a775a2f
+  m_EffectName: Attenuation
+  m_MixLevel: 9616c765c8882414e87bc39825ec4f24
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-6248241209453546848
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bruis
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: cbc5629923a294d408abfa55134b6ea0
+  m_Children: []
+  m_Volume: a04387f1c3d3b2d41bf0845343caa1c5
+  m_Pitch: bb8d634af29bbf645be6bc2038709e8b
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -7441671475915501861}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-3350059141019085842
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -89,6 +122,7 @@ AudioMixerController:
     - 062beaec5b0ff794b9edaa5961e9aab7
     - 005ca3ff07c5ed349a7b89337b047386
     - 78cf21a424d2c644c9dffab7995959dc
+    - cbc5629923a294d408abfa55134b6ea0
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -106,6 +140,7 @@ AudioMixerGroupController:
   - {fileID: -8496643287398745430}
   - {fileID: -878885535615724843}
   - {fileID: 5737348842132934474}
+  - {fileID: -6248241209453546848}
   m_Volume: b149682545d40a1458c7bd9859225ad0
   m_Pitch: 92ff060f78d15104c98613f02129e60f
   m_Send: 00000000000000000000000000000000
@@ -139,8 +174,9 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 74ac8b01633f9184aaa91b8ed68dae10
   m_FloatValues:
-    e275b9332c6e6924f9780b48dc308173: -0.05731064
+    e275b9332c6e6924f9780b48dc308173: 0.6003152
     b149682545d40a1458c7bd9859225ad0: -0.05731064
+    605f607fca0792840be24e57bf78f9b0: -3.64264
   m_TransitionOverrides: {}
 --- !u!243 &42688713874156667
 AudioMixerGroupController:
