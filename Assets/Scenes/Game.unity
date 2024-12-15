@@ -371,14 +371,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubmarineMap
       objectReference: {fileID: 0}
-    - target: {fileID: 2753955339376606251, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: bbd85fabb3a9bc4479af53d3a05c1873, type: 2}
     - target: {fileID: 2916066874685887463, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: MainCamera
       value: 
       objectReference: {fileID: 1867233821}
+    - target: {fileID: 4452690420971158051, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6873562899919135990, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
