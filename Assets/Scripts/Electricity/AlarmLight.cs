@@ -11,11 +11,11 @@ public class AlarmLight : MonoBehaviour
     private void Awake()
     {
         _transform = transform;
+        _light = GetComponent<Light>();
     }
 
     private void Start()
     {
-        _light = GetComponent<Light>();
         _light.enabled = false;
         _light.type = LightType.Spot;
     }
