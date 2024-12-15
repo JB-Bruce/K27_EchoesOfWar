@@ -12,7 +12,7 @@ public class DrawScript : MonoBehaviour
 
     [SerializeField] Color _drawingColor;
 
-    [SerializeField] private Camera MainCamera;
+    private Camera MainCamera;
     [SerializeField] private RawImage _image;
     [SerializeField] private Transform _bottomLeft;
     [SerializeField] private Transform _topRight;
@@ -31,6 +31,8 @@ public class DrawScript : MonoBehaviour
 
     private void Start()
     {
+        MainCamera = Camera.main;
+
         RectTransform rt = _image.GetComponent<RectTransform>();
         _topRight.localPosition = new(rt.rect.width / 2f, rt.rect.height / 2f);
         _bottomLeft.localPosition = new(-rt.rect.width / 2f, -rt.rect.height / 2f);

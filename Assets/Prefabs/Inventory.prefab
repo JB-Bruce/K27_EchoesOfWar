@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3808849980378997352}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -220,13 +220,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22becb55b1ebe0549bf7e74eee692623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _needDontDestroyOnLoad: 0
   _player: {fileID: 0}
+  _SelectedItemRenderer: {fileID: 0}
   _selector: {fileID: 3568376079214287753}
   _ItemSlot: {fileID: 3005563491045647543, guid: 2383e9665d78e5244a292bbe99dee39f, type: 3}
   _inventorySize: 4
   _selectorColor: {r: 0.071555644, g: 0.33962262, b: 0.071555644, a: 0.7529412}
   _SelectedItemNameDisplay: {fileID: 4650060109481682724}
-  _selectedItem: 0
+  _ThrowStrength: 200
 --- !u!114 &5365385042813978776
 MonoBehaviour:
   m_ObjectHideFlags: 0

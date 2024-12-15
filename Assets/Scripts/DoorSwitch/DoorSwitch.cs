@@ -1,29 +1,58 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class DoorSwitch : MonoBehaviour
+public class DoorSwitch : MonoBehaviour, IInteractable
 {
     [SerializeField] MeshRenderer _meshRenderer;
 
     [SerializeField] Color _onColor;
     [SerializeField] Color _offColor;
 
-    bool _isOn = true;
+    [SerializeField] Animator _animator;
 
-    private void Start()
+    public bool isOn { get; private set; } = true;
+
+    public string interactableName => "DoorSwitch";
+
+    [SerializeField] Outline _outline;
+    public Outline outline => _outline;
+
+    [SerializeField] Light _light;
+
+    UnityEvent changedEvent = new();
+
+    public void Interact()
+    {
+        ChangeActivation(!isOn);
+    }
+
+
+    public void Init(UnityAction changedAction)
     {
         _meshRenderer.material = new Material(_meshRenderer.material);
-        ApplyColor();
+        _outline.enabled = false;
+
+        changedEvent.AddListener(changedAction);
     }
 
     private void ApplyColor()
     {
-        _meshRenderer.material.color = _isOn ? _onColor : _offColor;
-        _meshRenderer.material.SetColor("_EmissionColor", _isOn ? _onColor : _offColor);
+        _meshRenderer.material.color = isOn ? _onColor : _offColor;
+        _meshRenderer.material.SetColor("_EmissionColor", isOn ? _onColor : _offColor);
+        _light.color = isOn ? _onColor : _offColor;
     }
 
     public void SetActivation(bool isActive)
     {
-        _isOn = isActive;
+        isOn = isActive;
         ApplyColor();
+        _animator.Play(isOn ? "ON" : "OFF", -1, 0f);
+    }
+
+    private void ChangeActivation(bool activation)
+    {
+        SetActivation(activation);
+        changedEvent.Invoke();
     }
 }
