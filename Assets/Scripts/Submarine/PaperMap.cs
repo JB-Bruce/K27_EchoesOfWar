@@ -4,7 +4,6 @@ using UnityEngine;
 public class PaperMap : MonoBehaviour, IFinishedInteractable
 {
     [SerializeField] private Transform target;
-    [SerializeField] private DrawScript drawScript;
 
     [SerializeField] Outline _outline;
     public Outline outline => _outline;
@@ -19,6 +18,10 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
     public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
     public bool isInteracted { get; set; }
 
+    [SerializeField] Transform _mapItemParent;
+    HotBar _hotBar;
+    MapItem _mapInPlace;
+
     public string interactableName => "PaperMap";
 
     private void Awake()
@@ -29,10 +32,24 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
 
     private void Start()
     {
+        _hotBar = HotBar.Instance;
         StartCoroutine(((IInteractable)this).DeactivateOutline());
     }
     public void Interact()
     {
+        if(_hotBar.GetSelectedItemName() == "Map")
+        {
+            GameObject map = _hotBar.DropItem();
+
+            if(_mapInPlace != null)
+                _mapInPlace.Interact();
+
+            _mapInPlace = map.GetComponent<MapItem>();
+            SetMap(_mapInPlace);
+
+            return;
+        }
+
         if (isInteracted)
         {
             Uninteract();
@@ -43,7 +60,6 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
         PlayerController.Instance.SetCameraBlockingInteractables("SubControls", true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        drawScript.enabled = true;
 
         isInteracted = true;
 
@@ -53,13 +69,19 @@ public class PaperMap : MonoBehaviour, IFinishedInteractable
         }
     }
 
+    public void SetMap(MapItem map)
+    {
+        map.SetPosition(_mapItemParent);
+    }
+
     public void Uninteract()
     {
+        
+
         PlayerController.Instance.SetPlayerBlockingInteractable("SubControls", false);
         PlayerController.Instance.SetCameraBlockingInteractables("SubControls", false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        drawScript.enabled = false;
         
         isInteracted = false;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class HotBar : MonoBehaviour
+public class HotBar : Singleton<HotBar>
 {
 
     [SerializeField] private Transform _player;
@@ -18,8 +18,6 @@ public class HotBar : MonoBehaviour
     private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
     private int _selectedItem;
-
-    
     public Item GetSelectedItem()
     {
         return _items[_selectedItem];
@@ -28,15 +26,23 @@ public class HotBar : MonoBehaviour
     /// <summary>
     ///  Function that allow the player to drop the selected item from the inventory
     /// </summary>
-    public void DropItem()
+    public GameObject DropItem()
     {
         if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
         { 
-            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward,Quaternion.identity);
-            item.GetComponent<ItemScript>()._hotBar = this;
+            GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward, _items[_selectedItem]._prefab.transform.rotation);
             item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward*_ThrowStrength);
             RemoveItemFromHotBar(_items[_selectedItem]);
+
+            return item;
         }
+
+        return null;
+    }
+    public string GetSelectedItemName()
+    {
+        if (_items.Count == 0) return "";
+        return _items[_selectedItem]._name;
     }
     
     /// <summary>

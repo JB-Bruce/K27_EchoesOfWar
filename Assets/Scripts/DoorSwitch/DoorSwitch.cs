@@ -24,15 +24,14 @@ public class DoorSwitch : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        SetActivation(!isOn);
+        ChangeActivation(!isOn);
     }
 
 
-    public void Init(bool isOn, UnityAction changedAction)
+    public void Init(UnityAction changedAction)
     {
         _meshRenderer.material = new Material(_meshRenderer.material);
         _outline.enabled = false;
-        SetActivation(isOn);
 
         changedEvent.AddListener(changedAction);
     }
@@ -49,7 +48,11 @@ public class DoorSwitch : MonoBehaviour, IInteractable
         isOn = isActive;
         ApplyColor();
         _animator.Play(isOn ? "ON" : "OFF", -1, 0f);
+    }
 
+    private void ChangeActivation(bool activation)
+    {
+        SetActivation(activation);
         changedEvent.Invoke();
     }
 }
