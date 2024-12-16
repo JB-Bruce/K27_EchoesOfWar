@@ -32,6 +32,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     private bool _isAlarmActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
     private string _OnFarDetectionTriggerName = "OnFarDetection";
+    private bool _isCollided = false;
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -70,7 +71,9 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         _mapManager.SetSubPos(_submarineBody.Position);
         
         _mapManager.Tick();
-        _submarineBody.Tick();
+        
+        if (!_isCollided)
+            _submarineBody.Tick();
         
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) <= _goalThreshold && !_inGoalRange )
         {
@@ -120,6 +123,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
     private void OnSubmarineCollisionEnter()
     {
+        _isCollided = true;
         _submarineBody.OnCollision();
         OnBreakDown.Invoke();
         
@@ -129,6 +133,8 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
     private void OnSubmarineCollisionExit()
     {
+        _isCollided = false;
+        
         if (_isAlarmActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
     }

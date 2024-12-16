@@ -104,8 +104,8 @@ public class MapManager : MonoBehaviour
 
             if (triggered)
             {
-                i.Value.enter?.Invoke();
-                _eventsTriggered.TryAdd(i.Key, Time.time);
+                if (_eventsTriggered.TryAdd(i.Key, Time.time))
+                    i.Value.enter?.Invoke();
             }
             else
             {
