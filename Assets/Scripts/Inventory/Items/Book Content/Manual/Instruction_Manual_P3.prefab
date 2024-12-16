@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2049154903947276587}
   - component: {fileID: 7531376145561762279}
   m_Layer: 0
-  m_Name: Manual_P5
+  m_Name: Instruction_Manual_P3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,11 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Panne moteur :\n\r\nUne panne moteur est indiqu\xE9e par une alarme. Elle
-    emp\xEAche la gestion des d\xE9placements du sous-marin.\r\n\r\n Pour y rem\xE9dier
-    :\n \r\n1 - Localiser le bo\xEEtier carburant dans la salle moteur.\r\n2 - Ouvrez
-    le bo\xEEtier en d\xE9vissant le couvercle.\r\n3 - V\xE9rifiez le cheminement
-    des tuyaux d\u2019alimentation et remaniez-le si n\xE9cessaire. \n\r\n"
+  m_text: "Ouverture des portes : \n\r\nPour d\xE9verrouiller la porte d\u2019un
+    sas avec l\u2019accord du capitaine, enclenchez les interrupteurs de mani\xE8re
+    \xE0 correspondre \xE0 la combinaison indiqu\xE9e ci-dessous (0 : \xE9teint,
+    1 : allum\xE9) : \r\nC-Q : 1100\r\nQ-C : 0101\r\nQ-M : 1010 \r\nM-Q : 1100\r\n\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

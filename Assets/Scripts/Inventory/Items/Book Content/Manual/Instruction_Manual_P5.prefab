@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2049154903947276587}
   - component: {fileID: 7531376145561762279}
   m_Layer: 0
-  m_Name: Manual_P4
+  m_Name: Instruction_Manual_P5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,15 +65,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Panne \xE9lectrique :\n\r\nEn cas de panne \xE9lectrique, le g\xE9n\xE9rateur
-    de secours alimente des ampoules \xE0 plus faible intensit\xE9 dispos\xE9es dans
-    toutes les salles. Les interfaces \xE9lectroniques du sous-marin, incluant la
-    table de commandes, seront inactives tant que la panne persiste.\r\n\r\nPour
-    y rem\xE9dier : \r\n1 - Localisez le bo\xEEtier \xE9lectrique le plus proche.\r\n2
-    - Ouvrez le bo\xEEtier. Si l\u2019ouverture est coinc\xE9e, utilisez les outils
-    \xE0 votre 3 - disposition pour forcer l\u2019ouverture.\r\n4 - V\xE9rifiez le
-    c\xE2blage et remaniez-le si n\xE9cessaire.\r\nEnclenchez les interrupteurs de
-    sorte \xE0 ce que toutes les lumi\xE8res LED soient allum\xE9es.\r\n\r\n"
+  m_text: "Panne moteur :\n\r\nUne panne moteur est indiqu\xE9e par une alarme. Elle
+    emp\xEAche la gestion des d\xE9placements du sous-marin.\r\n\r\n Pour y rem\xE9dier
+    :\n \r\n1 - Localiser le bo\xEEtier carburant dans la salle moteur.\r\n2 - Ouvrez
+    le bo\xEEtier en d\xE9vissant le couvercle.\r\n3 - V\xE9rifiez le cheminement
+    des tuyaux d\u2019alimentation et remaniez-le si n\xE9cessaire. \n\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

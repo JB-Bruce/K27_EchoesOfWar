@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2049154903947276587}
   - component: {fileID: 7531376145561762279}
   m_Layer: 0
-  m_Name: Manual_P7
+  m_Name: Instruction_Manual_P7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
