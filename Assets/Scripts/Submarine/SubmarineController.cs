@@ -46,6 +46,8 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
         
+        _sonar.SetMapTexture(_mapManager.GetMapTexture());
+        
         _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnSubmarineCollisionEnter,    OnSubmarineCollisionExit);
         _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnSubmarineFarDetectionEnter, OnSubmarineFarDetectionExit);
 
