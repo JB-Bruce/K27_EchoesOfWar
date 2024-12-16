@@ -27,7 +27,7 @@ public class UseItem : MonoBehaviour
 
     public void TurnPages(InputAction.CallbackContext  _context, Book book)
     {
-        if (_context.ReadValue<float>() > 0 && _currentPage+2 <  book.Text.Length)
+        if (_context.ReadValue<float>() > 0 && _currentPage+2 <  book.Texts.Length)
         {
             _currentPage += 2;
             SetPage(book);
@@ -42,15 +42,8 @@ public class UseItem : MonoBehaviour
 
     private void SetPage(Book book)
     {
-        LeftPage.text = book.Text[_currentPage];
-        if (_currentPage + 1 < book.Text.Length)
-        {
-            RightPage.text = book.Text[_currentPage + 1];
-        }
-        else
-        {
-            RightPage.text = "";
-        }
+        LeftPage.text = book.Texts[_currentPage].text;
+        RightPage.text = _currentPage + 1 < book.Texts.Length ? book.Texts[_currentPage + 1].text : "";
     }
     
     private void book(Item item)

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: DebugItem
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4834292966425658348, guid: c896e685ac62feb41806b34ae4952677, type: 3}
-  _name: 
-  _sprite: {fileID: 0}
+  _name: Debug Item
+  _sprite2D: {fileID: 0}
+  _sprite3D: {fileID: 0}
+  _hideInventory: 0

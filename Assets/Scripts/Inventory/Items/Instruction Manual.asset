@@ -17,7 +17,11 @@ MonoBehaviour:
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
-  Text:
-  - A
-  - B
-  - C
+  Texts:
+  - {fileID: 7531376145561762279, guid: 6252e794074c9f64796085649e46f1e6, type: 3}
+  - {fileID: 7531376145561762279, guid: 5ffb36f357d1afa48a4874f523008380, type: 3}
+  - {fileID: 7531376145561762279, guid: 55fe4a54a27c30749b8ff34267dbd210, type: 3}
+  - {fileID: 7531376145561762279, guid: 4e47b294174acf446b5e863cf6d870d7, type: 3}
+  - {fileID: 7531376145561762279, guid: fb9bd60f898709e40bf2e2db1c92d7cc, type: 3}
+  - {fileID: 7531376145561762279, guid: e5742f74b0dc92346b29ee9135e061ec, type: 3}
+  - {fileID: 7531376145561762279, guid: 5486f2fd0449fc94383b55704d0caa39, type: 3}

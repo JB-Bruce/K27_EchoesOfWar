@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class HotBar : MonoBehaviour
 {
+    [SerializeField] private UseItem _UseItem;
     [SerializeField] private Transform _player;
     [SerializeField] private MeshFilter _SelectedItemRenderer;
     [SerializeField] private Image _selector;
@@ -29,7 +30,7 @@ public class HotBar : MonoBehaviour
     /// </summary>
     public void DropItem()
     {
-        if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
+        if (_items.Count > 0 && _items[_selectedItem]._prefab != null && !_UseItem.activated)
         { 
             GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward,Quaternion.identity);
             item.GetComponent<ItemScript>()._hotBar = this;
@@ -44,7 +45,7 @@ public class HotBar : MonoBehaviour
     /// <param name="context"> the  positive/negative action to be performed to scroll through the inventory</param>
     public void ScrollSelect(InputAction.CallbackContext context)
     {
-        if (_items.Count <= 0) return;
+        if (_items.Count <= 0 || _UseItem.activated) return;
         if (context.ReadValue<float>() >0)
         {
             if (_selectedItem <= _items.Count)
