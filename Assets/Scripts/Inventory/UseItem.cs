@@ -6,11 +6,10 @@ public class UseItem : MonoBehaviour
 {
     [SerializeField] private HotBar hotBar;
     [SerializeField] private GameObject BookDisplay;
-    [SerializeField] private TextMeshProUGUI LeftPage;
-    [SerializeField] private TextMeshProUGUI RightPage;
     
     public bool activated { get;private set; } = false;
     private int _currentPage = 0;
+    private GameObject _currentPageDisplay;
     
     public void Use(Item item)
     {
@@ -27,23 +26,23 @@ public class UseItem : MonoBehaviour
 
     public void TurnPages(InputAction.CallbackContext  _context, Book book)
     {
-        if (_context.ReadValue<float>() > 0 && _currentPage+2 <  book.Texts.Length)
+        if (_context.ReadValue<float>() > 0 && _currentPage + 1 <  book.Texts.Length)
         {
-            _currentPage += 2;
+            _currentPage ++;
             SetPage(book);
         }
 
         if (_context.ReadValue<float>() < 0 && _currentPage > 0)
         {
-            _currentPage -= 2;
+            _currentPage --;
             SetPage(book);
         }
     }
 
     private void SetPage(Book book)
     {
-        LeftPage.text = book.Texts[_currentPage].text;
-        RightPage.text = _currentPage + 1 < book.Texts.Length ? book.Texts[_currentPage + 1].text : "";
+        Destroy(_currentPageDisplay);
+        _currentPageDisplay = Instantiate(book.Texts[_currentPage], BookDisplay.transform);
     }
     
     private void book(Item item)
@@ -51,7 +50,6 @@ public class UseItem : MonoBehaviour
         activated = !activated;
         if (activated)
         {
-            gameObject.GetComponent<TextMeshProUGUI>().SetText("");
             BookDisplay.SetActive(true);
             SetPage(item as Book);
         }
