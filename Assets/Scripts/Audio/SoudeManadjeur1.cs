@@ -23,13 +23,7 @@ public class AudioManageur1 : MonoBehaviour
     public AudioMixerGroup _mixerUI;
     //public AudioMixerGroup _Master;
     int _noise;
-   float _NoiseCounter=0;
-    int _NoiseDele=10;
-
-
-
-    [SerializeField]int _minimumDaily;
-    [SerializeField]int _dailest;
+   
   private void Awake()
     {
       instance=this;
@@ -46,27 +40,7 @@ public class AudioManageur1 : MonoBehaviour
         _audioSourceNoise.outputAudioMixerGroup=_mixerNoise;
         
     }
-    void Update()
-    {
-        if((_NoiseCounter+=Time.deltaTime)>=_NoiseDele)
-        {
-                
-        // NandomNoise();
-         
-         _NoiseDele=Random.Range(_minimumDaily,_dailest);
-         _NoiseCounter=0;
-                
-
-
-        }
-        
-        
-      
-
-      
-       
-
-    }
+    
     public void GoMusic(int audiolist,int listMusic)
     {
       _audioSourceMusic[audiolist].outputAudioMixerGroup=_mixerMusic;

@@ -1446,6 +1446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9468552a8afa4dbd5521f530fff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nomMixer: 
+  _audioMixer: {fileID: 0}
 --- !u!1 &387629676
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,6 +2642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9468552a8afa4dbd5521f530fff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nomMixer: 
+  _audioMixer: {fileID: 0}
 --- !u!1 &678385497
 GameObject:
   m_ObjectHideFlags: 0
@@ -2932,6 +2936,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9468552a8afa4dbd5521f530fff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nomMixer: 
+  _audioMixer: {fileID: 0}
 --- !u!1 &777731487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4946,6 +4952,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9468552a8afa4dbd5521f530fff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nomMixer: 
+  _audioMixer: {fileID: 0}
 --- !u!1001 &1251875354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7824,6 +7832,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb9468552a8afa4dbd5521f530fff9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nomMixer: 
+  _audioMixer: {fileID: 0}
 --- !u!1 &2126820205
 GameObject:
   m_ObjectHideFlags: 0
