@@ -7,6 +7,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private MapManager _mapManager;
     [SerializeField] private LightsManager _lightsManager;
+    [SerializeField] private EmergenceSystem _emergenceSystem;
     
     [Header("Submarine Movement")]
     [SerializeField] private ThrusterLever _thrusterLever;
@@ -79,12 +80,14 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         {
             Debug.Log("Goal reached");
             _inGoalRange = true;
+            _emergenceSystem.IsAtGoodPosition(true);
         }
 
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
         {
             Debug.Log("Goal left");
             _inGoalRange = false;
+            _emergenceSystem.IsAtGoodPosition(false);
         }
         
         Rotate();
