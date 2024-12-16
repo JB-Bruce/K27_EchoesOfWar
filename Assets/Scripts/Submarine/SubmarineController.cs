@@ -124,6 +124,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     private void OnSubmarineCollisionEnter()
     {
         _isCollided = true;
+        Camera.main.GetComponent<CameraScript>().startShake(.25f,.1f);
         _submarineBody.OnCollision();
         OnBreakDown.Invoke();
         
