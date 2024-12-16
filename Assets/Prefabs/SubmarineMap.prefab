@@ -2152,7 +2152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lightsManager: {fileID: 5359604597058919104}
   _electricityObjects:
-  - {fileID: 0}
+  - {fileID: 7644318004823594467}
   - {fileID: 4555977946428528195}
   - {fileID: 6881230828488594194}
   _electricityComponents:
