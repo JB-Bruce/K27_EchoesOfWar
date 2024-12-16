@@ -134,7 +134,7 @@ public class DrawScript : MonoBehaviour
     }
     
     
-    private static bool LinePlaneIntersection(out Vector3 intersection, Vector3 linePoint, Vector3 lineDir, Vector3 planePoint, Vector3 planeNormal)
+    public static bool LinePlaneIntersection(out Vector3 intersection, Vector3 linePoint, Vector3 lineDir, Vector3 planePoint, Vector3 planeNormal)
     {
         intersection = Vector3.zero;
 
