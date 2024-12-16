@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9da5bf62bf9f49be2c5f6fcd35688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOItem: {fileID: 11400000, guid: 4ca50cbc22de14e4bb0f328603d9b25a, type: 2}
+  _SOItem: {fileID: 11400000, guid: 15d46c8992daad745b28a97b98f8e039, type: 2}
   _hotBar: {fileID: 0}
   _outline: {fileID: 6648980149587937209}
 --- !u!114 &6648980149587937209

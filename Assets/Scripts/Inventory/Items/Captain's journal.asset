@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb136da83ad2db4099d720463a47ac9, type: 3}
+  m_Script: {fileID: 11500000, guid: 313c21e8af2cc4c47ac09ab53fa44cfa, type: 3}
   m_Name: Captain's journal
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: ec0b7940018b212469ffc664054495f4, type: 3}
@@ -17,3 +17,7 @@ MonoBehaviour:
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
+  Text:
+  - A
+  - B
+  - C
