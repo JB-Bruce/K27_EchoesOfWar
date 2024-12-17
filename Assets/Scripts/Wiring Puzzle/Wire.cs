@@ -5,18 +5,14 @@ using UnityEngine.UIElements;
 
 public class Wire : MonoBehaviour
 {
-    public Transform End;
-    public Transform Transform;
-    public bool IsLinked = false;
+    public Transform end;
+    public GameObject mesh;
+    public GameObject symbole;
+    public bool isLinked = false;
     [HideInInspector] public Vector3 InitPos;
-    [HideInInspector] public Vector3 InitScale;
-    [HideInInspector] public float InitZ;
-    
 
     void Awake()
     {
-        InitPos = transform.localPosition;
-        InitScale = transform.localScale;
-        InitZ = Camera.main.WorldToScreenPoint(transform.position).z;
+        InitPos = transform.position;
     }
 }
