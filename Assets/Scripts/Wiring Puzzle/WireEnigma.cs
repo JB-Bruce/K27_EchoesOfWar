@@ -1,25 +1,38 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
+using UnityEngine.Splines;
 
 [RequireComponent (typeof(Outline))]
 public class WireEnigma : MonoBehaviour, IFinishedInteractable
 {
+    [Header("Wires")]
     [SerializeField] private List<Wire> _wires;
+
+    [Header("Wires Destinations")]
     [SerializeField] private List<Transform> _wiresEnds;
+    [SerializeField] private List<GameObject> _wiresEndsSymboles;
+
+    [Header("Symboles")]
+    [SerializeField] private List<Mesh> _meshSymboles;
+
+    [Header("Zoom")]
     [SerializeField] private Transform _target;
+
+    [Header("Low Resolution")]
+    public RenderTexture txt2D;
 
     private Outline _outline;
     private string _name;
 
+    private bool isDragging;
+    private Wire _draggedWire;
+    public float _distanceRange = 0.01f;
     private int _wiresConnected = 0;
     private readonly UnityEvent _onWiresResolved = new();
 
     private Camera _camera;
-    private float _cameraZDistance;
+    public GameObject _planeRef;
 
     [SerializeField] bool _doesStopMovements;
     public bool doesStopMovements => _doesStopMovements;
@@ -30,12 +43,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     public bool isInteracted { get; set; }
     public Outline outline => _outline;
     public string interactableName => _name;
-
-    public RenderTexture txt2D;
-    public bool isDragging;
-    public Wire _draggedWire;
-    public GameObject _planeRef;
-    public float _distanceRange = 0.05f;
+    
 
     void Start()
     {
@@ -50,6 +58,8 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I)) { Shuffle(); }
+
         if (isInteracted)
         {
             var pos = Input.mousePosition;
@@ -58,11 +68,11 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
             Ray ray = _camera.ScreenPointToRay(pos);
             RaycastHit hitInfos;
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) )
             {
-                if (Physics.Raycast(ray, out hitInfos))
+                if ( _draggedWire==null && Physics.Raycast(ray, out hitInfos))
                 {
-                    if (hitInfos.transform.gameObject.TryGetComponent<Wire>(out Wire wire) && !wire.IsLinked)
+                    if (hitInfos.transform.gameObject.TryGetComponent<Wire>(out Wire wire) && !wire.isLinked)
                     {
                         isDragging = true;
                         _draggedWire = wire;
@@ -80,18 +90,18 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
 
             if (!isDragging && _draggedWire != null)
             {
-                Vector3 distance = _draggedWire.Transform.position - _draggedWire.End.transform.position;
+                Vector3 distance = _draggedWire.transform.position - _draggedWire.end.transform.position;
                 if (distance.sqrMagnitude <= _distanceRange)
                 {
-                    _draggedWire.Transform.position = _draggedWire.End.transform.position;
-                    _draggedWire.IsLinked = true;
+                    _draggedWire.isLinked = true;
                     Linked();
+                    MoveWireToPoint(_draggedWire, _draggedWire.end.transform.position);
                 }
-                else
+                else if (_draggedWire != null)
                 {
                     ResetWire(_draggedWire);
-                    _draggedWire = null;
                 }
+                _draggedWire=null;
             }
             else
             {
@@ -112,18 +122,42 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
 
     private void Shuffle()
     {
-        List<Transform> list = new List<Transform>();
+        List<Transform> listEnds = new List<Transform>();
+        List<GameObject> list = new List<GameObject>();
+        List<Mesh> listSymboles = new List<Mesh>();
         foreach (Transform t in _wiresEnds)
         {
-            list.Add(t);
+            listEnds.Add(t);
+        }
+
+        foreach (GameObject g in _wiresEndsSymboles)
+        {
+            list.Add(g);
+        }
+
+        foreach (Mesh m in _meshSymboles)
+        {
+            listSymboles.Add(m);
         }
 
         foreach (var wire in _wires)
         {
-            int index = Random.Range(0, list.Count);
-            wire.End = list[index];
+            int index = Random.Range(0, listEnds.Count);
+            wire.end = listEnds[index];
+            list[index].GetComponent<MeshFilter>().mesh = listSymboles[index];
+            wire.symbole.GetComponent<MeshFilter>().mesh = listSymboles[index];
+            listEnds.RemoveAt(index);
             list.RemoveAt(index);
+            listSymboles.RemoveAt(index);
         }
+
+        foreach(var wire in _wires)
+        {
+            wire.isLinked = false;
+            ResetWire(wire);
+        }
+
+        _wiresConnected = 0;
     }
 
     private void MoveWire(Ray ray)
@@ -132,26 +166,30 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         Vector3 NewPosition;
         if (DrawScript.LinePlaneIntersection(out NewPosition, ray.origin, ray.direction, _planeRef.transform.position, _planeRef.transform.right))
         {
-            _draggedWire.Transform.position = NewPosition;
+            MoveWireToPoint(_draggedWire, NewPosition);
         }
+    }
+
+    private void MoveWireToPoint(Wire wire,  Vector3 position)
+    {
+        wire.transform.position = position;
 
         //scale
-        float distance = Vector3.Distance(_draggedWire.Transform.position,_draggedWire.InitPos);
-        print(_draggedWire.InitPos + " --- " + _draggedWire.Transform.position + " = " + distance * 0.01f);
-        _draggedWire.Transform.localScale = new Vector3(_draggedWire.InitScale.x, _draggedWire.InitScale.y, distance * 0.01f);
+        float distance = Vector3.Distance(wire.InitPos, wire.transform.position);
+        wire.mesh.transform.position = wire.InitPos + (position - wire.InitPos) / 2f;
+        wire.mesh.transform.localScale = new Vector3(1, distance / wire.transform.lossyScale.y / 2f, 1);
 
         //rotation
-        Vector3 direction = NewPosition - _draggedWire.InitPos;
-        _draggedWire.Transform.right = direction;
-
-
+        Vector3 direction = position - wire.InitPos;
+        wire.transform.right = direction;
     }
 
     private void ResetWire(Wire wire)
     {
-        wire.Transform.localPosition = wire.InitPos;
-        wire.Transform.right = Vector3.zero;
-        wire.Transform.localScale = wire.InitScale;
+
+         wire.mesh.transform.localScale = Vector3.zero;
+         wire.transform.position = wire.InitPos;
+         wire.isLinked = false;
     }
 
     public void Interact()
