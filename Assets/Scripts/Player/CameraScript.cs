@@ -19,6 +19,11 @@ public class CameraScript : MonoBehaviour
         cameraTransform = transform;
     }
 
+    public void StopShake()
+    {
+        StopCoroutine(CurrentShakeCoroutine);
+    }
+    
     public void constantShake()
     {
         if(CurrentShakeCoroutine == null)

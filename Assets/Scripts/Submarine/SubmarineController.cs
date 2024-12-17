@@ -32,6 +32,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     [Header("Shake")]
     [SerializeField] private float _shakeDuration;
     [SerializeField] private float _shakeIntensity;
+    [SerializeField] private float _shakethreshold;
     
     private bool _isAlarmActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
@@ -75,10 +76,15 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         _mapManager.SetSubPos(_submarineBody.Position);
         
         _mapManager.Tick();
-        if (_thrusterLever.GetRealThrust() != 0)
+        if (Mathf.Abs(_thrusterLever.GetRealThrust()) > _shakethreshold)
         {
             Camera.main.GetComponent<CameraScript>().constantShake();
         }
+        else if (!_isCollided)
+        {
+           Camera.main.GetComponent<CameraScript>().StopShake();
+        }
+        
         if (!_isCollided)
             _submarineBody.Tick();
         
