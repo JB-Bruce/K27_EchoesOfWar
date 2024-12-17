@@ -9,6 +9,7 @@ public class CameraScript : MonoBehaviour
     private Transform cameraTransform;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private float _zoomSpeed = 10f;
+    [SerializeField] private float ConstantShakeMag = 0.2f;
 
     IEnumerator CurrentShakeCoroutine;
 
@@ -18,6 +19,12 @@ public class CameraScript : MonoBehaviour
         cameraTransform = transform;
     }
 
+    public void constantShake()
+    {
+        if(CurrentShakeCoroutine == null)
+            startShake(999f, ConstantShakeMag);
+    }
+    
     /// <summary>
     /// start the coroutine that shake the screen
     /// </summary>
@@ -47,6 +54,7 @@ public class CameraScript : MonoBehaviour
             yield return null;
         }
         cameraTransform.localPosition = startPos;
+        CurrentShakeCoroutine = null;
         yield return null;
     }
     
