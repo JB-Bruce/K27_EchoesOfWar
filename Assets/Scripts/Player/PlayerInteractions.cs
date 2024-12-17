@@ -51,9 +51,6 @@ public class PlayerInteractions : MonoBehaviour
 			return false;
         }
 
-        
-
-
         if (overedInteractable is IFinishedInteractable finishedInteractable)
         {
             if (selectedInteractable != null)

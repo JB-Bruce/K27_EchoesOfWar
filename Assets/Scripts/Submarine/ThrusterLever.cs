@@ -13,6 +13,8 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
     [SerializeField] private float _maxThrust;
     
     [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _upperthreshold;
+    [SerializeField] private float _lowerthreshold;
         
     private Transform _transform;
     
@@ -57,8 +59,9 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         
         _thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, 0, 1);
-
-        SetThrusterPosition();
+        
+        if(_thrust > _upperthreshold || _thrust < _lowerthreshold)
+            SetThrusterPosition();
 
         /*_thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, -_distMinToOrigin, _distMaxToOrigin);
@@ -86,6 +89,10 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
 
     public float GetRealThrust()
     {
+        if (_thrust < _upperthreshold && _thrust > _lowerthreshold)
+        {
+             return 0f;
+        }
         return Mathf.Lerp(_minThrust, _maxThrust, _thrust);
     }
 
