@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class SubmarineController : MonoBehaviour, IElectricity
+public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 {
     [SerializeField] private SubmarineBody _submarineBody;
     [SerializeField] private MapManager _mapManager;
     [SerializeField] private LightsManager _lightsManager;
+    [SerializeField] private EmergenceSystem _emergenceSystem;
     
     [Header("Submarine Movement")]
     [SerializeField] private ThrusterLever _thrusterLever;
@@ -27,9 +29,16 @@ public class SubmarineController : MonoBehaviour, IElectricity
     [SerializeField] private float _nearDetectionArea;
     [SerializeField] private float _farDetectionArea;
     [SerializeField] private float _goalThreshold;
+    
+    [Header("Shake")]
+    [SerializeField] private float _shakeDuration;
+    [SerializeField] private float _shakeIntensity;
+    [SerializeField] private float _shakethreshold;
+    
     private bool _isAlarmActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
     private string _OnFarDetectionTriggerName = "OnFarDetection";
+    private bool _isCollided = false;
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
@@ -42,6 +51,8 @@ public class SubmarineController : MonoBehaviour, IElectricity
         
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
+        
+        _sonar.SetMapTexture(_mapManager.GetMapTexture());
         
         _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnSubmarineCollisionEnter,    OnSubmarineCollisionExit);
         _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnSubmarineFarDetectionEnter, OnSubmarineFarDetectionExit);
@@ -68,18 +79,30 @@ public class SubmarineController : MonoBehaviour, IElectricity
         _mapManager.SetSubPos(_submarineBody.Position);
         
         _mapManager.Tick();
-        _submarineBody.Tick();
+        if (Mathf.Abs(_thrusterLever.GetRealThrust()) > _shakethreshold)
+        {
+            Camera.main.GetComponent<CameraScript>().constantShake();
+        }
+        else if (!_isCollided)
+        {
+           Camera.main.GetComponent<CameraScript>().StopShake();
+        }
+        
+        if (!_isCollided)
+            _submarineBody.Tick();
         
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) <= _goalThreshold && !_inGoalRange )
         {
             Debug.Log("Goal reached");
             _inGoalRange = true;
+            _emergenceSystem.IsAtGoodPosition(true);
         }
 
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
         {
             Debug.Log("Goal left");
             _inGoalRange = false;
+            _emergenceSystem.IsAtGoodPosition(false);
         }
         
         Rotate();
@@ -118,7 +141,10 @@ public class SubmarineController : MonoBehaviour, IElectricity
 
     private void OnSubmarineCollisionEnter()
     {
+        _isCollided = true;
+        Camera.main.GetComponent<CameraScript>().startShake(_shakeDuration,_shakeIntensity);
         _submarineBody.OnCollision();
+        OnBreakDown.Invoke();
         
         if (_isAlarmActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, true, true);
@@ -126,6 +152,8 @@ public class SubmarineController : MonoBehaviour, IElectricity
 
     private void OnSubmarineCollisionExit()
     {
+        _isCollided = false;
+        
         if (_isAlarmActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
     }
@@ -161,4 +189,6 @@ public class SubmarineController : MonoBehaviour, IElectricity
     {
         hasElectricity = false;
     }
+
+    public UnityEvent OnBreakDown { get; set; } = new();
 }

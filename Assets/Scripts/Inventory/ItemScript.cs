@@ -4,11 +4,17 @@ public class ItemScript : MonoBehaviour,IInteractable
 {
     
     public Item _SOItem;
-    public HotBar _hotBar;
-    [SerializeField] Outline _outline;
+    private HotBar _hotBar;
+    [SerializeField] protected Outline _outline;
     public Outline outline => _outline;
     public string interactableName => _SOItem.name;
-    
+
+    private void Start()
+    {
+        _hotBar = HotBar.Instance;
+        _outline.enabled = false;
+    }
+
     public void Interact()
     {
         if (_hotBar.AddItemToHotBar(_SOItem))
@@ -19,7 +25,5 @@ public class ItemScript : MonoBehaviour,IInteractable
     
     private void Awake()
     {
-        _outline = GetComponent<Outline>();
-        _outline.enabled = false;
     }
 }

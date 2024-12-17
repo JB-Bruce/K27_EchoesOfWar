@@ -12,7 +12,7 @@ public class DrawScript : MonoBehaviour
 
     [SerializeField] Color _drawingColor;
 
-    [SerializeField] private Camera MainCamera;
+    private Camera MainCamera;
     [SerializeField] private RawImage _image;
     [SerializeField] private Transform _bottomLeft;
     [SerializeField] private Transform _topRight;
@@ -31,6 +31,8 @@ public class DrawScript : MonoBehaviour
 
     private void Start()
     {
+        MainCamera = Camera.main;
+
         RectTransform rt = _image.GetComponent<RectTransform>();
         _topRight.localPosition = new(rt.rect.width / 2f, rt.rect.height / 2f);
         _bottomLeft.localPosition = new(-rt.rect.width / 2f, -rt.rect.height / 2f);
@@ -95,7 +97,6 @@ public class DrawScript : MonoBehaviour
 
     private void SetTexture(Color color, Vector3 position, float size)
     {
-        print("rr");
         _pointer.position = position;
 
         Vector3 ToPos = _pointer.localPosition - _bottomLeft.localPosition;
@@ -105,7 +106,6 @@ public class DrawScript : MonoBehaviour
 
         if (x <= 1 && y <= 1)
         {
-            print("deffff");
             (int x, int y) centerPixel = (Mathf.RoundToInt(x * _texture.width - .5f), Mathf.RoundToInt(y * _texture.height - .5f));
 
             int ceiledSize = Mathf.CeilToInt(size);

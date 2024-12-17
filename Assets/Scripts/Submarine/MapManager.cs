@@ -8,41 +8,35 @@ using Random = UnityEngine.Random;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] Texture2D texture;
-    [SerializeField] Texture2D texture2;
-    [SerializeField] RawImage rawImage;
+    [SerializeField] private List<Map> maps;
+    [SerializeField] Texture2D originalWriteTexture;
+    [SerializeField] private RawImage details;
     Texture2D textureToModif;
     
     [SerializeField] Color sonarColor;
-
-    [SerializeField] List<Vector2> SpawnPoints;
-    [SerializeField] List<Vector2> GoalPoints;
-    private Vector3 subPos;
-
-    int width;
-    int height;
-
-
     [SerializeField] Color accessibleColor = Color.black;
+    
+    
+    private Map currentMap;
+    private Texture2D mapTexture;
+    private Path currentPath;
+    private Vector2 currentSpawnPoint;
+    private Vector2 currentGoalPoint;
+    
+    private Vector3 subPos;
 
     List<Vector2Int> lastPaintedSquares = new();
 
-    //Dictionary<string, (List<Vector2Int> list, Color color, UnityAction action)> circles = new();
     Dictionary<string, (List<Vector2Int> list, Color color, UnityAction enter, UnityAction exit)> circles = new();
 
     private readonly Dictionary<string, float> _eventsTriggered = new();
     [SerializeField] private float _minTimeBeforeLeave = 0.3f;
 
-
-    public Vector2 GetSpawnPoint()
+    private void Awake()
     {
-        return SpawnPoints[Random.Range(0, SpawnPoints.Count)];
+        SetCurrentMap();
     }
-
-    public Vector2 GetGoalPoint()
-    {
-        return GoalPoints[Random.Range(0, GoalPoints.Count)];
-    }
+    
     private void Start()
     {
         Init();
@@ -58,15 +52,18 @@ public class MapManager : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        width = texture.width;
-        height = texture.height;
-        
-        textureToModif = CreateReadableTexture(texture2);
-
-        rawImage.texture = textureToModif;
+        textureToModif = CreateReadableTexture(originalWriteTexture);
+        details.texture = textureToModif;
     }
 
-
+    private void SetCurrentMap()
+    {
+        currentMap = maps[Random.Range(0, maps.Count)];
+        mapTexture = currentMap.texture;
+        currentPath = currentMap.path[Random.Range(0, currentMap.path.Count)];
+        currentSpawnPoint = currentPath.start;
+        currentGoalPoint = currentPath.goal[Random.Range(0, currentPath.goal.Count)];
+    }
 
     public void Tick()
     {
@@ -96,7 +93,7 @@ public class MapManager : MonoBehaviour
                 lastPaintedSquares.Add(j + pos);
                 textureToModif.SetPixel(j.x + pos.x, j.y + pos.y, i.Value.color);
 
-                if(texture.GetPixel(j.x + pos.x, j.y + pos.y) != accessibleColor)
+                if(mapTexture.GetPixel(j.x + pos.x, j.y + pos.y) != accessibleColor)
                 {
                     triggered = true;
                 }
@@ -104,8 +101,8 @@ public class MapManager : MonoBehaviour
 
             if (triggered)
             {
-                i.Value.enter?.Invoke();
-                _eventsTriggered.TryAdd(i.Key, Time.time);
+                if (_eventsTriggered.TryAdd(i.Key, Time.time))
+                    i.Value.enter?.Invoke();
             }
             else
             {
@@ -131,7 +128,7 @@ public class MapManager : MonoBehaviour
     public Color GetPixel(Vector2 pos)
     {
         Vector2Int newPos = GetPixelPos(pos);
-        return texture.GetPixel(newPos.x, newPos.y);
+        return mapTexture.GetPixel(newPos.x, newPos.y);
     }
 
     Texture2D CreateReadableTexture(Texture2D originalTexture)
@@ -166,8 +163,6 @@ public class MapManager : MonoBehaviour
 
         circles.Add(areaName, (shapeCreation(size), sonarColor, OnAreaEnter, OnAreaExit));
     }
-
-
 
     private List<Vector2Int> GetCircle(float size)
     {
@@ -209,6 +204,35 @@ public class MapManager : MonoBehaviour
         }
 
         return results;
+    }
+
+    public Vector2 GetSpawnPoint()
+    {
+        return currentSpawnPoint;
+    }
+
+    public Vector2 GetGoalPoint()
+    {
+        return currentGoalPoint;
+    }
+
+    public Texture2D GetMapTexture()
+    {
+        return mapTexture;
+    }
+
+    [Serializable]
+    private struct Map
+    {
+        public Texture2D texture;
+        public List<Path> path;
+    }
+
+    [Serializable]
+    private struct Path
+    {
+        public Vector2 start;
+        public List<Vector2> goal;
     }
 }
 

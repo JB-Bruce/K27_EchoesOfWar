@@ -95,6 +95,12 @@ public class Sonar : MonoBehaviour
         _submarinePosition = pos;
     }
 
+    public void SetMapTexture(Texture2D Texture)
+    {
+        texture = Texture;
+        rawImage.texture = Texture;
+    }
+
     [System.Serializable]
     public struct ZoomInfo
     {

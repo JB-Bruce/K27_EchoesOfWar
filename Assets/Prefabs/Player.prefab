@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 4221790664079365038}
   - component: {fileID: 3516742246151291907}
   - component: {fileID: 3525822115613214360}
-  - component: {fileID: 4327818710508232858}
+  - component: {fileID: 7455585940292856317}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -232,6 +232,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 6073808603743382582}
   _playerInteractions: {fileID: 6503775034681696906}
   _submarineController: {fileID: 0}
+  _submarineControlsPanel: {fileID: 0}
 --- !u!114 &7966562643128107611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,7 +429,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4214276342256595384}
         m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
-        m_MethodName: scroll
+        m_MethodName: Cancel
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -438,14 +439,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: d2b2f19f-cbc8-41f7-82b2-772bba60415e
-    m_ActionName: 'move/Scroll[/Mouse/scroll/down,/Mouse/scroll/up]'
+    m_ActionId: e491cfa5-ff5e-4d45-b9db-92b363b6aaa1
+    m_ActionName: 'move/UnInteract[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: move
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!54 &4327818710508232858
+--- !u!54 &7455585940292856317
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -623,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b156937a43d0d94ba5c49cad45e5920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 2880070914988444188}
+  target: {fileID: 14540042980772335}
   playerTarget: {fileID: 14540042980772335}
   _rotationSpeed: 10
   _zoomSpeed: 10
@@ -637,7 +638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 903787859839372054, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1407487740637284691, guid: 7389db6c44fef514b89cd7d34b47703e, type: 3}
       propertyPath: m_LocalPosition.x

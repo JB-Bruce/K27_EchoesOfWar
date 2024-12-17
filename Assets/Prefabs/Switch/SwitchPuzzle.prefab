@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.3, z: 1.1}
+  m_LocalScale: {x: 0.05, y: 0.225, z: 1.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4617957631146014542}
@@ -143,7 +143,7 @@ Transform:
   - {fileID: 7553353965722153192}
   - {fileID: 8080403717619802111}
   - {fileID: 3676247508676149370}
-  - {fileID: 418368016418150588}
+  - {fileID: 8024525035893355572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &994581254148648203
@@ -158,13 +158,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b608801f724e41a8302444b4f73013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startAllActivated: 0
+  _canDiscoverCodeMultipleTimes: 0
   _switchPuzzles:
   - {fileID: 5054721161228078084}
   - {fileID: 2378493472852299926}
   - {fileID: 4175857206432055169}
   - {fileID: 8850800314393354244}
-  - {fileID: 5485009555138508994}
-  _canDiscoverCodeMultipleTimes: 0
+  - {fileID: 2777642756128674890}
+  _switchCode: 
 --- !u!1001 &841635160867788725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -231,16 +233,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: _affectedSwitchButtonPuzzles.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
       value: 
-      objectReference: {fileID: 2378493472852299926}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[1]'
-      value: 
-      objectReference: {fileID: 5485009555138508994}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -328,16 +326,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: _affectedSwitchButtonPuzzles.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
       value: 
-      objectReference: {fileID: 4175857206432055169}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[1]'
-      value: 
-      objectReference: {fileID: 5485009555138508994}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -352,111 +346,6 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
   m_PrefabInstance: {fileID: 3990109397466643381}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bc813b2c0ea3aa4a9941436a4287ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1001 &4423914064526397299
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 4617957631146014542}
-    m_Modifications:
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981107254835213352, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: m_Name
-      value: Switch (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: _affectedSwitchButtonPuzzles.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
-      value: 
-      objectReference: {fileID: 5054721161228078084}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2378493472852299926}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[2]'
-      value: 
-      objectReference: {fileID: 4175857206432055169}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[3]'
-      value: 
-      objectReference: {fileID: 8850800314393354244}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
---- !u!4 &418368016418150588 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-  m_PrefabInstance: {fileID: 4423914064526397299}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5485009555138508994 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-  m_PrefabInstance: {fileID: 4423914064526397299}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -530,20 +419,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: _affectedSwitchButtonPuzzles.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
       value: 
-      objectReference: {fileID: 2378493472852299926}
+      objectReference: {fileID: 0}
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: '_affectedSwitchButtonPuzzles.Array.data[1]'
       value: 
       objectReference: {fileID: 8850800314393354244}
-    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
-      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[2]'
-      value: 
-      objectReference: {fileID: 5485009555138508994}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -636,7 +521,7 @@ PrefabInstance:
     - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
       propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
       value: 
-      objectReference: {fileID: 5054721161228078084}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -657,4 +542,97 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
   m_PrefabInstance: {fileID: 5798479559320299303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6338365781128553467
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4617957631146014542}
+    m_Modifications:
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981107254835213352, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: m_Name
+      value: Switch (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: _affectedSwitchButtonPuzzles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+      propertyPath: '_affectedSwitchButtonPuzzles.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+--- !u!114 &2777642756128674890 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8176933037415872433, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+  m_PrefabInstance: {fileID: 6338365781128553467}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc813b2c0ea3aa4a9941436a4287ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8024525035893355572 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4083270735631374287, guid: 5b6dafa9a88e67845a67b4915b4c28a0, type: 3}
+  m_PrefabInstance: {fileID: 6338365781128553467}
   m_PrefabAsset: {fileID: 0}

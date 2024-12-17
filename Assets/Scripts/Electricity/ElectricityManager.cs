@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ElectricityManager : MonoBehaviour
+public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 {
     [Header("Working with Electricity")]
     [SerializeField] private LightsManager _lightsManager;
@@ -17,7 +17,7 @@ public class ElectricityManager : MonoBehaviour
 
     [Header("Shut Down")]
     [SerializeField, Range(0, 100)] private int _shutDownProbability = 2;
-    [SerializeField, Range(0, 5)] private float _timeBetweenTryShutDown = 1;
+    [SerializeField, Range(0, 60)] private float _timeBetweenTryShutDown = 1;
     [SerializeField, Range(0, 1.5f)] private float _maxTimeBetweenEachTurnOnOff = 0.5f;
     
     private ElectricityMode _electricityMode;
@@ -52,8 +52,13 @@ public class ElectricityManager : MonoBehaviour
 
     private void Update()
     {
+        #region CheatCode
         if (Input.GetKeyDown(KeyCode.O))
             SetElectricitySystemEnabled(true, true, ElectricityMode.On);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            UpdateElectricityMode(ElectricityMode.On);
+        #endregion
         
         if (!_isElectricityEnabled)
             return;
@@ -69,15 +74,13 @@ public class ElectricityManager : MonoBehaviour
             _canShutDown = false;
             StartCoroutine(TryShutDownElectricity());
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UpdateElectricityMode(ElectricityMode.On);
-        }
     }
 
     public void UpdateElectricityMode(ElectricityMode newElectricityMode)
     {
+        if (_electricityMode == newElectricityMode)
+            return;
+        
         _electricityMode = newElectricityMode;
 
         switch (_electricityMode)
@@ -146,8 +149,27 @@ public class ElectricityManager : MonoBehaviour
     public void SetElectricitySystemEnabled(bool Enabled, bool ChangeMode = false, ElectricityMode Mode = ElectricityMode.On)
     {
         _isElectricityEnabled = enabled;
+
+        if (!ChangeMode) 
+            return;
         
-        if (ChangeMode)
-            UpdateElectricityMode(Mode);
+        UpdateElectricityMode(Mode);
+
+        if (Mode == ElectricityMode.On)
+        {
+            StopAllCoroutines();
+        }
+        else if (Mode == ElectricityMode.Off)
+        {
+            
+        }
     }
+
+    public void Break()
+    {
+        StopAllCoroutines();
+        UpdateElectricityMode(ElectricityMode.Off);
+    }
+
+    public bool IsBroken { get; set; } = false;
 }

@@ -41,7 +41,17 @@ public class PlayerInteractions : MonoBehaviour
     public bool TryInteract()
     {
         if (overedInteractable == null || _useItem.activated) 
-            return false;
+        {
+            if (selectedInteractable.isInteracted)
+            {
+                Cancel();
+                return true;
+
+            }
+			return false;
+        }
+
+        
 
 
         if (overedInteractable is IFinishedInteractable finishedInteractable)
@@ -54,7 +64,10 @@ public class PlayerInteractions : MonoBehaviour
             }
             else
             {
-                selectedInteractable = finishedInteractable;
+                overedInteractable.Interact();
+                if(finishedInteractable.isInteracted)
+                    selectedInteractable = finishedInteractable;
+                return true;
             }
         }
 
