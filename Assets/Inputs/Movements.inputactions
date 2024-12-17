@@ -64,28 +64,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Left",
-                    "id": "b454bcf6-b8d5-4d8e-9e18-54b9f0a77808",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Right",
-                    "id": "baf2a597-8307-4f7a-8e48-382076f505f2",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Up",
                     "id": "8d11c955-6d19-46e3-b8e1-8efa4bb00003",
                     "path": "<Keyboard>/w",
@@ -97,9 +75,31 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Left",
+                    "id": "b454bcf6-b8d5-4d8e-9e18-54b9f0a77808",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "Down",
                     "id": "5764b016-9fd6-4326-be59-f1ae9a46546c",
                     "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "baf2a597-8307-4f7a-8e48-382076f505f2",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
