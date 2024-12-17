@@ -1,10 +1,10 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private TutorialManager _tutorialManager;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private Transform _target;
     
@@ -38,7 +38,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
     
-    public void scroll(InputAction.CallbackContext context)
+    public void OnScroll(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -73,5 +73,11 @@ public class PlayerInput : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void OnTutorialAction(InputAction.CallbackContext context)
+    {
+        if(context.started)
+            _tutorialManager.CheckAction(context.action);
     }
 }
