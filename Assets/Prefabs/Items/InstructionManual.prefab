@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7142188290275229632}
   - component: {fileID: 1520987518520630924}
   - component: {fileID: 6648980149587937209}
-  - component: {fileID: 1785984005772537008}
+  - component: {fileID: 4917845218135967467}
   m_Layer: 0
-  m_Name: Captain'sJournal
+  m_Name: InstructionManual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24f9da5bf62bf9f49be2c5f6fcd35688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOItem: {fileID: 11400000, guid: fad774d81e8a7b7408bc53a7f23db7c5, type: 2}
+  _SOItem: {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
   _hotBar: {fileID: 0}
   _outline: {fileID: 6648980149587937209}
 --- !u!114 &6648980149587937209
@@ -144,7 +144,7 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
---- !u!54 &1785984005772537008
+--- !u!54 &4917845218135967467
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

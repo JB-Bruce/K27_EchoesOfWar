@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
 
     
     [SerializeField] private HotBar _hotBar;
+    [SerializeField] private UseItem _useItem;
     
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -45,6 +46,25 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public void UseItem(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_hotBar.GetSelectedItem() != null)
+            {
+                _useItem.Use(_hotBar.GetSelectedItem());
+            }
+        }
+    }
+
+    public void SwitchPage(InputAction.CallbackContext context)
+    {
+        if (context.performed && _useItem.activated && _hotBar.GetSelectedItem() is Book)
+        {
+            _useItem.TurnPages(context, _hotBar.GetSelectedItem() as Book);
+        }
+    }
+    
     private void Update()
     {
         _mouseDelta = Mouse.current.delta.ReadValue();

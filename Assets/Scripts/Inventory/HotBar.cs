@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HotBar : Singleton<HotBar>
 {
-
+    [SerializeField] private UseItem _UseItem;
     [SerializeField] private Transform _player;
     [SerializeField] private MeshFilter _SelectedItemRenderer;
     [SerializeField] private Image _selector;
@@ -20,7 +20,7 @@ public class HotBar : Singleton<HotBar>
     private int _selectedItem;
     public Item GetSelectedItem()
     {
-        return _items[_selectedItem];
+        return _items.Count == 0 ? null : _items[_selectedItem];
     }
     
     /// <summary>
@@ -28,7 +28,7 @@ public class HotBar : Singleton<HotBar>
     /// </summary>
     public GameObject DropItem()
     {
-        if (_items.Count > 0 && _items[_selectedItem]._prefab != null)
+        if (_items.Count > 0 && _items[_selectedItem]._prefab != null && !_UseItem.activated)
         { 
             GameObject item  = Instantiate(_items[_selectedItem]._prefab,_player.position+Camera.main.transform.forward, _items[_selectedItem]._prefab.transform.rotation);
             item.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward*_ThrowStrength);
@@ -51,7 +51,7 @@ public class HotBar : Singleton<HotBar>
     /// <param name="context"> the  positive/negative action to be performed to scroll through the inventory</param>
     public void ScrollSelect(InputAction.CallbackContext context)
     {
-        if (_items.Count <= 0) return;
+        if (_items.Count <= 0 || _UseItem.activated) return;
         if (context.ReadValue<float>() >0)
         {
             if (_selectedItem <= _items.Count)
@@ -94,7 +94,7 @@ public class HotBar : Singleton<HotBar>
             _selector.transform.localPosition = Vector2.zero;
             _selector.color = _selectorColor ;
             _SelectedItemRenderer.mesh = _items[_selectedItem]._sprite3D;
-            _SelectedItemNameDisplay.text = _items[_selectedItem].name;
+            _SelectedItemNameDisplay.text = _items[_selectedItem]._name;
         }
     }
     

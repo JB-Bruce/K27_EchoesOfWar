@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb136da83ad2db4099d720463a47ac9, type: 3}
-  m_Name: Deputy director's Journal
+  m_Script: {fileID: 11500000, guid: 313c21e8af2cc4c47ac09ab53fa44cfa, type: 3}
+  m_Name: Deputy Director's Journal
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: f3abcc087ab887448ae39dac16b59003, type: 3}
-  _name: Deputy director's journal
+  _name: Deputy Director's Journal
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
+  _hideInventory: 1
+  Texts:
+  - {fileID: 6697562529501719129, guid: bf2b8341e5d315248bcf223c39953c53, type: 3}
+  - {fileID: 6697562529501719129, guid: 865f8f04b78ec084c9174ce07f6d51b0, type: 3}
+  - {fileID: 6697562529501719129, guid: 01eecdbbf318ab445b38db20a2eee9d9, type: 3}
