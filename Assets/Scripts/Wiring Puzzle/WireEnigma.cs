@@ -101,7 +101,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
                 {
                     ResetWire(_draggedWire);
                 }
-                _draggedWire=null;
+                _draggedWire = null;
             }
             else
             {
@@ -123,7 +123,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     private void Shuffle()
     {
         List<Transform> listEnds = new List<Transform>();
-        List<GameObject> list = new List<GameObject>();
+        List<GameObject> listEndsSymboles = new List<GameObject>();
         List<Mesh> listSymboles = new List<Mesh>();
         foreach (Transform t in _wiresEnds)
         {
@@ -132,7 +132,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
 
         foreach (GameObject g in _wiresEndsSymboles)
         {
-            list.Add(g);
+            listEndsSymboles.Add(g);
         }
 
         foreach (Mesh m in _meshSymboles)
@@ -144,10 +144,12 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         {
             int index = Random.Range(0, listEnds.Count);
             wire.end = listEnds[index];
-            list[index].GetComponent<MeshFilter>().mesh = listSymboles[index];
+
+            listEndsSymboles[index].GetComponent<MeshFilter>().mesh = listSymboles[index];
             wire.symbole.GetComponent<MeshFilter>().mesh = listSymboles[index];
+
             listEnds.RemoveAt(index);
-            list.RemoveAt(index);
+            listEndsSymboles.RemoveAt(index);
             listSymboles.RemoveAt(index);
         }
 
