@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -87,8 +86,6 @@ public class TutorialManager : MonoBehaviour
             return _currentTutorialStep.description + (_currentTutorialStep.showInputAction
                 ? GetBinding(_currentTutorialStep.inputActionReference)
                 : string.Empty);
-        
-        string description = "";
         
         var descriptionSplit = _currentTutorialStep.description.Split("Input");
 

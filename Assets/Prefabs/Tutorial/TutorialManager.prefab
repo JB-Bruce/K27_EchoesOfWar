@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5063628886814803027
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3538592780258629868}
+  - component: {fileID: 4774320236651658418}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3538592780258629868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5063628886814803027}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4774320236651658418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5063628886814803027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29375e5bfb00b04983fa3e6e4eff8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialText: {fileID: 0}
+  _tutorialSteps:
+  - name: Move Around
+    description: 'You can move around with '
+    inputActionReference: {fileID: -2184190684078951289, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Interact
+    description: 'Find the instruction book. You can interact with it to pick it
+      up with '
+    inputActionReference: {fileID: 8784809300734212230, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Use Item
+    description: 'You can open the book with '
+    inputActionReference: {fileID: -1597285312425115764, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Turn Pages
+    description: 'You can browse the book with '
+    inputActionReference: {fileID: 4799906444767948874, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 1
+    isInputInDescription: 0
+  - name: Close Book
+    description: 'You can close the book with '
+    inputActionReference: {fileID: -1597285312425115764, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Take Maps
+    description: 'Go take a map with '
+    inputActionReference: {fileID: 8784809300734212230, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 0a91c4a129bf0d0468fddf98ea9a58d7, type: 2}
+    - {fileID: 11400000, guid: 8405c265d03877d43a0442dbb58bcaf7, type: 2}
+    - {fileID: 11400000, guid: 1be07105926d8dc42a1d8f148844c812, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Scroll
+    description: 'You can change your selected item with '
+    inputActionReference: {fileID: -3471643331105920132, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Drop Item
+    description: 'You can drop an item with '
+    inputActionReference: {fileID: -6216608561381606475, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
