@@ -371,6 +371,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubmarineMap
       objectReference: {fileID: 0}
+    - target: {fileID: 7630364812639496415, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: _shakeDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630364812639496415, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: _shakeIntensity
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7630364812639496415, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: _shakethreshold
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -698,6 +710,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6284422641716815476, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
   m_PrefabInstance: {fileID: 1802141127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1579085989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+  m_PrefabInstance: {fileID: 2037822210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20237ae603860eb41a6d801c638738bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1802141127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -787,9 +810,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1356426159048502347, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: ConstantShakeMag
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 1413301473683519442, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: d2b2f19f-cbc8-41f7-82b2-772bba60415e
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: 'move/Scroll[/Mouse/scroll/down,/Mouse/scroll/up]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1579085989}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: scroll
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: _hotBar
