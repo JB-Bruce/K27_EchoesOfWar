@@ -27,10 +27,15 @@ public class SubmarineBody : MonoBehaviour
     private Vector2 _acceleration = Vector2.zero;
     private Vector2 _drag = Vector2.zero;
 
+    Vector2 lastOkPosition;
+
+    public void TickMove()
+    {
+        Move();
+    }
 
     public void Tick()
     {
-        Move();
         AddRotation(_actualRotation);
         Rotate();
 
@@ -88,6 +93,14 @@ public class SubmarineBody : MonoBehaviour
         transform.position = new Vector3(_position.x, 0, _position.y);
     }
 
+    public void SetLastOk(Vector2 nPos)
+    {
+        if (nPos != null)
+            lastOkPosition = nPos;
+        else
+            lastOkPosition = _position;
+    }
+
     public void SetThrust(float thrust)
     {
         _thrustPower = thrust;
@@ -118,7 +131,12 @@ public class SubmarineBody : MonoBehaviour
     public void OnCollision()
     {
         _acceleration.Set(0, 0);
-        _velocity.Set(0, 0);
+        _velocity.Set(-_velocity.x, -_velocity.y);
         _position = _previousPosition;
+    }
+
+    public void OnCollisionConstant()
+    {
+        _position = lastOkPosition;
     }
 }

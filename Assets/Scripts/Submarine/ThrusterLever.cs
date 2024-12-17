@@ -81,6 +81,8 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         float dist = (_maxThrust - _minThrust);
 
         _thrust = -_minThrust / dist;
+
+        SetThrusterPosition();
     }
 
 

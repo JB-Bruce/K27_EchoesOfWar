@@ -29,7 +29,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     private Wire _draggedWire;
     public float _distanceRange = 0.01f;
     private int _wiresConnected = 0;
-    private readonly UnityEvent _onWiresResolved = new();
+    public readonly UnityEvent _onWiresResolved = new();
 
     private Camera _camera;
     public GameObject _planeRef;
