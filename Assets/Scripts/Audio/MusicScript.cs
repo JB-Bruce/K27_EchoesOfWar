@@ -11,6 +11,6 @@ public class Soud : MonoBehaviour
     }
     public void StarteAnbiance()
     {
-      AudioManageur1.instance.GoMusic(ListeAudio,ListMusic);
+      AudioManageur.Instance.GoMusic(ListeAudio,ListMusic);
     } 
 }
