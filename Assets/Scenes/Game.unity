@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: _shakeIntensity
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7630364812639496415, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: _shakethreshold
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

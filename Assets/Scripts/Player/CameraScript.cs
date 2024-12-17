@@ -21,7 +21,8 @@ public class CameraScript : MonoBehaviour
 
     public void StopShake()
     {
-        StopCoroutine(CurrentShakeCoroutine);
+        if (CurrentShakeCoroutine != null)
+            StopCoroutine(CurrentShakeCoroutine);
     }
     
     public void constantShake()
