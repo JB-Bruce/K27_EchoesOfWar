@@ -157,4 +157,14 @@ public class HotBar : Singleton<HotBar>
             _itemDisplays.RemoveAt(i);
         }
     }
+
+    public bool IsInHotBar(GameObject item)
+    {
+        return item.TryGetComponent<ItemScript>(out var itemScript) && _items.Contains(itemScript._SOItem);
+    }
+
+    public bool IsInHotBar(Item item)
+    {
+        return _items.Contains(item);
+    }
 }
