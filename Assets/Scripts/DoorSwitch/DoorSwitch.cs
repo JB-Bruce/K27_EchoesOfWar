@@ -19,12 +19,14 @@ public class DoorSwitch : MonoBehaviour, IInteractable
     public Outline outline => _outline;
 
     [SerializeField] Light _light;
+    [SerializeField] AudioClip _audioSwitch;
 
     UnityEvent changedEvent = new();
 
     public void Interact()
     {
         ChangeActivation(!isOn);
+        AudioManageur.Instance.PlayClipAt(_audioSwitch,transform.position);
     }
 
 

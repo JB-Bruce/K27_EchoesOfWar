@@ -15,6 +15,8 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] Animator _animator;
 
     [SerializeField] private Outline _outline;
+    [SerializeField] AudioClip _openDoor;
+    [SerializeField] AudioClip _closeDoorr;
 
     private bool _isLocked = false;
 
@@ -50,12 +52,15 @@ public class Door : MonoBehaviour, IInteractable
         {
             isOpen = false;
             _animator.Play("Close");
+            AudioManageur.Instance.PlayClipAt(_openDoor,transform.position);
         }
         else
         {
             if (_isLocked) return;
             isOpen = true;
             _animator.Play("Open");
+            AudioManageur.Instance.PlayClipAt(_closeDoorr,transform.position);
+
         }
     }
 
