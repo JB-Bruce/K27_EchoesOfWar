@@ -39,4 +39,13 @@ public class Pipe : MonoBehaviour
             else { IsCorrect = false; }
         }
     }
+
+    public void ResetPipe()
+    {
+        float number = Random.Range(0, 4);
+        for (int i = 0; i < number; i++)
+        {
+            RotatePipe();
+        }
+    }
 }

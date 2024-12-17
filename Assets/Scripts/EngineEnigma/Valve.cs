@@ -5,8 +5,8 @@ using UnityEngine.Events;
 public class Valve : MonoBehaviour
 {
     private float _currentNumber;
-    [SerializeField] private float _correctNumber;
-    [SerializeField] private float _maxNumber;
+    [SerializeField] private int _correctNumber;
+    [SerializeField] private int _maxNumber;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private bool _isThemometer;
 
@@ -14,32 +14,39 @@ public class Valve : MonoBehaviour
 
     private void Start()
     {
-        //if (_isThemometer)
-        //{
-        //    float difference = 0f;
-        //    do
-        //    {
-        //        _currentNumber = Random.Range(0, _maxNumber);
-        //        difference = _correctNumber - _currentNumber;
+        ResetValve();
+        _text.text = _currentNumber.ToString();
+    }
 
-        //        if (difference < 0f)
-        //        {
-        //            difference = -difference;
-        //        }
-        //    } while (difference <= 60f || difference >= 0f);
-        //} 
-        //else
-        //{
-        //    _currentNumber = Random.Range(0, _maxNumber);
-        //}
+    public void ResetValve()
+    {
+        if (_isThemometer)
+        {
+            float difference = 0f;
+            do
+            {
+                _currentNumber = Random.Range(0, _maxNumber);
+                difference = _correctNumber - _currentNumber;
 
-        _currentNumber = Random.Range(0, _maxNumber);
+                if (difference < 0f)
+                {
+                    difference = -difference;
+                }
+            } while (difference >= 100f); //to avoid any situation where the player has to clicked more than a thousand times
+        }
+        else
+        {
+            _currentNumber = Random.Range(0, _maxNumber);
+        }
+
+        _text.text = _currentNumber.ToString();
     }
 
     public void IncrementDecrementNumber(bool increment)
     {
-        _currentNumber += increment ? 1f : -1f;
+        _currentNumber += increment ? 1 : -1;
         _currentNumber = (_currentNumber + _maxNumber) % _maxNumber;
+
         _onValveChanged.Invoke();
 
         _text.text = _currentNumber.ToString();

@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class PipesBoard : MonoBehaviour, IFinishedInteractable
 {
     [Header("Solutions Pipes")]
-    [SerializeField] private List<Pipe> _pipesNeeded;
+    [SerializeField] private List<Pipe> _pipes;
+    [SerializeField] private List<Pipe> _pipesNeededToResolvePuzzle;
     private int _correctPipeCount;
 
     [Header("Valves and Themometer")]
@@ -45,10 +46,26 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         }
 
         StartCoroutine(((IInteractable)this).DeactivateOutline());
+
+        ResetPuzzle();
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var valve in _valves)
+        {
+            valve.OnValvePressed.RemoveAllListeners();
+        }
     }
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ResetPuzzle();
+            print("Reseting");
+        }
+
         if (isInteracted)
         {
             if (Input.GetMouseButtonDown(0))
@@ -109,28 +126,42 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         }
     }
 
-    private bool CheckPipes()
+    private void ResetPuzzle()
     {
-        foreach (var pipe in _pipesNeeded)
+        foreach (var valve in _valves)
+        {
+            valve.ResetValve();
+        }
+
+        foreach (var pipe in _pipes)
+        {
+            pipe.ResetPipe();
+        }
+    }
+
+    private void CheckPipes()
+    {
+        foreach (var pipe in _pipesNeededToResolvePuzzle)
         {
             if (!pipe.IsCorrect)
             {
-                return false;
+                return;
             }
         }
-        return true;
+        print(true);
+        _onPipesResolved.Invoke();
     }
 
-    private bool CheckValve()
+    private void CheckValve()
     {
         foreach (var valve in _valves)
         {
             if (!valve.IsCorrect)
             {
-                return false;
+                return;
             }
         }
-        return true;
+        _onValvesResolved.Invoke();
     }
 
     public UnityEvent OnPipesResolved => _onPipesResolved;
