@@ -38,9 +38,11 @@ public class Valve : MonoBehaviour
 
     public void IncrementDecrementNumber(bool increment)
     {
-        _currentNumber += increment ? 1 : -1;
+        _currentNumber += increment ? 1f : -1f;
         _currentNumber = (_currentNumber + _maxNumber) % _maxNumber;
         _onValveChanged.Invoke();
+
+        _text.text = _currentNumber.ToString();
     }
 
     public bool IsCorrect => _currentNumber == _correctNumber;

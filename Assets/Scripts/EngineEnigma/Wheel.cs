@@ -24,14 +24,18 @@ public class Wheel: MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+        if (isInteracted)
         {
-            _valve.IncrementDecrementNumber(false);
-            _transform.Rotate(-2, 0, 0);
-        } else
-        {
-            _valve.IncrementDecrementNumber(true);
-            _transform.Rotate(2, 0, 0);
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                _valve.IncrementDecrementNumber(false);
+                _transform.Rotate(-2, 0, 0);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                _valve.IncrementDecrementNumber(true);
+                _transform.Rotate(2, 0, 0);
+            }
         }
     }
 

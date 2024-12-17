@@ -3198,13 +3198,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528995127}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18208727, y: -0.6864506, z: -0.67955744, w: 0.18393354}
-  m_LocalPosition: {x: -0.0006795452, y: 0.0014309186, z: -0.0001588428}
-  m_LocalScale: {x: 0.02529338, y: 0.06426182, z: 0.036815748}
+  m_LocalRotation: {x: 0.18208727, y: -0.68645066, z: -0.67955744, w: 0.18393351}
+  m_LocalPosition: {x: -0.067954466, y: -0.17413455, z: -0.007690251}
+  m_LocalScale: {x: 2.5293376, y: 6.4261813, z: 3.6815746}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1947363006}
-  m_Father: {fileID: 1138876652}
+  m_Father: {fileID: 1687045989}
   m_LocalEulerAnglesHint: {x: -59.995, y: 178.999, z: -88.844}
 --- !u!1 &531927207
 GameObject:
@@ -3558,6 +3558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 564168704}
   _valve: {fileID: 1179279323}
+  _target: {fileID: 0}
 --- !u!114 &564168709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6753,8 +6754,7 @@ Transform:
   m_LocalPosition: {x: -0.000000029802322, y: 0.7016797, z: -0.53244025}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 528995130}
+  m_Children: []
   m_Father: {fileID: 889202390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1138876653
@@ -6846,6 +6846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 1138876652}
   _valve: {fileID: 1687045990}
+  _target: {fileID: 0}
 --- !u!114 &1138876657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7015,13 +7016,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168218426}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18208727, y: -0.6864506, z: -0.67955744, w: 0.18393354}
-  m_LocalPosition: {x: -0.0006795404, y: 0.0013934487, z: -0.00037624358}
-  m_LocalScale: {x: 0.02529338, y: 0.06426182, z: 0.036815748}
+  m_LocalRotation: {x: 0.12729508, y: -0.84102374, z: -0.47507033, w: 0.22535135}
+  m_LocalPosition: {x: -0.067954026, y: -0.33234972, z: 0.13646528}
+  m_LocalScale: {x: 2.5293381, y: 6.426182, z: 3.681575}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 28786860}
-  m_Father: {fileID: 1457535572}
+  m_Father: {fileID: 2062445203}
   m_LocalEulerAnglesHint: {x: -59.995, y: 178.999, z: -88.844}
 --- !u!4 &1171193212 stripped
 Transform:
@@ -7125,9 +7126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed20492e8dd8d7f4f95ec36dc5076caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentNumber: 0
-  _correctNumber: 0
-  _text: {fileID: 0}
+  _correctNumber: 5
+  _maxNumber: 10
+  _text: {fileID: 1595337200}
+  _isThemometer: 0
 --- !u!4 &1179279324
 Transform:
   m_ObjectHideFlags: 0
@@ -8229,7 +8231,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 894376654}
-  - {fileID: 1168218429}
   m_Father: {fileID: 889202390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1457535573
@@ -8246,6 +8247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 1457535572}
   _valve: {fileID: 2062445204}
+  _target: {fileID: 0}
 --- !u!64 &1457535574
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9703,7 +9705,8 @@ Transform:
   m_LocalPosition: {x: -0.00000008940697, y: 1.0189061, z: -0.5406343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 528995130}
   m_Father: {fileID: 1219528542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1687045990
@@ -9718,9 +9721,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed20492e8dd8d7f4f95ec36dc5076caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentNumber: 0
-  _correctNumber: 0
-  _text: {fileID: 0}
+  _correctNumber: 250
+  _maxNumber: 400
+  _text: {fileID: 1453781430}
+  _isThemometer: 1
 --- !u!114 &1687045991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12305,8 +12309,14 @@ MonoBehaviour:
   - {fileID: 692986684}
   - {fileID: 2353863249847443572}
   - {fileID: 1242065650}
-  _valves: []
-  _wheels: []
+  _valves:
+  - {fileID: 2062445204}
+  - {fileID: 1687045990}
+  - {fileID: 1179279323}
+  _wheels:
+  - {fileID: 1457535573}
+  - {fileID: 1138876656}
+  - {fileID: 564168708}
   _target: {fileID: 18431254}
   renderTxt: {fileID: 8400000, guid: 8e043080122032b4f92f443649ce5bac, type: 2}
 --- !u!114 &2062093875
@@ -12457,7 +12467,8 @@ Transform:
   m_LocalPosition: {x: -0.00000011920929, y: 1.1966481, z: -0.8685075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1168218429}
   m_Father: {fileID: 1219528542}
   m_LocalEulerAnglesHint: {x: 30.5, y: 0, z: 0}
 --- !u!114 &2062445204
@@ -12472,9 +12483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed20492e8dd8d7f4f95ec36dc5076caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentNumber: 0
-  _correctNumber: 0
-  _text: {fileID: 0}
+  _correctNumber: 3
+  _maxNumber: 10
+  _text: {fileID: 1137458008}
+  _isThemometer: 0
 --- !u!114 &2062445205
 MonoBehaviour:
   m_ObjectHideFlags: 0
