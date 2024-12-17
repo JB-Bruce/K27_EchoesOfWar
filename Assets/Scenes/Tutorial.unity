@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &81235456
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.533
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.182575
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.071
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 456522533714429009, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2766052924989560096, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
+      propertyPath: m_Name
+      value: InstructionManual
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
 --- !u!1 &192698072
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +376,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!114 &436590884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1922706963624505986, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
+  m_PrefabInstance: {fileID: 1802141127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e53a84809045a84d923142d5a7840de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &442469031
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +520,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30.5, y: 365.5}
+  m_AnchoredPosition: {x: 30.5, y: 427.01}
   m_SizeDelta: {x: 1681, y: 167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &475593348
@@ -866,15 +934,67 @@ MonoBehaviour:
   - name: Move Around
     description: 'You can move around with '
     inputActionReference: {fileID: -2184190684078951289, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
-    target: {fileID: 0}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
   - name: Interact
-    description: 'You can interact with '
+    description: 'Find the instruction book. You can interact with it to pick it
+      up with '
     inputActionReference: {fileID: 8784809300734212230, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
-    target: {fileID: 0}
-  - name: Move In Hotbar
-    description: 'You can change your selected object with '
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Use Item
+    description: 'You can open the book with '
+    inputActionReference: {fileID: -1597285312425115764, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Turn Pages
+    description: 'You can browse the book with '
+    inputActionReference: {fileID: 4799906444767948874, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 1
+    isInputInDescription: 0
+  - name: Close Book
+    description: 'You can close the book with '
+    inputActionReference: {fileID: -1597285312425115764, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 4e875f7e5dbf41945b8758c9b3785aed, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Take Maps
+    description: 'Go take a map with '
+    inputActionReference: {fileID: 8784809300734212230, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets:
+    - {fileID: 11400000, guid: 0a91c4a129bf0d0468fddf98ea9a58d7, type: 2}
+    - {fileID: 11400000, guid: 8405c265d03877d43a0442dbb58bcaf7, type: 2}
+    - {fileID: 11400000, guid: 1be07105926d8dc42a1d8f148844c812, type: 2}
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Scroll
+    description: 'You can change your selected item with '
     inputActionReference: {fileID: -3471643331105920132, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
-    target: {fileID: 0}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
+  - name: Drop Item
+    description: 'You can drop an item with '
+    inputActionReference: {fileID: -6216608561381606475, guid: 98cc6c041d704584fa18fd6059fa1840, type: 3}
+    targets: []
+    showInputAction: 1
+    splitInputAction: 0
+    isInputInDescription: 0
 --- !u!4 &885379476
 Transform:
   m_ObjectHideFlags: 0
@@ -1232,6 +1352,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1918863548}
     - target: {fileID: 7298703783394701600, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
+      propertyPath: _UseItem
+      value: 
+      objectReference: {fileID: 436590884}
+    - target: {fileID: 7298703783394701600, guid: 5360b490fae2a064e86dfd44fd794520, type: 3}
       propertyPath: _SelectedItemRenderer
       value: 
       objectReference: {fileID: 928663486}
@@ -1270,7 +1394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_ActionId
@@ -1278,7 +1402,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_ActionId
-      value: 57593340-6df0-4e5c-a6fb-2f0fb5541a80
+      value: 3d34fbd3-5684-415f-a95f-b340e7a95825
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 4cc13160-a368-4160-b112-f76b213e4eb5
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_ActionName
@@ -1286,7 +1414,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_ActionName
-      value: 'move/Tutorial[/Keyboard/anyKey,/Mouse/leftButton]'
+      value: 'move/UseItem[/Mouse/rightButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: 'move/TurnPages[/Keyboard/leftArrow,/Keyboard/rightArrow]'
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -1306,6 +1438,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
@@ -1337,6 +1473,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1193835047}
@@ -1358,6 +1498,10 @@ PrefabInstance:
       objectReference: {fileID: 1193835047}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1193835047}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1193835047}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
@@ -1389,6 +1533,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: OnTutorialAction
       objectReference: {fileID: 0}
@@ -1410,7 +1558,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnTutorialAction
+      value: UseItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchPage
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -1441,6 +1593,10 @@ PrefabInstance:
       value: PlayerInput, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -1464,10 +1620,18 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3525822115613214360, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: _hotBar
       value: 
       objectReference: {fileID: 1970532732}
+    - target: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: _useItem
+      value: 
+      objectReference: {fileID: 436590884}
     - target: {fileID: 4214276342256595384, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
       propertyPath: _tutorialManager
       value: 
@@ -1520,6 +1684,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6503775034681696906, guid: 36c836365f498314a9e1ad25677b9c44, type: 3}
+      propertyPath: _useItem
+      value: 
+      objectReference: {fileID: 436590884}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1611,3 +1779,4 @@ SceneRoots:
   - {fileID: 1290421369}
   - {fileID: 475593348}
   - {fileID: 885379476}
+  - {fileID: 81235456}
