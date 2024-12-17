@@ -6,7 +6,8 @@ public class Pipe : MonoBehaviour
 {
     [SerializeField] private bool _isPartOfTheSolution;
     [SerializeField] private List<int> _correctIndex;
-    [HideInInspector]public bool IsCorrect;
+
+    [HideInInspector] public bool IsCorrect;
     private int _currentIndex = 0;
 
     private Transform _transform;
@@ -17,17 +18,15 @@ public class Pipe : MonoBehaviour
         _currentIndex = Random.Range(0, 4);
     }
 
-    public void Interact()
+    public void RotatePipe()
     {
         if (_currentIndex < 3)
         {
             _currentIndex++;
-            Debug.Log(_currentIndex);
         }
         else
         {
             _currentIndex = 0;
-            Debug.Log(_currentIndex);
         }
         _transform.Rotate(90, 0, 0);
 
@@ -37,8 +36,7 @@ public class Pipe : MonoBehaviour
             {
                 IsCorrect = true;
             }
-            else
-            { IsCorrect = false; }
+            else { IsCorrect = false; }
         }
     }
 }

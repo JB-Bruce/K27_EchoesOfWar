@@ -4,28 +4,77 @@ public class Wheel: MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _transform;
     [SerializeField] private Valve _valve;
-
-    private string _name;
+    [SerializeField] private Transform _target;
 
     private Outline _outline;
-    
+
+    private bool _doesStopMovements;
+    private bool _doesLockView;
+    private bool _canInteractWithOtherInteractablesWhileInteracted;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _outline = GetComponent<Outline>();
-        _name = gameObject.name;
+        _outline.enabled = true;
 
         StartCoroutine(((IInteractable)this).DeactivateOutline());
+    }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+        {
+            _valve.IncrementDecrementNumber(false);
+            _transform.Rotate(-2, 0, 0);
+        } else
+        {
+            _valve.IncrementDecrementNumber(true);
+            _transform.Rotate(2, 0, 0);
+        }
     }
 
     public void Interact()
     {
-        _valve._currentNumber++;
-        _transform.eulerAngles += new Vector3(5, 0, 0);
+        if (isInteracted)
+        {
+            Uninteract();
+            return;
+        }
+
+        PlayerController.Instance.SetPlayerBlockingInteractable("Wires", true);
+        PlayerController.Instance.SetCameraBlockingInteractables("Wires", true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        isInteracted = true;
+
+        if (Camera.main != null)
+        {
+            Camera.main.transform.GetComponent<CameraScript>().SetTarget(_target);
+        }
     }
 
-    public string interactableName => _name;
+    public void Uninteract()
+    {
+        PlayerController.Instance.SetPlayerBlockingInteractable("Wires", false);
+        PlayerController.Instance.SetCameraBlockingInteractables("Wires", false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        isInteracted = false;
+
+        if (Camera.main != null)
+        {
+            Camera.main.transform.GetComponent<CameraScript>().ResetTarget();
+        }
+    }
+
+    public string interactableName => "Wheel";
     public Outline outline => _outline;
+    public bool doesStopMovements => _doesStopMovements;
+    public bool doesLockView => _doesLockView;
+    public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
+    public bool isInteracted { get ; set ; }
 }

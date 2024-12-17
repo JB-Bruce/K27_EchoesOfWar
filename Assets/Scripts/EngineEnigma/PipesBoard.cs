@@ -14,11 +14,12 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
 
     [Header("Wheels")]
     [SerializeField] private List<Wheel> _wheels;
-    private int _selectedValveIndex = 0;
 
     [Header("Zoom")]
     [SerializeField] private Transform _target;
+    [SerializeField] private RenderTexture renderTxt;
 
+    private Camera _camera;
     private Outline _outline;
     private bool _doesStopMovements;
     private bool _doesLockView;
@@ -32,6 +33,8 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
     {
         _outline = GetComponent<Outline>();
         _outline.enabled = true;
+
+        _camera = Camera.main;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,6 +47,32 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         StartCoroutine(((IInteractable)this).DeactivateOutline());
     }
 
+    private void Update()
+    {
+        if (isInteracted)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                var pos = Input.mousePosition;
+                pos = new(pos.x * renderTxt.width / Screen.width, pos.y * renderTxt.height / Screen.height);
+
+                Ray ray = _camera.ScreenPointToRay(pos);
+                RaycastHit hitInfos;
+
+                if (Physics.Raycast(ray, out hitInfos))
+                {
+                    print(hitInfos.collider.gameObject.name);
+
+                    if (hitInfos.transform.gameObject.TryGetComponent<Pipe>(out Pipe pipe))
+                    {
+                        pipe.RotatePipe();
+                        CheckPipes();
+                    }
+                }
+            }
+        }
+    }
+
     public void Interact()
     {
         if (isInteracted)
@@ -52,8 +81,10 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
             return;
         }
 
-        PlayerController.Instance.SetPlayerBlockingInteractable("PipesBoard", true);
-        PlayerController.Instance.SetCameraBlockingInteractables("PipesBoard", true);
+        PlayerController.Instance.SetPlayerBlockingInteractable("Wires", true);
+        PlayerController.Instance.SetCameraBlockingInteractables("Wires", true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         isInteracted = true;
 
@@ -65,8 +96,10 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
 
     public void Uninteract()
     {
-        PlayerController.Instance.SetPlayerBlockingInteractable("PipesBoard", false);
-        PlayerController.Instance.SetCameraBlockingInteractables("PipesBoard", false);
+        PlayerController.Instance.SetPlayerBlockingInteractable("Wires", false);
+        PlayerController.Instance.SetCameraBlockingInteractables("Wires", false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         isInteracted = false;
 
@@ -104,15 +137,10 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
     public UnityEvent OnValvesResolved => _onValvesResolved;
 
     public bool doesStopMovements => _doesStopMovements;
-
     public bool doesLockView => _doesLockView;
-
     public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
-
     public bool isInteracted { get; set ; }
-
     public string interactableName => "EngineBoard";
-
     public Outline outline => _outline;
 }
 
