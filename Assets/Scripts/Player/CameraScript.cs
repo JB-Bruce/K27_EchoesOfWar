@@ -33,19 +33,20 @@ public class CameraScript : MonoBehaviour
     
     private IEnumerator CameraShake(float duration, float magnitude)
     {
-        Vector3 startPos = cameraTransform.position;
+        Vector3 startPos = cameraTransform.localPosition;
         
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
-            cameraTransform.position = new Vector3(cameraTransform.position.x +x, cameraTransform.position.y +y, cameraTransform.position.z);
+            Vector3 x = Random.Range(-1f, 1f) * magnitude * cameraTransform.right;
+            Vector3 y = Random.Range(-1f, 1f) * magnitude * cameraTransform.up;
+            Vector3 shake = x + y;
+            cameraTransform.localPosition += shake;
             elapsed += Time.deltaTime;
             yield return null;
         }
-        cameraTransform.position = startPos;
+        cameraTransform.localPosition = startPos;
         yield return null;
     }
     
