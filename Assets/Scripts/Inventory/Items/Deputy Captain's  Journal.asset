@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: ee662d30881a7df4385a380ab5d15aff, type: 3}
   _name: Deputy Captain's Journal
-  _sprite2D: {fileID: 0}
+  _sprite2D: {fileID: 21300000, guid: 08fd214bf1e28cb4cb6348ff429ec226, type: 3}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
-  Text:
-  - A
-  - B
-  - C
+  Texts:
+  - {fileID: 6697562529501719129, guid: 67059421735e8664f8c8954a817cfb0f, type: 3}

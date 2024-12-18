@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: d64cd1e76ed13d8418e3951bf104ab75, type: 3}
   _name: Instruction Manual
-  _sprite2D: {fileID: 0}
+  _sprite2D: {fileID: 21300000, guid: 358ccee780416df4694a8331af630daa, type: 3}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
   Texts:
