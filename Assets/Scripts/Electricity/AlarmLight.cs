@@ -16,7 +16,6 @@ public class AlarmLight : MonoBehaviour
 
     private void Start()
     {
-        _light.enabled = false;
         _light.type = LightType.Spot;
     }
 

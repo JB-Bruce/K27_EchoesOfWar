@@ -36,6 +36,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     [SerializeField] private float _shakethreshold;
     
     private bool _isAlarmActivated = true;
+    private bool _isWarningActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
     private string _OnFarDetectionTriggerName = "OnFarDetection";
     private bool _isCollided = false;
@@ -47,7 +48,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     {
         _submarineZoomInButton.OnButtonPressed.AddListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.AddListener(_sonar.ZoomOut);
-        _submarineDetectionButton.OnButtonPressed.AddListener(SwitchAlarmOnOff);
+        _submarineDetectionButton.OnButtonPressed.AddListener(SwitchWarningOnOff);
         
         _submarineBody.SetPosition(_mapManager.GetSpawnPoint());
         _GoalPosition = _mapManager.GetGoalPoint();
@@ -70,7 +71,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     {
         _submarineZoomInButton.OnButtonPressed.RemoveListener(_sonar.ZoomIn);
         _submarineZoomOutButton.OnButtonPressed.RemoveListener(_sonar.ZoomOut);
-        _submarineDetectionButton.OnButtonPressed.RemoveListener(SwitchAlarmOnOff);
+        _submarineDetectionButton.OnButtonPressed.RemoveListener(SwitchWarningOnOff);
     }
 
     private void Update()
@@ -131,15 +132,14 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         _submarineSpeedometer.text = Mathf.RoundToInt(_submarineBody.Velocity.magnitude * 300).ToString() + "<size=6>kn";
     }
 
-    private void SwitchAlarmOnOff()
+    private void SwitchWarningOnOff()
     {
-        _isAlarmActivated = !_isAlarmActivated;
+        _isWarningActivated = !_isWarningActivated;
         
-        if (!_isAlarmActivated)
-        {
-            _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
-            _lightsManager.Alarm(_OnFarDetectionTriggerName, false, true);
-        }
+        bool isAlarmOn = _isAlarmActivated && _isWarningActivated;
+        
+        _lightsManager.Alarm(_OnCollisionTriggerName, isAlarmOn, true);
+        _lightsManager.Alarm(_OnFarDetectionTriggerName, isAlarmOn, true);
     }
 
     private void OnSubmarineCollisionEnter()
@@ -152,7 +152,9 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         _submarineBody.OnCollision();
         OnBreakDown.Invoke();
         
-        if (_isAlarmActivated)
+        _isAlarmActivated = true;
+        
+        if (_isWarningActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, true, true);
     }
 
@@ -164,20 +166,25 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     private void OnSubmarineCollisionExit()
     {
         _isCollided = false;
+        _isAlarmActivated = false;
         
-        if (_isAlarmActivated)
+        if (_isWarningActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, false, true);
     }
 
     private void OnSubmarineFarDetectionEnter()
     {
-        if (_isAlarmActivated)
+        _isAlarmActivated = true;
+        
+        if (_isWarningActivated)
             _lightsManager.Alarm(_OnFarDetectionTriggerName, true, true);
     }
     
     private void OnSubmarineFarDetectionExit()
     {
-        if (_isAlarmActivated)
+        _isAlarmActivated = false;
+        
+        if (_isWarningActivated)
             _lightsManager.Alarm(_OnFarDetectionTriggerName, false, true);
     }
 
