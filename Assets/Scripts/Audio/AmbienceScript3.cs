@@ -11,6 +11,6 @@ public class AmbienceeScript: MonoBehaviour
     }
     public void StarteAnbiance()
     {
-      AudioManageur1.instance.GoAmbience(ListeAudio,ListMusic);
+      AudioManageur.Instance.GoAmbience(ListeAudio,ListMusic);
     } 
 }

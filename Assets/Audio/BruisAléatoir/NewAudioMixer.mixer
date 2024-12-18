@@ -114,17 +114,7 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters:
-  - guid: 605f607fca0792840be24e57bf78f9b0
-    name: Ambience
-  - guid: a04387f1c3d3b2d41bf0845343caa1c5
-    name: Bruis
-  - guid: b149682545d40a1458c7bd9859225ad0
-    name: Volume
-  - guid: e275b9332c6e6924f9780b48dc308173
-    name: Music
-  - guid: c8ca28c575a184a41ab7290718081e64
-    name: SFX
+  m_ExposedParameters: []
   m_AudioMixerGroupViews:
   - guids:
     - 98e510c6735922548b8d390bce27e187
@@ -182,10 +172,11 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 74ac8b01633f9184aaa91b8ed68dae10
   m_FloatValues:
-    a04387f1c3d3b2d41bf0845343caa1c5: 0.18476966
-    e275b9332c6e6924f9780b48dc308173: 0.0016581863
-    b149682545d40a1458c7bd9859225ad0: 0.10800299
-    605f607fca0792840be24e57bf78f9b0: 0.10800299
+    a04387f1c3d3b2d41bf0845343caa1c5: 0.038229518
+    e275b9332c6e6924f9780b48dc308173: 0.038230047
+    b149682545d40a1458c7bd9859225ad0: -0.048478052
+    c8ca28c575a184a41ab7290718081e64: 9.892162
+    605f607fca0792840be24e57bf78f9b0: -0.0123930825
   m_TransitionOverrides: {}
 --- !u!243 &42688713874156667
 AudioMixerGroupController:

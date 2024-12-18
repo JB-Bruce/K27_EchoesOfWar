@@ -11,6 +11,6 @@ public class SfxScript: MonoBehaviour
     }
     public void StarteAnbiance()
     {
-      AudioManageur1.instance.GoSfx(ListeAudio,ListMusic);
+      AudioManageur.Instance.GoSfx(ListeAudio,ListMusic);
     } 
 }
