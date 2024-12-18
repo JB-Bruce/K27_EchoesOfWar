@@ -18,8 +18,7 @@ public class NumberCase : MonoBehaviour
         upBtn.OnButtonPressed.AddListener(Increment);
         downBtn.OnButtonPressed.AddListener(Decrement);
 
-        _currentNumber = 0;
-        _correctNumber = Random.Range(0, 9);
+        _currentNumber = Random.Range(0, 9);
         
         _text.text = _currentNumber.ToString();
     }

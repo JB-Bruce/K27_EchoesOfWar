@@ -24,10 +24,10 @@ public class LightsManager : MonoBehaviour
     {
         LightStateDetailed lightStateDetailed = GetLightStateDetailed(LightState.Default);
         
-        foreach (var l in _lights)
+        /*foreach (var l in _lights)
         {
             SetupLight(l, lightStateDetailed);
-        }
+        }*/
 
         foreach (var nl in _nightlights)
         {
