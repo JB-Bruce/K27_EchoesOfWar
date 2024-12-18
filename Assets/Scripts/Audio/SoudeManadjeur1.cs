@@ -64,6 +64,12 @@ public class AudioManageur : Singleton<AudioManageur>
     }
    public AudioSource PlayClipAt(AudioClip audio, Vector3 pos)
    {
+        if (audio == null)
+        {
+            Debug.LogWarning("Missing an audio clip");
+            return null;
+        }
+
     GameObject tempGO =new GameObject("TempAudio");
     tempGO.transform.position=pos;
     AudioSource audioSource = tempGO.AddComponent<AudioSource>();
