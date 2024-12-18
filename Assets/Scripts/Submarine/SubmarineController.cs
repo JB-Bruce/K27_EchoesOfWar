@@ -35,6 +35,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     [SerializeField] private float _shakeIntensity;
     [SerializeField] private float _shakethreshold;
     
+    
     private bool _isAlarmActivated = true;
     private string _OnCollisionTriggerName = "OnCollision";
     private string _OnFarDetectionTriggerName = "OnFarDetection";
@@ -42,6 +43,8 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     
     private Vector2 _GoalPosition;
     private bool _inGoalRange;
+    [SerializeField] AudioClip _audioAlarme;
+    [SerializeField] AudioClip _audioColition;
 
     private void Start()
     {
@@ -82,9 +85,12 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         if (Mathf.Abs(_thrusterLever.GetRealThrust()) > _shakethreshold)
         {
             Camera.main.GetComponent<CameraScript>().constantShake();
+           
+            AudioManageur.Instance.PlayClipAt(_audioAlarme,transform.position);
         }
         else if (!_isCollided)
         {
+
            Camera.main.GetComponent<CameraScript>().StopShake();
         }
         
@@ -141,6 +147,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
     private void OnSubmarineCollisionEnter()
     {
+        AudioManageur.Instance.PlayClipAt(_audioColition,transform.position);
         _isCollided = true;
         Camera.main.GetComponent<CameraScript>().startShake(_shakeDuration,_shakeIntensity);
         _submarineBody.OnCollision();
