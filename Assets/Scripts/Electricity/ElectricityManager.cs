@@ -156,8 +156,7 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
             yield return _waitForTryShutDown;
         }
 
-        _electricityMode = ElectricityMode.Off;
-        UpdateElectricityMode(_electricityMode);
+        Break();
     }
 
     public void SetElectricitySystemEnabled(bool Enabled, bool ChangeMode = false, ElectricityMode Mode = ElectricityMode.On)

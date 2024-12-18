@@ -12,7 +12,7 @@ public class AlarmLight : MonoBehaviour
     private void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
-        _alarm = GetComponentInChildren<Transform>();
+        _alarm = GetComponentsInChildren<Transform>()[1];
         _lights = GetComponentsInChildren<Light>();
     }
 
@@ -39,6 +39,11 @@ public class AlarmLight : MonoBehaviour
             _meshRenderer.materials[1].EnableKeyword("_EMISSION");
         else 
             _meshRenderer.materials[1].DisableKeyword("_EMISSION");
+
+        foreach (var l in _lights)
+        {
+            l.enabled = active;
+        }
         
         enabled = active;
     }
