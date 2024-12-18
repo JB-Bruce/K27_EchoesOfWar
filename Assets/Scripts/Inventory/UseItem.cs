@@ -11,7 +11,7 @@ public class UseItem : MonoBehaviour
     private int _currentPage = 0;
     private GameObject _currentPageDisplay;
     
-    public void Use(Item item)
+    public bool Use(Item item)
     {
         if (item._hideInventory)
         {
@@ -21,7 +21,10 @@ public class UseItem : MonoBehaviour
         if (item is Book)
         {
             book(item);
+            return true;
         }
+
+        return false;
     }
 
     public void TurnPages(InputAction.CallbackContext  _context, Book book)

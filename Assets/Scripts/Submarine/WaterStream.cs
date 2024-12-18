@@ -18,23 +18,31 @@ public class WaterStream : MonoBehaviour
     [SerializeField] float minForceChangeTime;
     [SerializeField] float maxForceChangeTime;
 
-    public float angle;   
+    public float angle;
+    bool _initialized = false;
 
+    [SerializeField] TutorialManager _tuto;
 
-    private void Start()
+    private void Awake()
     {
+        _tuto.OnTutorialFinished.AddListener(Init);
+    }
+
+    public void Init()
+    {
+        _initialized = true;
         SetTargetForce();
         SetTargetStream();
     }
 
     private void Update()
     {
+        if (!_initialized) return;
+
         force = Mathf.MoveTowards(force, targetForce, forceChangeRate * Time.deltaTime);
         stream = Vector2.MoveTowards(stream, targetStream, streamChangeRate * Time.deltaTime);
 
         angle = Mathf.Atan2(stream.x, stream.y) * Mathf.Rad2Deg;
-
-        
     }
 
     private void SetTargetStream()

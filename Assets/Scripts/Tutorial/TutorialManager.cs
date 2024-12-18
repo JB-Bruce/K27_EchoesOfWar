@@ -11,12 +11,21 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _tutorialText;
     [SerializeField] private List<TutorialStep> _tutorialSteps;
 
-    private bool _needTutorial = true;
+    [SerializeField] bool playTutorial = true;
     private bool _isFinished;
     private TutorialStep _currentTutorialStep;
     private int _currentTutorialStepIndex = -1;
     private string _splitInputActionText = " or ";
     private readonly UnityEvent _onTutorialFinished = new();
+
+    LinkedList<string> textsToShow = new();
+    bool canPlayNewText = true;
+
+    [SerializeField] float minTimeTextIsOnScreen;
+    [SerializeField] Animator animator;
+
+    [SerializeField] string endText;
+    [SerializeField] float endTextDuration;
 
     private void Start()
     {
@@ -25,17 +34,59 @@ public class TutorialManager : MonoBehaviour
 
     private void Init()
     {
-        _isFinished = !_needTutorial;
+        _isFinished = !playTutorial;
         
-        _tutorialText.gameObject.SetActive(_needTutorial);
-        _tutorialText.enabled = _needTutorial;
+        _tutorialText.gameObject.SetActive(playTutorial);
+        _tutorialText.enabled = playTutorial;
             
-        if (_needTutorial)
+        if (playTutorial)
         {
             NextTutorialStep();
+            SetNewText();
+            return;
+        }
+
+        OnTutorialFinished.Invoke();
+    }
+
+    public void SetNewText()
+    {
+        if (textsToShow.Count == 0) return;
+
+        _tutorialText.text = textsToShow.Last.Value;
+        textsToShow.RemoveLast();
+        canPlayNewText = false;
+
+        animator.Play("Show");
+
+        Invoke("ReachedMinTextTime", IsFinished && textsToShow.Count == 0 ? endTextDuration : minTimeTextIsOnScreen);
+    }
+
+    private void MaskText()
+    {
+        animator.Play("Hide");
+    }
+
+    private void ReachedMinTextTime()
+    {
+        if (IsFinished && textsToShow.Count == 0) MaskText();
+        canPlayNewText = true;
+    }
+
+    private void AddNewText(string s)
+    {
+        textsToShow.AddFirst(s);
+    }
+
+    private void Update()
+    {
+        if(textsToShow.Count > 0)
+        {
+            if (canPlayNewText)
+                MaskText();
         }
     }
-    
+
     public void CheckAction(InputAction action)
     {
         if (_isFinished)
@@ -69,13 +120,12 @@ public class TutorialManager : MonoBehaviour
             _currentTutorialStepIndex++;
             _currentTutorialStep = _tutorialSteps[_currentTutorialStepIndex];
 
-            _tutorialText.text = GetTutorialText();
+            AddNewText(GetTutorialText());
         }
         else
         {
+            AddNewText(endText);
             _isFinished = true;
-            _tutorialText.text = "";
-            _tutorialText.enabled = false;
             OnTutorialFinished.Invoke();
         }
     }
@@ -127,7 +177,7 @@ public class TutorialManager : MonoBehaviour
         return display;
     }
     
-    public bool NeedTutorial { get => _needTutorial; set => _needTutorial = value; }
+    public bool NeedTutorial { get => playTutorial; set => playTutorial = value; }
 
     public bool IsFinished => _isFinished;
 
