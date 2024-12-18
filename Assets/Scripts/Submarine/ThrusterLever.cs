@@ -95,7 +95,7 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
 
         _thrust = -_minThrust / dist;
 
-        SetThrusterPosition();
+        SetThrusterPosition(_thrust);
     }
 
 
