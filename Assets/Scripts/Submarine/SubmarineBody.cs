@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SubmarineBody : MonoBehaviour
 {
@@ -13,7 +14,12 @@ public class SubmarineBody : MonoBehaviour
     [SerializeField] private float _waterRotationDrag = 2f;
     [SerializeField] WaterStream waterStream;
     [SerializeField] Transform arrow;
-    
+    [SerializeField] Image arrowImage;
+
+    [SerializeField] Sprite slowSprite;
+    [SerializeField] Sprite fastSprite;
+    [SerializeField] float fastSpeedThreshold;
+
     private float _thrustPower = 0f;
     private float _rotationPower = 0f;
     private float _angle = 0f;
@@ -38,6 +44,8 @@ public class SubmarineBody : MonoBehaviour
     {
         AddRotation(_actualRotation);
         Rotate();
+
+        arrowImage.sprite = waterStream.GetStream().force < fastSpeedThreshold ? slowSprite : fastSprite;
 
         arrow.localRotation = Quaternion.Euler(0, 0, waterStream.angle + _angle);
     }
