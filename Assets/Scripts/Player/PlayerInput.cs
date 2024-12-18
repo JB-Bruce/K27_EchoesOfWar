@@ -58,8 +58,8 @@ public class PlayerInput : MonoBehaviour
         {
             if (_hotBar.GetSelectedItem() != null)
             {
-                _useItem.Use(_hotBar.GetSelectedItem());
-                _tutorialManager.CheckAction(context.action);
+                if(_useItem.Use(_hotBar.GetSelectedItem()))
+                    _tutorialManager.CheckAction(context.action);
             }
         }
     }
