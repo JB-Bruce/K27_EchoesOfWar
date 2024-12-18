@@ -79,4 +79,9 @@ public class DoorSwitchEnigma : MonoBehaviour, IBreakdownReceiver
     {
         ResetSwitchs();
     }
+
+    public void Repair()
+    {
+        
+    }
 }

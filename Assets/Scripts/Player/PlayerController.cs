@@ -50,6 +50,11 @@ public class PlayerController : Singleton<PlayerController>
         _movePlayer = isPlayer;
         _submarineController.SetControls(!isPlayer);
         _submarineControlsPanel.SetActive(!isPlayer);
+
+        if (!isPlayer) return;
+        
+        _submarineController.SetMovement(0);
+        _submarineController.SetRotation(0);
     }
 
     public void SetPlayerBlockingInteractable(string interactable, bool doesBlock)

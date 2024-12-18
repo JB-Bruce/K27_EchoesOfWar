@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SubmarineBody : MonoBehaviour
 {
@@ -13,7 +14,12 @@ public class SubmarineBody : MonoBehaviour
     [SerializeField] private float _waterRotationDrag = 2f;
     [SerializeField] WaterStream waterStream;
     [SerializeField] Transform arrow;
-    
+    [SerializeField] Image arrowImage;
+
+    [SerializeField] Sprite slowSprite;
+    [SerializeField] Sprite fastSprite;
+    [SerializeField] float fastSpeedThreshold;
+
     private float _thrustPower = 0f;
     private float _rotationPower = 0f;
     private float _angle = 0f;
@@ -27,12 +33,19 @@ public class SubmarineBody : MonoBehaviour
     private Vector2 _acceleration = Vector2.zero;
     private Vector2 _drag = Vector2.zero;
 
+    Vector2 lastOkPosition;
+
+    public void TickMove()
+    {
+        Move();
+    }
 
     public void Tick()
     {
-        Move();
         AddRotation(_actualRotation);
         Rotate();
+
+        arrowImage.sprite = waterStream.GetStream().force < fastSpeedThreshold ? slowSprite : fastSprite;
 
         arrow.localRotation = Quaternion.Euler(0, 0, waterStream.angle + _angle);
     }
@@ -88,6 +101,14 @@ public class SubmarineBody : MonoBehaviour
         transform.position = new Vector3(_position.x, 0, _position.y);
     }
 
+    public void SetLastOk(Vector2 nPos)
+    {
+        if (nPos != null)
+            lastOkPosition = nPos;
+        else
+            lastOkPosition = _position;
+    }
+
     public void SetThrust(float thrust)
     {
         _thrustPower = thrust;
@@ -118,7 +139,12 @@ public class SubmarineBody : MonoBehaviour
     public void OnCollision()
     {
         _acceleration.Set(0, 0);
-        _velocity.Set(0, 0);
+        _velocity.Set(-_velocity.x, -_velocity.y);
         _position = _previousPosition;
+    }
+
+    public void OnCollisionConstant()
+    {
+        _position = lastOkPosition;
     }
 }

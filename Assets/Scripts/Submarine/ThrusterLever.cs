@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Lumin;
 
 [RequireComponent(typeof(Outline))]
-public class ThrusterLever : MonoBehaviour, IFinishedInteractable
+public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownReceiver
 {
     [SerializeField] private Transform _max;
     [SerializeField] private Transform _min;
@@ -13,6 +14,8 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
     [SerializeField] private float _maxThrust;
     
     [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _upperthreshold;
+    [SerializeField] private float _lowerthreshold;
         
     private Transform _transform;
     
@@ -39,7 +42,7 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         _outline = GetComponent<Outline>();
         _outline.enabled = true;
 
-        SetThrusterPosition();
+        SetThrusterPosition(_thrust);
     }
     private void Start()
     {
@@ -47,6 +50,7 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L)) Break();
         Move();
     }
 
@@ -57,18 +61,27 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         
         _thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, 0, 1);
+        
 
-        SetThrusterPosition();
+        if (_thrust < _upperthreshold && _thrust > _lowerthreshold)
+        {
+            _transform.localPosition = _origin.localPosition;
+            _transform.localRotation = _origin.localRotation;
+        }
+        else
+        {
+            SetThrusterPosition(_thrust);
+        }
 
         /*_thrust += _movementSpeed * Mathf.Sign(_movementDirection) * Time.deltaTime;
         _thrust = Mathf.Clamp(_thrust, -_distMinToOrigin, _distMaxToOrigin);
         _transform.localPosition = new Vector3(0, 0, _thrust);*/
     }
 
-    private void SetThrusterPosition()
+    private void SetThrusterPosition(float thrust)
     {
-        _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, _thrust);
-        _transform.rotation = Quaternion.Slerp(_min.localRotation, _max.localRotation, _thrust);
+        _transform.localPosition = Vector3.Lerp(_min.localPosition, _max.localPosition, thrust);
+        _transform.rotation = Quaternion.Slerp(_min.localRotation, _max.localRotation, thrust);
     }
 
     public void SetMovement(float direction)
@@ -81,11 +94,15 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         float dist = (_maxThrust - _minThrust);
 
         _thrust = -_minThrust / dist;
+
+        SetThrusterPosition(_thrust);
     }
 
 
     public float GetRealThrust()
     {
+        if (IsBroken || _thrust < _upperthreshold && _thrust > _lowerthreshold) return 0f;
+
         return Mathf.Lerp(_minThrust, _maxThrust, _thrust);
     }
 
@@ -111,9 +128,23 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         isInteracted = false;
     }
 
+    public void Break()
+    {
+        IsBroken = true;
+    }
+
+    public void Repair()
+    {
+        IsBroken = false;
+    }
+
     public Outline outline => _outline;
 
     public bool isInteracted { get; set; }
 
     public string interactableName => "SubControls";
+
+
+
+    public bool IsBroken { get; set; } = false;
 }

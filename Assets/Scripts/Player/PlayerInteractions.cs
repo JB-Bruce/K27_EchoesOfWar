@@ -4,6 +4,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     [SerializeField] private float _interactionRange = 10f;
+    [SerializeField] private UseItem _useItem;
 
     IFinishedInteractable selectedInteractable = null;
 
@@ -39,21 +40,16 @@ public class PlayerInteractions : MonoBehaviour
 
     public bool TryInteract()
     {
-        if (selectedInteractable != null)
+        if (overedInteractable == null || _useItem.activated) 
         {
-            if (selectedInteractable.isInteracted)
+            if (selectedInteractable != null && selectedInteractable.isInteracted)
             {
                 Cancel();
                 return true;
 
             }
+			return false;
         }
-
-        if (overedInteractable == null) 
-            return false;
-
-        
-
 
         if (overedInteractable is IFinishedInteractable finishedInteractable)
         {

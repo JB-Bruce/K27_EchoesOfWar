@@ -27,10 +27,12 @@ public class MapManager : MonoBehaviour
 
     List<Vector2Int> lastPaintedSquares = new();
 
-    Dictionary<string, (List<Vector2Int> list, Color color, UnityAction enter, UnityAction exit)> circles = new();
+    Dictionary<string, (List<Vector2Int> list, Color color, UnityAction enter, UnityAction exit, UnityAction constantEnter)> circles = new();
 
     private readonly Dictionary<string, float> _eventsTriggered = new();
     [SerializeField] private float _minTimeBeforeLeave = 0.3f;
+
+    Vector2Int lastSubPos;
 
     private void Awake()
     {
@@ -65,24 +67,33 @@ public class MapManager : MonoBehaviour
         currentGoalPoint = currentPath.goal[Random.Range(0, currentPath.goal.Count)];
     }
 
-    public void Tick()
+    public bool Tick(ref Vector2 lastPos)
     {
-        UpdateCircles();
+        return UpdateCircles(ref lastPos);
+
     }
 
     /// <summary>
     /// Draw and check collision with all of the created circles
     /// </summary>
-    private void UpdateCircles()
+    private bool UpdateCircles(ref Vector2 lastPos)
     {
+        Vector2Int pos = GetPixelPos(subPos);
+
+        if(pos == lastSubPos)
+        {
+            return false;
+        }
+
+        lastSubPos = pos;
+
+
         foreach (var i in lastPaintedSquares)
         {
             textureToModif.SetPixel(i.x, i.y, Color.clear);
         }
 
         lastPaintedSquares.Clear();
-
-        Vector2Int pos = GetPixelPos(subPos);
 
         foreach (var i in circles)
         {
@@ -101,11 +112,15 @@ public class MapManager : MonoBehaviour
 
             if (triggered)
             {
+                i.Value.constantEnter?.Invoke();
+
                 if (_eventsTriggered.TryAdd(i.Key, Time.time))
                     i.Value.enter?.Invoke();
             }
             else
             {
+                lastPos = subPos;
+
                 if (!_eventsTriggered.TryGetValue(i.Key, out var timeTriggered)) 
                     continue;
 
@@ -114,10 +129,14 @@ public class MapManager : MonoBehaviour
                 
                 _eventsTriggered.Remove(i.Key);
                 i.Value.exit?.Invoke();
+
+                textureToModif.Apply();
+                return true;
             }
         }
 
         textureToModif.Apply();
+        return false;
     }
 
     public Vector2Int GetPixelPos(Vector2 pos)
@@ -147,7 +166,7 @@ public class MapManager : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
     }
 
-    public void InitArea(string areaName, float size, Shape shape, UnityAction OnAreaEnter, UnityAction OnAreaExit)
+    public void InitArea(string areaName, float size, Shape shape, UnityAction OnAreaEnter, UnityAction OnAreaExit, UnityAction OnAreaEnterConstant = null)
     {
         Func<float, List<Vector2Int>> shapeCreation = GetCircle;
 
@@ -161,7 +180,7 @@ public class MapManager : MonoBehaviour
                 break;
         }
 
-        circles.Add(areaName, (shapeCreation(size), sonarColor, OnAreaEnter, OnAreaExit));
+        circles.Add(areaName, (shapeCreation(size), sonarColor, OnAreaEnter, OnAreaExit, OnAreaEnterConstant));
     }
 
     private List<Vector2Int> GetCircle(float size)
