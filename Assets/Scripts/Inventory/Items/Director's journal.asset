@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: 5c1e0407e23e95445b92858a8825e380, type: 3}
   _name: Director's Journal
-  _sprite2D: {fileID: 0}
+  _sprite2D: {fileID: 21300000, guid: 7427acf6342dbcc46b9e9b4b398e33da, type: 3}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
   Texts:

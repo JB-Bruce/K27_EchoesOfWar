@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: f3abcc087ab887448ae39dac16b59003, type: 3}
   _name: Deputy Director's Journal
-  _sprite2D: {fileID: 0}
+  _sprite2D: {fileID: 21300000, guid: aef94584245c2fb4db9caabafdc8384b, type: 3}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
   Texts:
