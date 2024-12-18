@@ -71,7 +71,7 @@ public class MapManager : MonoBehaviour
         currentSpawnPoint = currentPath.start.GetComponent<RectTransform>().anchoredPosition;
         currentGoalPoint = currentPath.goal[Random.Range(0, currentPath.goal.Count)].pos;
         paperMapPos = currentPath.goal[Random.Range(0, currentPath.goal.Count)].paperMapPos;
-        coPos.text = "Destination\n" + paperMapPos.y + "�N, " + paperMapPos.x + "�W";
+        coPos.text = "Destination\n" + paperMapPos.y + "°N, " + paperMapPos.x + "°W";
     }
 
     public bool Tick(ref Vector2 lastPos)
