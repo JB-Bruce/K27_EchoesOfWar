@@ -814,8 +814,8 @@ MonoBehaviour:
   _currentNumber: 0
   _correctNumber: 0
   _text: {fileID: 201043400}
-  upBtn: {fileID: 0}
-  downBtn: {fileID: 0}
+  upBtn: {fileID: 1136400732}
+  downBtn: {fileID: 2044086788}
   numberChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4287,8 +4287,8 @@ MonoBehaviour:
   _currentNumber: 0
   _correctNumber: 0
   _text: {fileID: 967632140}
-  upBtn: {fileID: 0}
-  downBtn: {fileID: 0}
+  upBtn: {fileID: 1753560822}
+  downBtn: {fileID: 1626010807}
   numberChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7169,8 +7169,8 @@ MonoBehaviour:
   _currentNumber: 0
   _correctNumber: 0
   _text: {fileID: 1615616576}
-  upBtn: {fileID: 0}
-  downBtn: {fileID: 0}
+  upBtn: {fileID: 474790835}
+  downBtn: {fileID: 74154176}
   numberChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -8787,8 +8787,8 @@ MonoBehaviour:
   _currentNumber: 0
   _correctNumber: 0
   _text: {fileID: 2074383420}
-  upBtn: {fileID: 0}
-  downBtn: {fileID: 0}
+  upBtn: {fileID: 1618574717}
+  downBtn: {fileID: 1230720274}
   numberChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -10379,7 +10379,7 @@ MonoBehaviour:
   _emergenceText: {fileID: 0}
   goodPositionText: Good position
   wrongPositionText: Wrong position
-  _animator: {fileID: 0}
+  _animator: {fileID: 1009494503}
 --- !u!114 &6522825509531588377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10392,16 +10392,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e1c167c6782f3499e8f767660e3cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numbers: []
-  _meshRenderer: {fileID: 0}
-  _light: {fileID: 0}
-  _onColor: {r: 0, g: 0, b: 0, a: 0}
-  _offColor: {r: 0, g: 0, b: 0, a: 0}
+  numbers:
+  - {fileID: 967632142}
+  - {fileID: 201043402}
+  - {fileID: 1615616578}
+  - {fileID: 2074383418}
+  _meshRenderer: {fileID: 797590700}
+  _light: {fileID: 272266815}
+  _onColor: {r: 0, g: 1, b: 0, a: 1}
+  _offColor: {r: 1, g: 0, b: 0, a: 1}
   isOpen: 0
   onGlassOpen:
     m_PersistentCalls:
       m_Calls: []
-  anim: {fileID: 0}
+  anim: {fileID: 1712761819}
 --- !u!1 &6674748586825657799
 GameObject:
   m_ObjectHideFlags: 0
