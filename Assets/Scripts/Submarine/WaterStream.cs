@@ -21,6 +21,8 @@ public class WaterStream : MonoBehaviour
     public float angle;
     bool _initialized = false;
 
+    
+
     [SerializeField] TutorialManager _tuto;
 
     private void Awake()
