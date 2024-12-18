@@ -32,7 +32,7 @@ public class Valve : MonoBehaviour
                 {
                     difference = -difference;
                 }
-            } while (difference >= 100f); //to avoid any situation where the player has to clicked more than a thousand times
+            } while (difference >= 75f); //to avoid any situation where the player has to clicked more than a thousand times
         }
         else
         {

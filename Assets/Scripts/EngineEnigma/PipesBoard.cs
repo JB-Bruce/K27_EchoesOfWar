@@ -36,6 +36,7 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         _outline.enabled = true;
 
         _camera = Camera.main;
+
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,8 +47,6 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         }
 
         StartCoroutine(((IInteractable)this).DeactivateOutline());
-
-        ResetPuzzle();
     }
 
     private void OnDestroy()
@@ -78,7 +77,6 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
 
                 if (Physics.Raycast(ray, out hitInfos))
                 {
-                    print(hitInfos.collider.gameObject.name);
 
                     if (hitInfos.transform.gameObject.TryGetComponent<Pipe>(out Pipe pipe))
                     {
@@ -145,6 +143,7 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         {
             if (!pipe.IsCorrect)
             {
+
                 return;
             }
         }
@@ -161,6 +160,7 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
                 return;
             }
         }
+        print(true);
         _onValvesResolved.Invoke();
     }
 
