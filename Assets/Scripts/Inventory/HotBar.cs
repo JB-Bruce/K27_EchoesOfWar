@@ -15,7 +15,7 @@ public class HotBar : Singleton<HotBar>
     [SerializeField] private Color _selectorColor;
     [SerializeField] private TextMeshProUGUI _SelectedItemNameDisplay;
     [SerializeField] private float _ThrowStrength;
-    private List<GameObject> _itemDisplays = new List<GameObject>();
+    [SerializeField] private List<GameObject> _itemDisplays = new List<GameObject>();
     private List<Item> _items = new List<Item>();
     private int _selectedItem;
     public Item GetSelectedItem()
@@ -111,7 +111,7 @@ public class HotBar : Singleton<HotBar>
             {
                 _selectedItem = 0;
             }
-            _itemDisplays.Add(Instantiate(_ItemSlot, transform));
+            //_itemDisplays.Add(Instantiate(_ItemSlot, transform));
             _items.Add(item);
             RefreshHotBar(); 
             SelectorPosition(); 
@@ -142,10 +142,18 @@ public class HotBar : Singleton<HotBar>
     /// </summary>
     private void RefreshHotBar()
     {
-        for(int i = 0; i < _items.Count; i++)
+        for(int i = 0; i < _itemDisplays.Count; i++)
         {
-            _itemDisplays[i].GetComponent<Image>().sprite = _items[i]._sprite2D;
-            _itemDisplays[i].GetComponent<Image>().color = Color.white;
+            if(i < _items.Count)
+            {
+                _itemDisplays[i].transform.GetChild(0).GetComponent<Image>().sprite = _items[i]._sprite2D;
+                _itemDisplays[i].transform.GetChild(0).GetComponent<Image>().color = Color.white;
+            }
+            else
+            {
+                _itemDisplays[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+                _itemDisplays[i].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+            }
         }
         
         if (_itemDisplays.Count <= _items.Count) return; 
@@ -153,8 +161,8 @@ public class HotBar : Singleton<HotBar>
         { 
             _selector.transform.SetParent(transform);
             _selector.transform.localPosition = Vector2.zero;
-            Destroy(_itemDisplays[i]);
-            _itemDisplays.RemoveAt(i);
+            //Destroy(_itemDisplays[i]);
+            //_itemDisplays.RemoveAt(i);
         }
     }
 

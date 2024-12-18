@@ -42,7 +42,7 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (overedInteractable == null || _useItem.activated) 
         {
-            if (selectedInteractable.isInteracted)
+            if (selectedInteractable != null && selectedInteractable.isInteracted)
             {
                 Cancel();
                 return true;

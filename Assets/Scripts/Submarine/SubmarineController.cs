@@ -54,7 +54,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         
         _sonar.SetMapTexture(_mapManager.GetMapTexture());
         
-        _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnSubmarineCollisionEnter,    OnSubmarineCollisionExit);
+        _mapManager.InitArea("Collision",     _collisionArea,    Shape.FilledCircle, OnSubmarineCollisionEnter,    OnSubmarineCollisionExit,   OnSubmarineCollisionEnterConstant);
         _mapManager.InitArea("Far Detection", _farDetectionArea, Shape.Circle,       OnSubmarineFarDetectionEnter, OnSubmarineFarDetectionExit);
 
         hasElectricity = true;
@@ -77,30 +77,34 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     {
         _sonar.SetSubmarinePosition(_submarineBody.Position);
         _mapManager.SetSubPos(_submarineBody.Position);
-        
-        _mapManager.Tick();
+        _submarineBody.SetThrust(hasElectricity ? _thrusterLever.GetRealThrust() : 0);
+
+        _submarineBody.TickMove();
+
+        if (!_isCollided)
+            _submarineBody.Tick();
+
+        Vector2 newLastPos = _submarineBody.Position;
+        if (_mapManager.Tick(ref newLastPos)) _submarineBody.SetLastOk(newLastPos);
+
+
         if (Mathf.Abs(_thrusterLever.GetRealThrust()) > _shakethreshold)
         {
             Camera.main.GetComponent<CameraScript>().constantShake();
         }
         else if (!_isCollided)
         {
-           Camera.main.GetComponent<CameraScript>().StopShake();
+            Camera.main.GetComponent<CameraScript>().StopShake();
         }
-        
-        if (!_isCollided)
-            _submarineBody.Tick();
-        
+
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) <= _goalThreshold && !_inGoalRange )
         {
-            Debug.Log("Goal reached");
             _inGoalRange = true;
             _emergenceSystem.IsAtGoodPosition(true);
         }
 
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
         {
-            Debug.Log("Goal left");
             _inGoalRange = false;
             _emergenceSystem.IsAtGoodPosition(false);
         }
@@ -111,7 +115,6 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
     public void SetMovement(float direction)
     {
         _thrusterLever.SetMovement(direction);
-        _submarineBody.SetThrust(hasElectricity ? _thrusterLever.GetRealThrust() : 0);
     }
 
     public void SetRotation(float angle)
@@ -141,6 +144,9 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
     private void OnSubmarineCollisionEnter()
     {
+        _thrusterLever.SetMovement(0);
+        _thrusterLever.ResetThrust();
+
         _isCollided = true;
         Camera.main.GetComponent<CameraScript>().startShake(_shakeDuration,_shakeIntensity);
         _submarineBody.OnCollision();
@@ -148,6 +154,11 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
         
         if (_isAlarmActivated)
             _lightsManager.Alarm(_OnCollisionTriggerName, true, true);
+    }
+
+    private void OnSubmarineCollisionEnterConstant()
+    {
+        _submarineBody.OnCollisionConstant();
     }
 
     private void OnSubmarineCollisionExit()

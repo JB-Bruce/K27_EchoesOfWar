@@ -22,7 +22,10 @@ public class CameraScript : MonoBehaviour
     public void StopShake()
     {
         if (CurrentShakeCoroutine != null)
+        {
             StopCoroutine(CurrentShakeCoroutine);
+            CurrentShakeCoroutine = null;
+        }
     }
     
     public void constantShake()

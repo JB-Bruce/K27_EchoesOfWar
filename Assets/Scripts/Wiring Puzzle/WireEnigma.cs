@@ -29,7 +29,7 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     private Wire _draggedWire;
     public float _distanceRange = 0.01f;
     private int _wiresConnected = 0;
-    private readonly UnityEvent _onWiresResolved = new();
+    public readonly UnityEvent _onWiresResolved = new();
 
     private Camera _camera;
     public GameObject _planeRef;
@@ -43,6 +43,9 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     public bool isInteracted { get; set; }
     public Outline outline => _outline;
     public string interactableName => _name;
+
+    [SerializeField] ElectricityManager elecManager;
+    
     
 
     void Start()
@@ -53,8 +56,12 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         _camera = Camera.main;
         StartCoroutine(((IInteractable)this).DeactivateOutline());
 
+        OnWiresResolved.AddListener(elecManager.Repair);
+
         Shuffle();
     }
+
+    
 
     private void Update()
     {
@@ -105,7 +112,8 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
             }
             else
             {
-                MoveWire(ray);
+                if(_draggedWire)
+                    MoveWire(ray);
             }
         }
     }
@@ -118,6 +126,11 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         {
             _onWiresResolved.Invoke ();
         }
+    }
+
+    public void Break()
+    {
+        Shuffle();
     }
 
     private void Shuffle()
@@ -145,8 +158,10 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
             int index = Random.Range(0, listEnds.Count);
             wire.end = listEnds[index];
 
-            listEndsSymboles[index].GetComponent<MeshFilter>().mesh = listSymboles[index];
-            wire.symbole.GetComponent<MeshFilter>().mesh = listSymboles[index];
+            float rnd = Random.Range(0, 360f);
+
+            listEndsSymboles[index].transform.localEulerAngles = new(0, 0, rnd + 90);
+            wire.symbole.transform.localEulerAngles = new(0, 0, rnd);
 
             listEnds.RemoveAt(index);
             listEndsSymboles.RemoveAt(index);
