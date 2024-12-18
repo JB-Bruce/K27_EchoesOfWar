@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 313c21e8af2cc4c47ac09ab53fa44cfa, type: 3}
-  m_Name: Director's Journal
+  m_Name: Director's journal
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2766052924989560096, guid: 5c1e0407e23e95445b92858a8825e380, type: 3}
   _name: Director's Journal
   _sprite2D: {fileID: 0}
   _sprite3D: {fileID: 0}
   _hideInventory: 1
-  Text:
-  - A
-  - B
-  - C
+  Texts:
+  - {fileID: 6697562529501719129, guid: 9772ba51bad1fdd4687943fc4ba4c1be, type: 3}
