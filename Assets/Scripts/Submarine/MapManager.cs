@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class MapManager : MonoBehaviour
     
     [SerializeField] Color sonarColor;
     [SerializeField] Color accessibleColor = Color.black;
+
+    private Vector2 paperMapPos;
     
     
     private Map currentMap;
@@ -31,6 +34,8 @@ public class MapManager : MonoBehaviour
 
     private readonly Dictionary<string, float> _eventsTriggered = new();
     [SerializeField] private float _minTimeBeforeLeave = 0.3f;
+
+    [SerializeField] TextMeshProUGUI coPos;
 
     Vector2Int lastSubPos;
 
@@ -63,8 +68,10 @@ public class MapManager : MonoBehaviour
         currentMap = maps[Random.Range(0, maps.Count)];
         mapTexture = currentMap.texture;
         currentPath = currentMap.path[Random.Range(0, currentMap.path.Count)];
-        currentSpawnPoint = currentPath.start;
-        currentGoalPoint = currentPath.goal[Random.Range(0, currentPath.goal.Count)];
+        currentSpawnPoint = currentPath.start.position;
+        currentGoalPoint = currentPath.goal[Random.Range(0, currentPath.goal.Count)].pos;
+        paperMapPos = currentPath.goal[Random.Range(0, currentPath.goal.Count)].paperMapPos;
+        coPos.text = "Destination\n" + paperMapPos.y + "°N, " + paperMapPos.x + "°W";
     }
 
     public bool Tick(ref Vector2 lastPos)
@@ -250,8 +257,8 @@ public class MapManager : MonoBehaviour
     [Serializable]
     private struct Path
     {
-        public Vector2 start;
-        public List<Vector2> goal;
+        public Transform start;
+        public List<PaperMapPosElement> goal;
     }
 }
 
