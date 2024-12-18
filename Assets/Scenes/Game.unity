@@ -371,6 +371,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubmarineMap
       objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.0692
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5286
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.55042493
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.55042493
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.44388333
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.44388333
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -12.232
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765509780256952295, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 7630364812639496415, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: _shakeDuration
       value: 1
@@ -429,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8547676922482963958, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: _lowerthreshold
-      value: 0.15
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 8547676922482963958, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: _speedthreshold
@@ -437,7 +473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8547676922482963958, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: _upperthreshold
-      value: 0.25
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 8547676922482963958, guid: 6876d3292b82ef2458f36efaac0bd767, type: 3}
       propertyPath: _doesStopMovements
