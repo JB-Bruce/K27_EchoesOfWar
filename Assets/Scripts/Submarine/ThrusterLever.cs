@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Outline))]
-public class ThrusterLever : MonoBehaviour, IFinishedInteractable
+public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownReceiver
 {
     [SerializeField] private Transform _max;
     [SerializeField] private Transform _min;
@@ -47,6 +47,7 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L)) Break();
         Move();
     }
 
@@ -88,6 +89,7 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
 
     public float GetRealThrust()
     {
+        if (IsBroken) return 0f;
         return Mathf.Lerp(_minThrust, _maxThrust, _thrust);
     }
 
@@ -113,9 +115,23 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable
         isInteracted = false;
     }
 
+    public void Break()
+    {
+        IsBroken = true;
+    }
+
+    public void Repair()
+    {
+        IsBroken = false;
+    }
+
     public Outline outline => _outline;
 
     public bool isInteracted { get; set; }
 
     public string interactableName => "SubControls";
+
+
+
+    public bool IsBroken { get; set; } = false;
 }
