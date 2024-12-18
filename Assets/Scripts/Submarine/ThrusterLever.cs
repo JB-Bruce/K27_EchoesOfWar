@@ -33,6 +33,13 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
     [SerializeField] bool _canInteractWithOtherInteractablesWhileInteracted;
     public bool canInteractWithOtherInteractablesWhileInteracted => _canInteractWithOtherInteractablesWhileInteracted;
 
+    [SerializeField] PipesBoard _pipesBoard;
+
+    [SerializeField] MeshRenderer _meshRenderer;
+    [SerializeField] Light _light;
+    [SerializeField] Color _onColor;
+    [SerializeField] Color _offColor;
+
     private void Awake()
     {
         _transform = transform;
@@ -46,12 +53,23 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
     }
     private void Start()
     {
+        _pipesBoard.onEnigmaFinished.AddListener(Repair);
+        ApplyColor(!IsBroken);
         StartCoroutine(((IInteractable)this).DeactivateOutline());
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.L)) Break();
         Move();
+    }
+
+    private void ApplyColor(bool on)
+    {
+        Color selectedColor = on ? _onColor : _offColor;
+
+        _meshRenderer.material.color = selectedColor;
+        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
+        _light.color = selectedColor;
     }
 
     private void Move()
@@ -131,11 +149,14 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
     public void Break()
     {
         IsBroken = true;
+        _pipesBoard.ResetPuzzle();
+        ApplyColor(!IsBroken);
     }
 
     public void Repair()
     {
         IsBroken = false;
+        ApplyColor(!IsBroken);
     }
 
     public Outline outline => _outline;

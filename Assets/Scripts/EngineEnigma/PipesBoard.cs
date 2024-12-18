@@ -29,6 +29,11 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
     private readonly UnityEvent _onPipesResolved = new();
     private readonly UnityEvent _onValvesResolved = new();
 
+    public UnityEvent onEnigmaFinished = new();
+
+    bool _finishedPipes = false;
+    bool _finishedValve = false;
+
 
     private void Awake()
     {
@@ -124,8 +129,11 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         }
     }
 
-    private void ResetPuzzle()
+    public void ResetPuzzle()
     {
+        _finishedValve = false;
+        _finishedPipes = false;
+
         foreach (var valve in _valves)
         {
             valve.ResetValve();
@@ -143,12 +151,13 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         {
             if (!pipe.IsCorrect)
             {
-
+                _finishedPipes = false;
                 return;
             }
         }
-        print(true);
+        _finishedPipes = true;
         _onPipesResolved.Invoke();
+        CheckOverallFinished();
     }
 
     private void CheckValve()
@@ -157,11 +166,19 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
         {
             if (!valve.IsCorrect)
             {
+                _finishedValve = false;
                 return;
             }
         }
-        print(true);
+        _finishedValve = true;
         _onValvesResolved.Invoke();
+        CheckOverallFinished();
+    }
+
+    private void CheckOverallFinished()
+    {
+        if(_finishedPipes && _finishedValve)
+            onEnigmaFinished.Invoke();
     }
 
     public UnityEvent OnPipesResolved => _onPipesResolved;
