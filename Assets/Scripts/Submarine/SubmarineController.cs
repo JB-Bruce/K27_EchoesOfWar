@@ -144,6 +144,7 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
     private void OnSubmarineCollisionEnter()
     {
+        _thrusterLever.SetMovement(0);
         _thrusterLever.ResetThrust();
 
         _isCollided = true;
