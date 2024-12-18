@@ -29,6 +29,10 @@ public class Door : MonoBehaviour, IInteractable
     public void SetLocked(bool locked)
     {
         _isLocked = locked;
+
+        if (!locked && isOpen)
+            Interact();
+
         ApplyColor();
     }
 

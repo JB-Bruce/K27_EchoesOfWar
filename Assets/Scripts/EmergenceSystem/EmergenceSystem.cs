@@ -12,7 +12,6 @@ public class EmergenceSystem : MonoBehaviour
     [Header("Unlock")]
     [SerializeField] private BoardManager _boardManager;
     private bool _isCodeDiscovered;
-    private bool _isAtGoodPosition;
 
     [FormerlySerializedAs("emergenceText")]
     [Header("")]
@@ -21,43 +20,38 @@ public class EmergenceSystem : MonoBehaviour
     [SerializeField] private string wrongPositionText = "Wrong position";
     
     private readonly UnityEvent _onEmergenceButtonPressed = new();
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
 
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
 
     private void Start()
     {
         _emergenceButton.OnButtonPressed.AddListener(Emergence);
-        _emergenceButton.CanBePressed = () => /*_isAtGoodPosition &&*/ _isCodeDiscovered;
+        _emergenceButton.CanBePressed = () =>_isCodeDiscovered;
         _boardManager.OnCodeDiscovered.AddListener(OnCodeDiscovered);
         
-        IsAtGoodPosition(false);
     }
 
     private void Emergence()
     {
-        if (_isCodeDiscovered /*&& _isAtGoodPosition*/)
+        if (_isCodeDiscovered)
         {
             _onEmergenceButtonPressed.Invoke();
+            _emergenceButton.SetCanBePressed(() => { return false; });
             Debug.Log("Emergence");
         }
     }
 
     public void IsAtGoodPosition(bool isAtGoodPosition)
     {
-        _isAtGoodPosition = isAtGoodPosition;
-        _emergenceText.text = isAtGoodPosition ? goodPositionText : wrongPositionText;
-        _emergenceText.color = isAtGoodPosition ? _canEmergenceColor : _canNotEmergenceColor;
+        //_emergenceText.text = isAtGoodPosition ? goodPositionText : wrongPositionText;
+        //_emergenceText.color = isAtGoodPosition ? _canEmergenceColor : _canNotEmergenceColor;
     }
 
     private void OnCodeDiscovered()
     {
+        if (_isCodeDiscovered) return;
         _isCodeDiscovered = true;
         _animator.Play("Open");
-        Debug.Log("OnCodeDiscovered");
     }
     
     public UnityEvent OnEmergenceButtonPressed => _onEmergenceButtonPressed;

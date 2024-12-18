@@ -4,57 +4,67 @@ using UnityEngine.Events;
 
 public class BoardManager : MonoBehaviour
 {
-    [Header("Buttons")]
-    [SerializeField] private SubmarineButton _increaseNumberButton;
-    [SerializeField] private SubmarineButton _decreaseNumberButton;
-    [SerializeField] private SubmarineButton _moveIndexToLeftButton;
-    [SerializeField] private SubmarineButton _moveIndexToRightButton;
+    [SerializeField] List<NumberCase> numbers = new();
     
-    [Header("Numbers Case")]
-    [SerializeField] private List<NumberCase> _numberCases;
-    [SerializeField] private Transform _indicator;
-    
-    private int _selectedNumberCaseIndex = 0;
     private readonly UnityEvent _onCodeDiscovered = new();
-    private float _indicatorYOffset;
+
+    [SerializeField] MeshRenderer _meshRenderer;
+    [SerializeField] Light _light;
+    [SerializeField] Color _onColor;
+    [SerializeField] Color _offColor;
+
+    public bool isOpen = false;
+    public UnityEvent onGlassOpen = new();
+
+    public Animator anim;
+
+    private void ApplyColor(bool on)
+    {
+        Color selectedColor = on ? _onColor : _offColor;
+
+        _meshRenderer.material.color = selectedColor;
+        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
+        _light.color = selectedColor;
+    }
+
 
     private void Start()
     {
-        _indicatorYOffset = _indicator.position.y - _numberCases[0].transform.position.y;
-        
-        _increaseNumberButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedNumberCase(true));
-        _decreaseNumberButton.OnButtonPressed.AddListener(() => IncrementDecrementSelectedNumberCase(false));
-        _moveIndexToLeftButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(false));
-        _moveIndexToRightButton.OnButtonPressed.AddListener(() => MoveRightLeftIndicator(true));
+        ApplyColor(false);
+
+        foreach (var item in numbers)
+        {
+            item.numberChangedEvent.AddListener(NumberChanged);
+        }
     }
 
-    private void OnDestroy()
+    private void Update()
     {
-        _increaseNumberButton.OnButtonPressed.RemoveAllListeners();
-        _decreaseNumberButton.OnButtonPressed.RemoveAllListeners();
-        _moveIndexToLeftButton.OnButtonPressed.RemoveAllListeners();
-        _moveIndexToRightButton.OnButtonPressed.RemoveAllListeners();
+        if (Input.GetKeyDown(KeyCode.K)) Open(true);
     }
 
-    private void MoveRightLeftIndicator(bool isRight)
+    private void NumberChanged()
     {
-        _selectedNumberCaseIndex += isRight ? 1 : -1;
-        _selectedNumberCaseIndex = (_selectedNumberCaseIndex + _numberCases.Count) % _numberCases.Count;
+        if (!CheckCode()) return;
         
-        _indicator.position = _numberCases[_selectedNumberCaseIndex].transform.position + Vector3.up * _indicatorYOffset;
+        _onCodeDiscovered.Invoke();
+        
     }
 
-    private void IncrementDecrementSelectedNumberCase(bool increment)
+    public void Open(bool opened)
     {
-        _numberCases[_selectedNumberCaseIndex].IncrementDecrementNumber(increment);
-        
-        if (CheckCode())
-            _onCodeDiscovered.Invoke();
+        isOpen = opened;
+        ApplyColor(opened);
+        if (!opened) return;
+            
+        onGlassOpen.Invoke();
+        anim.Play("Open");
     }
+
 
     private bool CheckCode()
     {
-        foreach (var numberCase in _numberCases)
+        foreach (var numberCase in numbers)
         {
             if (!numberCase.IsCorrect)
                 return false;

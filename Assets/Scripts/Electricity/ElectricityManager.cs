@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
@@ -26,6 +27,13 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
     private bool _canShutDown;
     private bool _isWaitingForShutDown;
     private readonly List<Action<bool>> _shutDownActions = new();
+
+    [SerializeField] MeshRenderer _meshRenderer;
+    [SerializeField] Light _light;
+    [SerializeField] Color _onColor;
+    [SerializeField] Color _offColor;
+
+    public UnityEvent breakEvent;
     
     [Header("")]
     [SerializeField] private bool _isElectricityEnabled;
@@ -48,17 +56,21 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
         {
             _shutDownActions.Add(isOn => electricityObject.SetActive(isOn));
         }
+
+        ApplyColor(true);
+    }
+
+    private void ApplyColor(bool on)
+    {
+        Color selectedColor = on ? _onColor : _offColor;
+
+        _meshRenderer.material.color = selectedColor;
+        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
+        _light.color = selectedColor;
     }
 
     private void Update()
     {
-        #region CheatCode
-        if (Input.GetKeyDown(KeyCode.O))
-            SetElectricitySystemEnabled(true, true, ElectricityMode.On);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            UpdateElectricityMode(ElectricityMode.On);
-        #endregion
         
         if (!_isElectricityEnabled)
             return;
@@ -78,6 +90,8 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 
     public void UpdateElectricityMode(ElectricityMode newElectricityMode)
     {
+        ApplyColor(newElectricityMode == ElectricityMode.On);
+
         if (_electricityMode == newElectricityMode)
             return;
         
@@ -167,8 +181,16 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 
     public void Break()
     {
+        IsBroken = true;
         StopAllCoroutines();
         UpdateElectricityMode(ElectricityMode.Off);
+        breakEvent.Invoke();
+    }
+
+    public void Repair()
+    {
+        IsBroken = false;
+        UpdateElectricityMode(ElectricityMode.On);
     }
 
     public bool IsBroken { get; set; } = false;

@@ -99,14 +99,12 @@ public class SubmarineController : MonoBehaviour, IElectricity, IBreakdownCaster
 
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) <= _goalThreshold && !_inGoalRange )
         {
-            Debug.Log("Goal reached");
             _inGoalRange = true;
             _emergenceSystem.IsAtGoodPosition(true);
         }
 
         if (Vector2.Distance(_submarineBody.Position, _GoalPosition) > _goalThreshold && _inGoalRange)
         {
-            Debug.Log("Goal left");
             _inGoalRange = false;
             _emergenceSystem.IsAtGoodPosition(false);
         }
