@@ -29,7 +29,7 @@ public class AudioManageur : Singleton<AudioManageur>
     {
         
         
-        _noise=Random.Range(0,15);
+        _noise=Random.Range(0,12);
         _audioSourceNoise.clip=_noiseAléatoirSounde[_noise];
         _audioSourceNoise.Play();
         _audioSourceNoise.outputAudioMixerGroup=_mixerNoise;
