@@ -11,6 +11,8 @@ public class SubmarineButton : MonoBehaviour, IInteractable
     private Outline _outline;
 
     [SerializeField] Animator _animator;
+    [SerializeField] AudioClip _audioButon;
+
 
     private void Awake()
     {
@@ -29,6 +31,7 @@ public class SubmarineButton : MonoBehaviour, IInteractable
         {
             _onButtonPressed.Invoke();
             _animator.Play("Pressed", -1, 0f);
+            AudioManageur.Instance.PlayClipAt(_audioButon,transform.position);
         }
     }
 
