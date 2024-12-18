@@ -9,6 +9,7 @@ public class LightsManager : MonoBehaviour
 {
     [SerializeField] private List<Light> _lights;
     [SerializeField] private List<AlarmLight> _alarmLights;
+    [SerializeField] private List<Light> _nightlights;
     [SerializeField] private List<LightStateDetailed> _lightStates;
     
     [SerializeField] private Color _alarmColor = Color.red;
@@ -28,9 +29,13 @@ public class LightsManager : MonoBehaviour
             SetupLight(l, lightStateDetailed);
         }
 
+        foreach (var nl in _nightlights)
+        {
+            nl.enabled = false;
+        }
+
         foreach (var al in _alarmLights)
         {
-            al.SetColor(_alarmColor);
             al.SetActive(false);
         }
     }
@@ -41,11 +46,13 @@ public class LightsManager : MonoBehaviour
             return;
 
         _electricityMode = NewElectricityMode;
+        
+        UpdateLights(_electricityMode);
 
-        LightState lightState = GetLightState(_electricityMode);
+        /*LightState lightState = GetLightState(_electricityMode);
         LightStateDetailed lightStateDetailed = GetLightStateDetailed(lightState);
         
-        ElectricityOnOff(lightStateDetailed);
+        ElectricityOnOff(lightStateDetailed);*/
     }
 
     private LightState GetLightState(ElectricityMode electricityMode)
@@ -103,6 +110,34 @@ public class LightsManager : MonoBehaviour
         light.color = lightStateDetailed.color;
         light.intensity = lightStateDetailed.intensity;
         light.range = lightStateDetailed.range;
+    }
+
+    private void UpdateLights(ElectricityMode electricityMode)
+    {
+        StartCoroutine(ProgressivelyUpdateLights(/*new(_lights)*/_lights, electricityMode == ElectricityMode.On));
+        StartCoroutine(ProgressivelyUpdateLights(/*new(_nightlights)*/_nightlights, electricityMode != ElectricityMode.On));
+    }
+
+    private IEnumerator ProgressivelyUpdateLights(List<Light> lights, bool isOn)
+    {
+        lights = lights.OrderBy(x => Random.value).ToList();
+
+        while (lights.Count > 0)
+        {
+            float timeToWait = Random.Range(0, _maxTimeBetweenEachLightTurnOnOff);
+            float elapsedTime = 0;
+
+            while (elapsedTime < timeToWait)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            
+            int index = Random.Range(0, lights.Count);
+            lights[index].enabled = isOn;
+            lights.RemoveAt(index);
+            yield return null;
+        }
     }
 
     public void Alarm(string trigger, bool isOn, bool instantly)
