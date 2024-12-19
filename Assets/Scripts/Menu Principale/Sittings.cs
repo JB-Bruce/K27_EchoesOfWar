@@ -16,8 +16,8 @@ public class Sittings : MonoBehaviour
         _videoPlays.clip=_videoPclip;
         _videoPlays.Play();
 
-        _vidéoFons.SetActive(false);
         _MenuSittings.SetActive(true);
+        _vidéoFons.SetActive(false);
     } 
 
 
