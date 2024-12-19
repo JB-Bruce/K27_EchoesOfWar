@@ -18,6 +18,11 @@ public class WaterStream : MonoBehaviour
     [SerializeField] float minForceChangeTime;
     [SerializeField] float maxForceChangeTime;
 
+    [SerializeField] float timeWithoutStreamAfterCollision;
+    float timer = 0f;
+
+    bool inCooldown = false;
+
     public float angle;
     bool _initialized = false;
 
@@ -41,6 +46,16 @@ public class WaterStream : MonoBehaviour
     {
         if (!_initialized) return;
 
+        if (inCooldown)
+        {
+            timer += Time.deltaTime;
+            if(timer >= timeWithoutStreamAfterCollision)
+            {
+                timer = 0f;
+                inCooldown = false;
+            }
+        }
+
         force = Mathf.MoveTowards(force, targetForce, forceChangeRate * Time.deltaTime);
         stream = Vector2.MoveTowards(stream, targetStream, streamChangeRate * Time.deltaTime);
 
@@ -61,6 +76,12 @@ public class WaterStream : MonoBehaviour
 
     public (Vector2 dir, float force) GetStream()
     {
-        return (stream.normalized, force);
+        return (stream.normalized, inCooldown ? 0f : force);
+    }
+
+    public void OnCollision()
+    {
+        timer = 0f;
+        inCooldown = true;
     }
 }

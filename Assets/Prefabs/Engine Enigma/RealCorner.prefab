@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6995887452079607412}
-  - component: {fileID: 6580491539627764546}
   - component: {fileID: 7505543987271585250}
   - component: {fileID: 5199621429737199000}
   m_Layer: 0
@@ -121,24 +120,6 @@ Transform:
   - {fileID: 3908442180194566782}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6580491539627764546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697945245599363112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 0.53119606, b: 0, a: 1}
-  outlineWidth: 5
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &7505543987271585250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b3949c9bf776e46b96c651e822d206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isPartOfTheSolution: 1
-  _correctIndex: 02000000
+  _isPartOfTheSolution: 0
+  _correctIndex: 
   IsCorrect: 0
   _currentIndex: 0
 --- !u!65 &5199621429737199000

@@ -77,13 +77,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4319346654237623724}
   serializedVersion: 2
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: -0.287, y: -0.2125, z: 0.0673}
-  m_LocalScale: {x: 0.48735, y: 0.48735, z: 0.48735}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.2837, y: -0.2189, z: 0.0673}
+  m_LocalScale: {x: 0.3024153, y: 0.3024153, z: 0.3024153}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8698481756103812757}
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &6864341257789689708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: af03ab946c0fbf64cbb4922cf369c043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -429,13 +429,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6438328562207808377}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.287, y: -0.2125, z: -0.0476}
-  m_LocalScale: {x: 0.48735, y: 0.48735, z: 0.48735}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.2946, y: -0.2159, z: -0.0476}
+  m_LocalScale: {x: -0.30241528, y: 0.30241528, z: 0.30241528}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8698481756103812757}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &7592117001190368061
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -480,7 +480,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: af03ab946c0fbf64cbb4922cf369c043, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -835,3 +835,5 @@ MonoBehaviour:
   _offColor: {r: 1, g: 0, b: 0, a: 1}
   _animator: {fileID: 3321402798226124917}
   _outline: {fileID: 5576174811038489086}
+  _openDoor: {fileID: 0}
+  _closeDoorr: {fileID: 0}

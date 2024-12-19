@@ -20,6 +20,8 @@ public class LightsManager : MonoBehaviour
     
     private List<string> _alarmTriggers = new();
 
+    [SerializeField] Color lightEmissiveColor;
+
     private void Start()
     {
         LightStateDetailed lightStateDetailed = GetLightStateDetailed(LightState.Default);
@@ -32,6 +34,10 @@ public class LightsManager : MonoBehaviour
         foreach (var nl in _nightlights)
         {
             nl.enabled = false;
+
+            var mat = nl.GetComponentInParent<MeshRenderer>().materials;
+            mat[1].EnableKeyword("_EMISSION");
+            mat[1].SetColor("_EmissionColor", Color.black);
         }
 
         foreach (var al in _alarmLights)
@@ -114,11 +120,11 @@ public class LightsManager : MonoBehaviour
 
     private void UpdateLights(ElectricityMode electricityMode)
     {
-        StartCoroutine(ProgressivelyUpdateLights(/*new(_lights)*/_lights, electricityMode == ElectricityMode.On));
-        StartCoroutine(ProgressivelyUpdateLights(/*new(_nightlights)*/_nightlights, electricityMode != ElectricityMode.On));
+        StartCoroutine(ProgressivelyUpdateLights(/*new(_lights)*/_lights, electricityMode == ElectricityMode.On, lightEmissiveColor));
+        StartCoroutine(ProgressivelyUpdateLights(/*new(_nightlights)*/_nightlights, electricityMode != ElectricityMode.On, Color.red));
     }
 
-    private IEnumerator ProgressivelyUpdateLights(List<Light> lights, bool isOn)
+    private IEnumerator ProgressivelyUpdateLights(List<Light> lights, bool isOn, Color emissiveColor)
     {
         lights = lights.OrderBy(x => Random.value).ToList();
 
@@ -132,9 +138,29 @@ public class LightsManager : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            
+
             int index = Random.Range(0, lights.Count);
             lights[index].enabled = isOn;
+
+            if(emissiveColor == Color.red)
+            {
+                var mat = lights[index].GetComponentInParent<MeshRenderer>().materials;
+                mat[1].EnableKeyword("_EMISSION");
+                mat[1].SetColor("_EmissionColor", isOn ? emissiveColor : Color.black);
+            }
+            else
+            {
+                if(lights[index].transform.parent.GetChild(0).TryGetComponent<MeshRenderer>(out MeshRenderer mr))
+                {
+                    var mat = mr.material;
+                    mat.EnableKeyword("_EMISSION");
+                    mat.SetColor("_EmissionColor", isOn ? emissiveColor : Color.black);
+                }
+                
+            }
+            
+
+
             lights.RemoveAt(index);
             yield return null;
         }
