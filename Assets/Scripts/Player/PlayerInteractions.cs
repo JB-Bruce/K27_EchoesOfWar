@@ -12,11 +12,13 @@ public class PlayerInteractions : MonoBehaviour
 
     [SerializeField] GameObject _interactionCanvas;
 
+    [SerializeField] LayerMask playerMask;
+
 
     void Update()
     {
 
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionRange))
+        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out RaycastHit hitInfo, _interactionRange, playerMask))
         {
             if (hitInfo.transform.TryGetComponent(out IInteractable i))
             {

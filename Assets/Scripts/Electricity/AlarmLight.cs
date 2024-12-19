@@ -7,6 +7,7 @@ public class AlarmLight : MonoBehaviour
     private bool _isActive;
     private MeshRenderer _meshRenderer;
     private Transform _alarm;
+    Transform _alm;
     private Light[] _lights;
 
     private void Awake()
@@ -14,6 +15,8 @@ public class AlarmLight : MonoBehaviour
         _meshRenderer = GetComponent<MeshRenderer>();
         _alarm = GetComponentsInChildren<Transform>()[1];
         _lights = GetComponentsInChildren<Light>();
+
+        _alm = transform.GetChild(0);
     }
 
     private void Start()
@@ -26,8 +29,9 @@ public class AlarmLight : MonoBehaviour
     {
         if (!_isActive)
             return;
-        
-        _alarm.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+
+        //_alarm.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+        _alm.localRotation = Quaternion.Euler(0, 0, _alm.localEulerAngles.z + rotationSpeed * Time.deltaTime);
     }
 
     public void SetActive(bool active)

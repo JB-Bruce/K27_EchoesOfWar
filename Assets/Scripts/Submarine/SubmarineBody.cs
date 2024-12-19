@@ -141,6 +141,7 @@ public class SubmarineBody : MonoBehaviour
         _acceleration.Set(0, 0);
         _velocity.Set(-_velocity.x, -_velocity.y);
         _position = _previousPosition;
+        waterStream.OnCollision();
     }
 
     public void OnCollisionConstant()

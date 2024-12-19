@@ -21,7 +21,7 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
     [SerializeField] private RenderTexture renderTxt;
 
     private Camera _camera;
-    private Outline _outline;
+    [SerializeField] private Outline _outline;
     private bool _doesStopMovements;
     private bool _doesLockView;
     private bool _canInteractWithOtherInteractablesWhileInteracted;
@@ -36,8 +36,7 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
 
     private void Awake()
     {
-        _outline = GetComponent<Outline>();
-        _outline.enabled = true;
+        
 
         _camera = Camera.main;
 
@@ -45,6 +44,8 @@ public class PipesBoard : MonoBehaviour, IFinishedInteractable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _outline.enabled = false;
+
         foreach (var valve in _valves)
         {
             valve.OnValvePressed.AddListener(() => CheckValve());
