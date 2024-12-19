@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\rPour d\xE9verrouiller la porte d\u2019un sas avec l\u2019accord du capitaine,
     enclenchez les interrupteurs de mani\xE8re \xE0 correspondre \xE0 la combinaison
-    indiqu\xE9e ci-dessous :\n(0 : \xE9teint, 1 : allum\xE9) \r\nC-Q : 1100\r\nQ-C
-    : 0101\r\nQ-M : 1010 \r\nM-Q : 1100\r\n"
+    indiqu\xE9e ci-dessous :\n(0 : \xE9teint, 1 : allum\xE9) \r\nC-Q : 011100\r\nQ-C
+    : 110101\r\nQ-M : 101010 \r\nM-Q : 011100\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
