@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 4112555477090361878}
   - component: {fileID: 1259402513153529121}
   - component: {fileID: 876184455130307641}
+  - component: {fileID: 3494972502155794237}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -294,6 +295,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3494972502155794237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387419475120643886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523697a617be6ec4faee04afdaaad499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 876184455130307641}
+  _lights:
+  - {fileID: 2763921736297542277}
+  _onColor: {r: 0, g: 1, b: 0, a: 1}
+  _offColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &3841611734876225942
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,12 +448,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 945cf7a91d9083b43a1cda9bc9f3427a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshRenderer: {fileID: 876184455130307641}
-  _onColor: {r: 0, g: 1, b: 0, a: 1}
-  _offColor: {r: 1, g: 0, b: 0, a: 1}
   _animator: {fileID: 391589097591891488}
   _outline: {fileID: 2520509702823404963}
-  _light: {fileID: 2763921736297542277}
+  _audioSwitch: {fileID: 0}
+  lights:
+  - {fileID: 3494972502155794237}
 --- !u!114 &2520509702823404963
 MonoBehaviour:
   m_ObjectHideFlags: 0

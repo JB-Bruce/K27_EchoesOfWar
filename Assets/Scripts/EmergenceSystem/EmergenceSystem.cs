@@ -38,6 +38,7 @@ public class EmergenceSystem : MonoBehaviour
             _onEmergenceButtonPressed.Invoke();
             _emergenceButton.SetCanBePressed(() => { return false; });
             Debug.Log("Emergence");
+            Camera.main.GetComponent<CameraScript>().startShake(10, .06f);
         }
     }
 

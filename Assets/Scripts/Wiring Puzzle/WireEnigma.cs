@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Splines;
@@ -44,12 +45,15 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
     public Outline outline => _outline;
     public string interactableName => _name;
 
+    [SerializeField] List<Color> _colors;
+
     [SerializeField] ElectricityManager elecManager;
     
     
 
     void Start()
     {
+        SetupMaterials();
         _outline = GetComponent<Outline>();
         _outline.enabled = true;
         _name = _outline.name;
@@ -61,7 +65,26 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         Shuffle();
     }
 
-    
+
+    private void SetupMaterials()
+    {
+        foreach (var t in _wiresEndsSymboles)
+        {
+            var m = t.GetComponent<MeshRenderer>();
+            m.material = new Material(m.material);
+        }
+
+        foreach (var wire in _wires)
+        {
+            var m1 = wire.symbole.GetComponent<MeshRenderer>();
+            m1.material = new Material(m1.material);
+
+            var m2 = wire.mesh.GetComponent<MeshRenderer>();
+            m2.material = new Material(m2.material);
+        }
+    }
+
+
 
     private void Update()
     {
@@ -138,6 +161,9 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         List<Transform> listEnds = new List<Transform>();
         List<GameObject> listEndsSymboles = new List<GameObject>();
         List<Mesh> listSymboles = new List<Mesh>();
+
+        _colors = _colors.OrderBy(x => Random.value).ToList();
+
         foreach (Transform t in _wiresEnds)
         {
             listEnds.Add(t);
@@ -160,8 +186,15 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
 
             float rnd = Random.Range(0, 360f);
 
-            listEndsSymboles[index].transform.localEulerAngles = new(0, 0, rnd + 90);
-            wire.symbole.transform.localEulerAngles = new(0, 0, rnd);
+            Color newColor = _colors[0];
+            listEndsSymboles[index].GetComponent<MeshRenderer>().sharedMaterial.color = newColor;
+            wire.symbole.GetComponent<MeshRenderer>().sharedMaterial.color = newColor;
+            wire.mesh.GetComponent<MeshRenderer>().sharedMaterial.color = newColor;
+
+            _colors.Add(newColor);
+
+            _colors.RemoveAt(0);
+
 
             listEnds.RemoveAt(index);
             listEndsSymboles.RemoveAt(index);
@@ -187,14 +220,14 @@ public class WireEnigma : MonoBehaviour, IFinishedInteractable
         }
     }
 
-    private void MoveWireToPoint(Wire wire,  Vector3 position)
+    private void MoveWireToPoint(Wire wire, Vector3 position)
     {
         wire.transform.position = position;
 
         //scale
         float distance = Vector3.Distance(wire.InitPos, wire.transform.position);
-        wire.mesh.transform.position = wire.InitPos + (position - wire.InitPos) / 2f;
         wire.mesh.transform.localScale = new Vector3(1, distance / wire.transform.lossyScale.y / 2f, 1);
+        wire.mesh.transform.position = wire.InitPos + (position - wire.InitPos) / 2f;
 
         //rotation
         Vector3 direction = position - wire.InitPos;

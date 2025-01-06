@@ -28,10 +28,7 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
     private bool _isWaitingForShutDown;
     private readonly List<Action<bool>> _shutDownActions = new();
 
-    [SerializeField] MeshRenderer _meshRenderer;
-    [SerializeField] Light _light;
-    [SerializeField] Color _onColor;
-    [SerializeField] Color _offColor;
+    [SerializeField] List<ActivationLight> lights;
 
     public UnityEvent breakEvent;
     
@@ -62,11 +59,10 @@ public class ElectricityManager : MonoBehaviour, IBreakdownReceiver
 
     private void ApplyColor(bool on)
     {
-        Color selectedColor = on ? _onColor : _offColor;
-
-        _meshRenderer.material.color = selectedColor;
-        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
-        _light.color = selectedColor;
+        foreach (var light in lights)
+        {
+            light.SetActivation(on);
+        }
     }
 
     private void Update()

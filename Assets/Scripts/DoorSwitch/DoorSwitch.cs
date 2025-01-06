@@ -1,13 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DoorSwitch : MonoBehaviour, IInteractable
 {
-    [SerializeField] MeshRenderer _meshRenderer;
-
-    [SerializeField] Color _onColor;
-    [SerializeField] Color _offColor;
 
     [SerializeField] Animator _animator;
 
@@ -18,10 +15,11 @@ public class DoorSwitch : MonoBehaviour, IInteractable
     [SerializeField] Outline _outline;
     public Outline outline => _outline;
 
-    [SerializeField] Light _light;
     [SerializeField] AudioClip _audioSwitch;
 
     UnityEvent changedEvent = new();
+
+    [SerializeField] List<ActivationLight> lights;
 
     public void Interact()
     {
@@ -32,7 +30,6 @@ public class DoorSwitch : MonoBehaviour, IInteractable
 
     public void Init(UnityAction changedAction)
     {
-        _meshRenderer.material = new Material(_meshRenderer.material);
         _outline.enabled = false;
 
         changedEvent.AddListener(changedAction);
@@ -40,9 +37,10 @@ public class DoorSwitch : MonoBehaviour, IInteractable
 
     private void ApplyColor()
     {
-        _meshRenderer.material.color = isOn ? _onColor : _offColor;
-        _meshRenderer.material.SetColor("_EmissionColor", isOn ? _onColor : _offColor);
-        _light.color = isOn ? _onColor : _offColor;
+        foreach (var light in lights)
+        {
+            light.SetActivation(isOn);
+        }
     }
 
     public void SetActivation(bool isActive)

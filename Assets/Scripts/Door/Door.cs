@@ -6,11 +6,7 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField] private Transform _transformDoor;
     [SerializeField] private bool isOpen = false;
 
-    [SerializeField] MeshRenderer _meshRenderer;
-    [SerializeField] List<Light> _lights;
-
-    [SerializeField] Color _onColor;
-    [SerializeField] Color _offColor;
+    [SerializeField] List<ActivationLight> _lights;
 
     [SerializeField] Animator _animator;
 
@@ -40,13 +36,9 @@ public class Door : MonoBehaviour, IInteractable
 
     private void ApplyColor()
     {
-        Color selectedColor = _isLocked ? _offColor : _onColor;
-        _meshRenderer.material.color = selectedColor;
-        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
-
-        foreach (var item in _lights)
+        foreach (var light in _lights)
         {
-            item.color = selectedColor;
+            light.SetActivation(!_isLocked);
         }
     }
 

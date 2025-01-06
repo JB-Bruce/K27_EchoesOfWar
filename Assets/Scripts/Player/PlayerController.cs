@@ -51,7 +51,11 @@ public class PlayerController : Singleton<PlayerController>
         _submarineController.SetControls(!isPlayer);
         _submarineControlsPanel.SetActive(!isPlayer);
 
-        if (!isPlayer) return;
+        if (!isPlayer)
+        {
+            _playerMovement.SetMovement(new(0, 0));
+            return;
+        }
         
         _submarineController.SetMovement(0);
         _submarineController.SetRotation(0);

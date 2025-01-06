@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Lumin;
 
@@ -35,10 +36,8 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
 
     [SerializeField] PipesBoard _pipesBoard;
 
-    [SerializeField] MeshRenderer _meshRenderer;
-    [SerializeField] Light _light;
-    [SerializeField] Color _onColor;
-    [SerializeField] Color _offColor;
+    [SerializeField] List<ActivationLight> lights;
+    
 
     private void Awake()
     {
@@ -68,11 +67,10 @@ public class ThrusterLever : MonoBehaviour, IFinishedInteractable, IBreakdownRec
 
     private void ApplyColor(bool on)
     {
-        Color selectedColor = on ? _onColor : _offColor;
-
-        _meshRenderer.material.color = selectedColor;
-        _meshRenderer.material.SetColor("_EmissionColor", selectedColor);
-        _light.color = selectedColor;
+        foreach (var light in lights)
+        {
+            light.SetActivation(on);
+        }
     }
 
 

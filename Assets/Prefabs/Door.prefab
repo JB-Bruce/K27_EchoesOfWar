@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 6520212078714318940}
   - component: {fileID: 4744481769791527576}
   - component: {fileID: 7684533323185392259}
+  - component: {fileID: 4006689749201339855}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -348,6 +349,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4006689749201339855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4779195837662945201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523697a617be6ec4faee04afdaaad499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 7684533323185392259}
+  _lights:
+  - {fileID: 4718231966645169741}
+  - {fileID: 5721122291718649650}
+  _onColor: {r: 0, g: 1, b: 0, a: 1}
+  _offColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &4942363033066946437
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,12 +846,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transformDoor: {fileID: 4133609856899229246}
   isOpen: 0
-  _meshRenderer: {fileID: 7684533323185392259}
   _lights:
   - {fileID: 4718231966645169741}
   - {fileID: 5721122291718649650}
-  _onColor: {r: 0, g: 1, b: 0, a: 1}
-  _offColor: {r: 1, g: 0, b: 0, a: 1}
+  - {fileID: 4006689749201339855}
   _animator: {fileID: 3321402798226124917}
   _outline: {fileID: 5576174811038489086}
   _openDoor: {fileID: 0}

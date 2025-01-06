@@ -11,6 +11,7 @@ public class NumberCase : MonoBehaviour
     [SerializeField] private SubmarineButton upBtn;
     [SerializeField] private SubmarineButton downBtn;
 
+
     public UnityEvent numberChangedEvent = new();
 
     private void Start()
