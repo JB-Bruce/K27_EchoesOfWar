@@ -22,12 +22,16 @@ public class EmergenceSystem : MonoBehaviour
     private readonly UnityEvent _onEmergenceButtonPressed = new();
     [SerializeField] private Animator _animator;
 
+    public GameObject endCanvas;
+
 
     private void Start()
     {
         _emergenceButton.OnButtonPressed.AddListener(Emergence);
         _emergenceButton.CanBePressed = () =>_isCodeDiscovered;
         _boardManager.OnCodeDiscovered.AddListener(OnCodeDiscovered);
+
+        endCanvas.SetActive(false);
         
     }
 
@@ -39,6 +43,9 @@ public class EmergenceSystem : MonoBehaviour
             _emergenceButton.SetCanBePressed(() => { return false; });
             Debug.Log("Emergence");
             Camera.main.GetComponent<CameraScript>().startShake(10, .06f);
+            endCanvas.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -53,6 +60,11 @@ public class EmergenceSystem : MonoBehaviour
         if (_isCodeDiscovered) return;
         _isCodeDiscovered = true;
         _animator.Play("Open");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
     
     public UnityEvent OnEmergenceButtonPressed => _onEmergenceButtonPressed;
